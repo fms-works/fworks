@@ -23,4 +23,3 @@ require_once '../common.php';
   <footer></footer>
 </body>
 </html>
-<?php $mysqli->close(); ?>

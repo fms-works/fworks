@@ -71,6 +71,9 @@ $user = $pdo->query("
     <p><?php echo !empty($user['github_account']) ? $user['github_account'] : '登録されていません'; ?></p>
     <p><?php echo !empty($user['profile']) ? $user['profile'] : '登録されていません'; ?></p>
     <p><?php echo $user['avatar']; ?></p>
+    <a href="destroy.php" onClick="return confirm('削除してもよろしいですか？');">
+      削除する
+    </a>
   </div>
 
   <footer></footer>
