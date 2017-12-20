@@ -61,14 +61,16 @@ foreach($users as $user) {
 
 // 登録されていないユーザーなら登録してログインする
 if ($selected_user === null) {
-  $time = date("Y-m-d H:i:s");
+  $date = date("Y-m-d H:i:s");
   $sql = $pdo->prepare("
     INSERT INTO users (
       token, token_secret, screen_name, name, created_at
     ) VALUES (
-      ?, ?, ?, ?, '$time'
+      ?, ?, ?, ?, ?
   )");
-  $sql->execute(array($token, $token_secret, $screen_name, $name));
+  $sql->execute(
+    array($token, $token_secret, $screen_name, $name, $date)
+  );
   $_SESSION['user_id'] = $pdo->lastInsertId('id');
 }
 

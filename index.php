@@ -30,6 +30,7 @@ if (empty($_SESSION['user_id'])) {
   </header>
 
   <div class="container">
+    <a href="work/new.php">投稿する</a>
   </div>
 
   <footer></footer>

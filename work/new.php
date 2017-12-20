@@ -8,19 +8,6 @@ if (empty($_SESSION['user_id'])) {
   header('Location: ../user/login.php');
   exit();
 }
-
-
-// $picture=file_get_contents($_FILES["picture"]["tmp_name"]);
-// $title=h($_POST["title"]);
-// $development=h($_POST["development"]);
-// $day=h($_POST["day"]);
-// $comment=h($_POST["comment"]);
-
-// if(isset($_POST["toukou"])){
-//   $mysqli->query("INSERT INTO work(picture,title,development,day,comment) VALUES('".$picture."','".$title."','".$development."','".$day."','".$comment."')");
-// }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -44,41 +31,47 @@ if (empty($_SESSION['user_id'])) {
 
   <div class="container">
     <form method="post" action="post.php" enctype="multipart/form-data">
+      <div>
+        <label for="title">タイトル</label>
+        <input type="text" name="title" id="title">
+        <?php if($_SESSION['empty_title']) { ?>
+          <p>タイトルを入力してください</p>
+        <?php } ?>
+      </div>
       <div class="main_image">
+        <h2>メイン</h2>
         <input id="workImageInputMain" class="workImageInput" type="file" name="main_image" accept="image/jpg">
         <label for="workImageInputMain" class="workImageOutput" aline="center"></label>
+        <?php if($_SESSION['empty_main_image']) { ?>
+          <p>メイン画像を登録してください</p>
+        <?php } ?>
       </div>
       <div>
+        <h2>サブ</h2>
         <div class="sub_image">
-          <input id="workImageInputSub1" class="workImageInput" type="file" name="sub_image_1" accept="image/jpg">
+          <input id="workImageInputSub1" class="workImageInput" type="file" name="sub_image1" accept="image/jpg">
           <label for="workImageInputSub1" class="workImageOutput" aline="center"></label>
         </div>
         <div class="sub_image">
-          <input id="workImageInputSub2" class="workImageInput" type="file" name="sub_image_2" accept="image/jpg">
+          <input id="workImageInputSub2" class="workImageInput" type="file" name="sub_image2" accept="image/jpg">
           <label for="workImageInputSub2" class="workImageOutput" aline="center"></label>
         </div>
         <div class="sub_image">
-          <input id="workImageInputSub3" class="workImageInput" type="file" name="sub_image_3" accept="image/jpg">
+          <input id="workImageInputSub3" class="workImageInput" type="file" name="sub_image3" accept="image/jpg">
           <label for="workImageInputSub3" class="workImageOutput" aline="center"></label>
         </div>
       </div>
       <div>
-        <label for="title">タイトル</label>
-        <input type="text" name="title" rows="1">
-      </div>
-      <div class="development">
-        <label for="development">開発環境</label>
-        <input type="text" name="place" rows="1">
-      </li>
-      <div>
-        <label for="day">日付</label>
-        <input type="date" name="day">
+        <label for="link">リンク</label>
+        <input type="text" name="link" id="link">
       </div>
       <div>
-        <label for="comment">コメント</label>
-        <textarea name="comment"></textarea>
+        <label for="detail">詳細</label>
+        <textarea name="detail" id="detail" row="20" col="10"></textarea>
+        <?php if($_SESSION['empty_detail']) { ?>
+          <p>詳細を入力してください</p>
+        <?php } ?>
       </div>
-
       <input type="submit" value="投稿する">
     </form>
   </div>
