@@ -1,0 +1,24 @@
+.workImageInput {
+  display: none;
+}
+
+.workImageOutput {
+  background-image: url('../images/no_image.png');
+  background-size: cover;
+}
+
+/* TODO: レスポンシブ対応 */
+.main_image label {
+  width: 400px;
+  height: 400px;
+}
+
+.sub_image {
+  display: inline-block;
+}
+
+/* TODO: レスポンシブ対応 */
+.sub_image label {
+  width: 200px;
+  height: 200px;
+}
