@@ -11,35 +11,19 @@
   <form method="POST" action="home.php" enctype="multipart/form-data">
     <ul>
       <li>
-        <!-- ファイル入力のためのinput -->
         <input id="inputNode" type="file" name="picture" accept="image/jpg">
-
-        <!-- プレビュー画像を出力するためのdiv -->
-        <div id="outputWrapper"></div>
-
-        <!-- ここからデータ取得のスクリプト -->
-        <script src="http://code.jquery.com/jquery.min.js">// jQueryの読み込み</script>
+        <div id="outputWrapper" aline="center" style="width:400px; height:300px"></div>
+        <script src="http://code.jquery.com/jquery.min.js"></script>
         <script>
-        $( '#inputNode' ).change( function () { // 入力をフックにデータ取得を実行
+        $( '#inputNode' ).change( function () {
           var selectedFile = this.files[0];
-          // ここまではFile APIを使わない場合と同じ
-
-          // ↓"FileReader"オブジェクトを生成し変数fileReaderに格納
           var fileReader = new FileReader();
 
-          // ↓fileReaderにファイルが読み込まれた後（ onload ）の動作を定義
           fileReader.onload = function( event ) {
-            // ロード時の各種情報はonloadの引数（この場合はevent）に格納される
-            // ロードされた画像ファイルのData URIスキームは event.target.result に格納される
-            // ↓変数loadedImageUriに格納
             var loadedImageUri = event.target.result;
-
-            // ↓取得した画像ファイルのData URIスキームを元に画像を表示（imgのsrcに指定するだけ！）
             $( '#outputWrapper' ).html( '<img src="' + loadedImageUri + '">' );
           };
 
-          // ↓画像読み込みを実行。"FileReader"の"readAsDataURL"関数を使う
-          // 引数はユーザーが入力したファイルのオブジェクト（＝ selectedFile ＝ this.files[0]）
           fileReader.readAsDataURL( selectedFile );
         } );
         </script>
@@ -54,16 +38,14 @@
       </li>
       <li class="day" >
         <label  for="day">日付</label>
-        <input type="text" name="day" rows="1" />
+        <input type="date" name="day"/>
       </li>
       <li>
         <label for="comment">コメント</label>
         <textarea name="comment"></textarea>
       </li>
-      <li>
-        <input type="submit" value="投稿" name="toukou" /><br />
-      </li>
     </ul>
+    <input type="submit" value="投稿" name="toukou" /><br />
   </form>
 
 <?php
@@ -82,7 +64,7 @@ function h($str) {
  $mysqli->set_charset("utf8");
 
  if(isset($_POST["sousin0"])){
-   $mysqli->query("INSERT INTO work(category,title,place,day,comment,lat,lng,picture) VALUES('".$category."','".$title."','".$place."','".$day."','".$comment."',$lat,$lng,'".$picture."')");
+   $mysqli->query("INSERT INTO work(picture,development,day,comment) VALUES('".$picture."','".$development."','".$day."','".$comment."')");
  }
 
  $mysqli->close();
