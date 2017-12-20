@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once 'common.php';
+require_once '../common.php';
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -23,3 +23,4 @@ require_once 'common.php';
   <footer></footer>
 </body>
 </html>
+<?php $mysqli->close(); ?>
