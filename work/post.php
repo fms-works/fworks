@@ -68,16 +68,21 @@ $sql->execute(
 $work_id = $pdo->lastInsertId('id');
 
 // image保存
+$index = 0;
 foreach($images as $image) {
   $sql = $pdo->prepare("
     INSERT INTO work_images(
-      content, user_id, work_id, created_at
+      content, user_id, work_id, main, created_at
     ) VALUES (
-      ?, ?, ?, ?
+      ?, ?, ?, ?, ?
   )");
-  $sql->execute(
-    array($image, $user_id, $work_id, $date)
-  );
+  // mainのimageはmainカラムを1にする
+  if($index === 0) {
+    $sql->execute(array($image, $user_id, $work_id, 1, $date));
+  } else {
+    $sql->execute(array($image, $user_id, $work_id, 0, $date));
+  }
+  $index++;
 }
 
 header('Location: ../index.php');
