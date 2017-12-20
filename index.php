@@ -19,7 +19,7 @@ if (empty($_SESSION['user_id'])) {
 </head>
 <body>
   <header>
-    <a href="../index.php">メインページ</a>
+    <a href="">メインページ</a>
     <?php if (!empty($_SESSION['user_id'])) { ?>
       <a href="user/logout.php">ログアウトする</a>
     <?php } ?>
