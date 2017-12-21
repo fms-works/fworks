@@ -22,3 +22,68 @@
   width: 200px;
   height: 200px;
 }
+
+
+
+
+
+/* template */
+li{
+  list-style-type: none;
+}
+
+/*header*/
+.title{
+  text-align:center;  
+  margin-top:20px;
+}
+
+h1{
+  color:darkorange;
+  margin-bottom:20px;
+  font-size: 35px;
+}
+
+p{
+  color:black;
+  font-size: 13px;
+}
+
+.header-left{
+float:left;
+font-size:15px;   
+}
+
+.header-left li{
+margin:14px;
+padding-left:30px;
+
+}
+
+.header-left a{
+  color:deeppink; 
+}
+
+.header-right li{
+  float:right;
+  margin-right:20px;
+}
+
+header{
+ z-index:3;
+ padding-bottom:30px;
+}
+
+button{
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+button img {
+  display: block;
+}
+
+.post{
+  top:200px;
+}

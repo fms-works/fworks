@@ -1,3 +1,10 @@
+// apply template js
+document.addEventListener("DOMContentLoaded", function() {
+  masonryBuild();
+  navbarToggleSidebar();
+  navActivePage();
+});
+
 // preview image
 $('.workImageInput').on('change', function() {
   var selectedFile = this.files[0];
