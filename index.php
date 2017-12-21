@@ -58,7 +58,7 @@ try {
     <?php if (!empty($_SESSION['current_user_id'])) { ?>
       <a href="user/logout.php">ログアウトする</a>
     <?php } ?>
-    <a href="user/profile.php?id=<?php echo $current_user_id; ?>">プロフィール</a>
+    <a href="user/profile.php">プロフィール</a>
 
     <div class="title">
       <h1>FMS Works Published Service</h1>

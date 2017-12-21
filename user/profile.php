@@ -13,33 +13,7 @@ if (empty($_SESSION['current_user_id'])) {
 $current_user_id = $_SESSION['current_user_id'];
 
 // 表示するユーザーのIDを取得
-$user_id = $_GET['id'];
-
-// フラッシュメッセージ用フラグ
-$update_user_notice = false;
-
-// 変更リクエストがあれば編集する
-if (isset($_POST['name']) && isset($_POST['github_account']) &&
-  isset($_POST['profile']) && isset($_POST['avatar'])) {
-  $new_name           = h($_POST['name']);
-  $new_github_account = h($_POST['github_account']);
-  $new_profile        = h($_POST['profile']);
-  $new_avatar         = h($_POST['avatar']);
-
-  $sql = $pdo->prepare("
-    UPDATE users
-    SET
-      name=?,
-      github_account=?,
-      profile=?,
-      avatar=?
-    WHERE id=$current_user_id
-  ");
-  $sql->execute(
-    array($new_name, $new_github_account, $new_profile, $new_avatar)
-  );
-  $update_user_notice = true;
-}
+$user_id = !empty($_GET['id']) ? $_GET['id'] : $current_user_id;
 
 // 現在のユーザーを取得
 $users_data = $pdo->query("
@@ -69,10 +43,6 @@ if (empty($users_data)) {
   <title>profile</title>
 </head>
 <body>
-  <?php if($update_user_notice === true) { ?>
-    <p>更新しました</p>
-  <?php } ?>
-
   <header>
     <a href="../index.php">メインページ</a>
     <?php if (!empty($_SESSION['current_user_id'])) { ?>

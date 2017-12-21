@@ -39,7 +39,7 @@ $user = $pdo->query("
 
   <div class="container">
     <?php // ユーザー情報編集フォーム ?>
-    <form action="profile.php" method="post">
+    <form action="update.php" method="post">
       <input type="file" name="avatar" value="<?php echo $user['avatar']; ?>">
       <input type="text" name="name" value="<?php echo $user['name']; ?>">
       <input type="text" name="github_account" value="<?php echo $user['github_account']; ?>">
