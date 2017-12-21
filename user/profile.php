@@ -3,13 +3,17 @@ session_start();
 
 require_once '../common.php';
 
-// user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
-if (empty($_SESSION['user_id'])) {
+// current_user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
+if (empty($_SESSION['current_user_id'])) {
   header('Location: user/login.php');
   exit();
 }
 
-$user_id = $_SESSION['user_id'];
+// 現在のユーザーのIDを取得
+$current_user_id = $_SESSION['current_user_id'];
+
+// 表示するユーザーのIDを取得
+$user_id = $_GET['id'];
 
 // フラッシュメッセージ用フラグ
 $update_user_notice = false;
@@ -29,7 +33,7 @@ if (isset($_POST['name']) && isset($_POST['github_account']) &&
       github_account=?,
       profile=?,
       avatar=?
-    WHERE id=$user_id
+    WHERE id=$current_user_id
   ");
   $sql->execute(
     array($new_name, $new_github_account, $new_profile, $new_avatar)
@@ -38,11 +42,19 @@ if (isset($_POST['name']) && isset($_POST['github_account']) &&
 }
 
 // 現在のユーザーを取得
-$user = $pdo->query("
+$users_data = $pdo->query("
   SELECT name, github_account, profile, avatar
   FROM users
   WHERE id=$user_id
-")->fetchAll()[0];
+")->fetchAll();
+
+// 存在しないユーザーを選択したら自分のプロフィールページに遷移する
+if (empty($users_data)) {
+  header("Location: profile.php?id=$current_user_id");
+  exit();
+} else {
+  $user = $users_data[0];
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -63,13 +75,15 @@ $user = $pdo->query("
 
   <header>
     <a href="../index.php">メインページ</a>
-    <?php if (!empty($_SESSION['user_id'])) { ?>
+    <?php if (!empty($_SESSION['current_user_id'])) { ?>
       <a href="logout.php">ログアウトする</a>
     <?php } ?>
   </header>
 
   <div class="container">
-    <a href="edit.php">編集する</a>
+    <?php if ($current_user_id === $user_id) { ?>
+      <a href="edit.php">編集する</a>
+    <?php } ?>
     <image src="hoge.jpg"></image>
     <p><?php echo !empty($user['name']) ? $user['name'] : '登録されていません'; ?></p>
     <p><?php echo !empty($user['github_account']) ? $user['github_account'] : '登録されていません'; ?></p>

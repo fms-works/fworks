@@ -3,18 +3,18 @@ session_start();
 
 require_once '../common.php';
 
-// user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
-if (empty($_SESSION['user_id'])) {
+// current_user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
+if (empty($_SESSION['current_user_id'])) {
   header('Location: user/login.php');
   exit();
 }
 
-$user_id = $_SESSION['user_id'];
+$current_user_id = $_SESSION['current_user_id'];
 
 // ユーザー情報の削除
 $pdo->query("
   DELETE FROM users
-  WHERE id=$user_id
+  WHERE id=$current_user_id
 ");
 
 session_destroy();

@@ -3,11 +3,14 @@ session_start();
 
 require_once 'common.php';
 
-// user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
-if (empty($_SESSION['user_id'])) {
+// current_user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
+if (empty($_SESSION['current_user_id'])) {
   header('Location: user/login.php');
   exit();
 }
+
+// 現在のユーザーを取得
+$current_user_id = $_SESSION['current_user_id'];
 
 // work一覧を取得
 try {
@@ -51,11 +54,11 @@ try {
 </head>
 <body>
   <header>
-    <!-- <a href="">メインページ</a>
-    <?php if (!empty($_SESSION['user_id'])) { ?>
+    <a href="">メインページ</a>
+    <?php if (!empty($_SESSION['current_user_id'])) { ?>
       <a href="user/logout.php">ログアウトする</a>
     <?php } ?>
-    <a href="user/profile.php">プロフィール</a> -->
+    <a href="user/profile.php?id=<?php echo $current_user_id; ?>">プロフィール</a>
 
     <div class="title">
       <h1>FMS Works Published Service</h1>
@@ -67,8 +70,8 @@ try {
       <ul>
         <li>
           <div class="dropdown">
-            <button class="btn " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img src="assets/images/barbie.jpg" class="img-circle" height="35" width="35" >
+            <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="assets/images/barbie.jpg" class="img-circle" height="35" width="35">
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <button class="dropdown-item" type="button">投稿する</button>

@@ -54,7 +54,7 @@ foreach($users as $user) {
   // 登録されているユーザーなら、ログインする
   if ($user['token'] === $token) {
     $selected_user = $user;
-    $_SESSION['user_id'] = $selected_user['id'];
+    $_SESSION['current_user_id'] = $selected_user['id'];
     break;
   }
 }
@@ -71,7 +71,7 @@ if ($selected_user === null) {
   $sql->execute(
     array($token, $token_secret, $screen_name, $name, $date)
   );
-  $_SESSION['user_id'] = $pdo->lastInsertId('id');
+  $_SESSION['current_user_id'] = $pdo->lastInsertId('id');
 }
 
 // セッションを作成

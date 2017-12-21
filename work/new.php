@@ -3,8 +3,8 @@ session_start();
 
 require_once '../common.php';
 
-// user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
-if (empty($_SESSION['user_id'])) {
+// current_user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
+if (empty($_SESSION['current_user_id'])) {
   header('Location: ../user/login.php');
   exit();
 }
@@ -24,7 +24,7 @@ if (empty($_SESSION['user_id'])) {
 <body>
   <header>
     <a href="../index.php">メインページ</a>
-    <?php if (!empty($_SESSION['user_id'])) { ?>
+    <?php if (!empty($_SESSION['current_user_id'])) { ?>
       <a href="../user/logout.php">ログアウトする</a>
     <?php } ?>
     <a href="../user/profile.php">プロフィール</a>

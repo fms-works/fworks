@@ -3,13 +3,13 @@ session_start();
 
 require_once '../common.php';
 
-// user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
-if (empty($_SESSION['user_id'])) {
+// current_user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
+if (empty($_SESSION['current_user_id'])) {
   header('Location: ../user/login.php');
   exit();
 }
 
-$user_id = $_SESSION['user_id'];
+$current_user_id = $_SESSION['current_user_id'];
 
 // バリデーション
 $_SESSION['empty_title']      = false;
@@ -58,12 +58,12 @@ $date = date("Y-m-d H:i:s");
 // work保存
 $sql = $pdo->prepare("
   INSERT INTO works(
-    title, link, detail, user_id, created_at, updated_at
+    title, link, detail, current_user_id, created_at, updated_at
   ) VALUES (
     ?, ?, ?, ?, ?, ?
 )");
 $sql->execute(
-  array($new_title, $new_link, $new_detail, $user_id, $date, $date)
+  array($new_title, $new_link, $new_detail, $current_user_id, $date, $date)
 );
 $work_id = $pdo->lastInsertId('id');
 
@@ -72,15 +72,15 @@ $index = 0;
 foreach($images as $image) {
   $sql = $pdo->prepare("
     INSERT INTO work_images(
-      content, user_id, work_id, main, created_at
+      content, current_user_id, work_id, main, created_at
     ) VALUES (
       ?, ?, ?, ?, ?
   )");
   // mainのimageはmainカラムを1にする
   if($index === 0) {
-    $sql->execute(array($image, $user_id, $work_id, 1, $date));
+    $sql->execute(array($image, $current_user_id, $work_id, 1, $date));
   } else {
-    $sql->execute(array($image, $user_id, $work_id, 0, $date));
+    $sql->execute(array($image, $current_user_id, $work_id, 0, $date));
   }
   $index++;
 }
