@@ -5,7 +5,7 @@ require_once '../common.php';
 
 // current_user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
 if (empty($_SESSION['current_user_id'])) {
-  header('Location: user/login.php');
+  header('Location: login.php');
   exit();
 }
 
@@ -29,7 +29,7 @@ session_destroy();
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   <link rel="stylesheet" href="../assets/css/template.min.css">
   <link href="../assets/css/style.css" rel="stylesheet">
-  <title>profile</title>
+  <title>show</title>
 </head>
 <body>
   <header>

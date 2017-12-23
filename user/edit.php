@@ -5,7 +5,7 @@ require_once '../common.php';
 
 // current_user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
 if (empty($_SESSION['current_user_id'])) {
-  header('Location: user/login.php');
+  header('Location: login.php');
   exit();
 }
 
@@ -46,7 +46,7 @@ $user = $pdo->query("
       <textarea name="profile" rows="" cols="">
         <?php echo $user['profile']; ?>
       </textarea>
-      <a href="profile.php">キャンセル</a>
+      <a href="show.php">キャンセル</a>
       <input type="submit" value="変更する">
     </form>
   </div>

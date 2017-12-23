@@ -5,7 +5,7 @@ require_once '../common.php';
 
 // current_user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
 if (empty($_SESSION['current_user_id'])) {
-  header('Location: ../user/login.php');
+  header('Location: login.php');
   exit();
 }
 
@@ -33,6 +33,6 @@ if (isset($_POST['name']) && isset($_POST['github_account']) &&
   );
 }
 
-header('Location: profile.php');
+header('Location: show.php');
 exit();
 ?>

@@ -27,7 +27,7 @@ if (empty($_SESSION['current_user_id'])) {
     <?php if (!empty($_SESSION['current_user_id'])) { ?>
       <a href="../user/logout.php">ログアウトする</a>
     <?php } ?>
-    <a href="../user/profile.php">プロフィール</a>
+    <a href="../user/show.php">プロフィール</a>
   </header>
 
   <div class="container">

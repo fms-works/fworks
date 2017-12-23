@@ -5,29 +5,46 @@ require_once '../common.php';
 
 // current_user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
 if (empty($_SESSION['current_user_id'])) {
-  header('Location: user/login.php');
+  header('Location: ../user/login.php');
   exit();
 }
 
 // 現在のユーザーのIDを取得
 $current_user_id = $_SESSION['current_user_id'];
 
-// 表示するユーザーのIDを取得
-$user_id = !empty($_GET['id']) ? $_GET['id'] : $current_user_id;
-
-// 現在のユーザーを取得
-$users_data = $pdo->query("
-  SELECT name, github_account, profile, avatar
-  FROM users
-  WHERE id=$user_id
-")->fetchAll();
-
-// 存在しないユーザーを選択したら自分のプロフィールページに遷移する
-if (empty($users_data)) {
-  header("Location: profile.php?id=$current_user_id");
+// 表示する作品のIDを取得
+$work_id = !empty($_GET['id']) ? h($_GET['id']) : 0;
+// 作品を取得する
+try {
+  $sql = $pdo->prepare("
+    SELECT * FROM works
+    WHERE id=?
+  ");
+  $sql->execute(array($work_id));
+  $work = $sql->fetch();
+} catch (PDOException $e) {
+  echo $e;
   exit();
-} else {
-  $user = $users_data[0];
+}
+
+// 存在しない作品を選択したらメイン画面に戻る
+if (empty($work)) {
+  header("Location: ../index.php");
+  exit();
+}
+
+// 作品の画像を取得
+try {
+  $sql = $pdo->prepare("
+    SELECT content
+    FROM work_images
+    WHERE work_id=?
+  ");
+  $sql->execute(array($work_id));
+  $work_images = $sql->fetch();
+} catch (PDOExctption $e) {
+  echo $e;
+  exit();
 }
 ?>
 <!DOCTYPE html>
@@ -51,17 +68,19 @@ if (empty($users_data)) {
   </header>
 
   <div class="container">
-    <?php if ($current_user_id === $user_id) { ?>
-      <a href="edit.php">編集する</a>
-    <?php } ?>
-    <image src="hoge.jpg"></image>
-    <p><?php echo !empty($user['name']) ? $user['name'] : '登録されていません'; ?></p>
-    <p><?php echo !empty($user['github_account']) ? $user['github_account'] : '登録されていません'; ?></p>
-    <p><?php echo !empty($user['profile']) ? $user['profile'] : '登録されていません'; ?></p>
-    <p><?php echo $user['avatar']; ?></p>
-    <a href="destroy.php" onClick="return confirm('削除してもよろしいですか？');">
-      削除する
-    </a>
+    <?php // 作品表示 ?>
+    <div>
+      <div>
+        <?php // 自分の作品を編集する　?>
+        <?php if ($current_user_id === $work['user_id']) { ?>
+          <a href="../work/edit.php?id=<?php echo $work_id; ?>">編集する</a>
+        <?php } ?>
+        <p><?php echo $work['title']; ?></p>
+        <?php foreach($work_images as $image) { ?>
+          <p><?php echo $image; ?></p>
+        <?php } ?>
+      </div>
+    </div>
   </div>
 
   <footer></footer>

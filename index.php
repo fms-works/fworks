@@ -24,6 +24,7 @@ try {
       (
         SELECT content FROM work_images
         WHERE work_images.work_id=works.id AND work_images.main=1
+        LIMIT 1
       ) AS first_work_image,
       (
         SELECT count(*) FROM likes
@@ -53,12 +54,13 @@ try {
   <title>nkmr</title>
 </head>
 <body>
+  <?php // ヘッダー ?>
   <header>
     <a href="">メインページ</a>
     <?php if (!empty($_SESSION['current_user_id'])) { ?>
       <a href="user/logout.php">ログアウトする</a>
     <?php } ?>
-    <a href="user/profile.php">プロフィール</a>
+    <a href="user/show.php">プロフィール</a>
 
     <div class="title">
       <h1>FMS Works Published Service</h1>
@@ -67,29 +69,28 @@ try {
     </div>
 
     <div class="header-right">
-      <ul>
-        <li>
-          <div class="dropdown">
-            <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img src="assets/images/barbie.jpg" class="img-circle" height="35" width="35">
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <button class="dropdown-item" type="button">投稿する</button>
-              <button class="dropdown-item" type="button">マイページ</button>
-              <button class="dropdown-item" type="button">ログアウト</button>
-            </div>
-        　</div>
-        </li>
-        <li>
-          <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" aria-label="Search">
-            <button type="submit" class="btn btn-info btn-lg  my-sm-0">検索</button>
-          </form>
-        </li>
-       </ul>
+      <div>
+        <div class="dropdown">
+          <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="assets/images/barbie.jpg" class="img-circle" height="35" width="35">
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <button class="dropdown-item" type="button">投稿する</button>
+            <button class="dropdown-item" type="button">マイページ</button>
+            <button class="dropdown-item" type="button">ログアウト</button>
+          </div>
+      　</div>
+      </div>
+      <div
+        <form class="form-inline">
+          <input class="form-control mr-sm-2" type="search" aria-label="Search">
+          <button type="submit" class="btn btn-info btn-lg my-sm-0">検索</button>
+        </form>
+      </div>
      </div>
   </header>
 
+  <?php // 左側に表示 ?>
   <nav>
     <div class="header-left">
       <ul>
