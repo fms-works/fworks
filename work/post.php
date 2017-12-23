@@ -58,7 +58,7 @@ $date = date("Y-m-d H:i:s");
 // work保存
 $sql = $pdo->prepare("
   INSERT INTO works(
-    title, link, detail, current_user_id, created_at, updated_at
+    title, link, detail, user_id, created_at, updated_at
   ) VALUES (
     ?, ?, ?, ?, ?, ?
 )");
@@ -72,7 +72,7 @@ $index = 0;
 foreach($images as $image) {
   $sql = $pdo->prepare("
     INSERT INTO work_images(
-      content, current_user_id, work_id, main, created_at
+      content, user_id, work_id, main, created_at
     ) VALUES (
       ?, ?, ?, ?, ?
   )");

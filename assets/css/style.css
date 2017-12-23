@@ -24,17 +24,18 @@
 }
 
 
-
-
-
-/* template */
-li{
-  list-style-type: none;
-}
-
 /*header*/
-.title{
-  text-align:center;  
+.nav-avatar{
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  background-size: contain;
+}
+/* .title{
+  text-align:center;
   margin-top:20px;
 }
 
@@ -51,7 +52,7 @@ p{
 
 .header-left{
 float:left;
-font-size:15px;   
+font-size:15px;
 }
 
 .header-left li{
@@ -61,7 +62,7 @@ padding-left:30px;
 }
 
 .header-left a{
-  color:deeppink; 
+  color:deeppink;
 }
 
 .header-right li{
@@ -86,4 +87,32 @@ button img {
 
 .post{
   top:200px;
+} */
+
+/* Login */
+.login-body {
+  background: linear-gradient(
+                25deg, rgba(255, 255, 255, 0.5
+              ),
+            rgba(255, 255,255 , 0.5)),
+              url(../images/login.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  text-align: center;
+}
+
+.login-body h1 {
+  padding-top: 170px;
+  color: darkorange;
+  opacity: 0.9;
+}
+
+.login-body p {
+  color: white;
+}
+
+.login-body button {
+  margin: 100px 0;
 }
