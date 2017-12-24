@@ -44,7 +44,7 @@ try {
 }
 ?>
 <?php include('partial/top_layout.php'); ?>
-<?php // 左側に表示 ?>
+<?php // サイドバー ?>
 <header>
   <form class="form-inline">
     <input class="form-control mr-sm-2" type="search" aria-label="Search">
@@ -58,13 +58,23 @@ try {
   </ul>
 </header>
 
-<main class="" id="main-collapse">
+<?php // メイン ?>
+<main id="main-collapse">
   <div class="hero-full-wrapper">
     <div class="grid">
       <div class="gutter-sizer"></div>
       <div class="grid-sizer"></div>
 
       <?php // 作品一覧を表示 ?>
+      <?php // TODO: 表示画面を作る ?>
+      <?php foreach($works as $work) { ?>
+        <h3><?php echo $work['title']; ?></h3>
+        <p><?php echo $work['user_avatar']; ?></p>
+        <p><?php echo $work['user_name']; ?></p>
+        <div style="background-image: <?php echo $work['first_work_image']; ?>"></div>
+        <p><?php echo $work['likes_count']; ?></p>
+      <?php } ?>
+
       <div class="grid-item">
         <img class="img-responsive" alt="" src="assets/images/img-12.jpg">
         <a href="./project.html" class="project-description">
