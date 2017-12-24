@@ -69,3 +69,21 @@
 |id|int|primary key, autoincrement|
 |user_id|int|not null, index|
 |work_id|int|not null, index|
+|created_at|datetime|not null|
+
+## Tags
+
+|カラム名|型|オプション|
+|:-:|:-:|:-:|
+|id|int|primary key, autoincrement|
+|name|varchar(20)|not null, index|
+|created_at|datetime|not null|
+
+## WorkTags
+
+|カラム名|型|オプション|
+|:-:|:-:|:-:|
+|id|int|primary key, autoincrement|
+|work_id|int|not null, index|
+|tag_id|int|not null, index|
+|created_at|datetime|not null|
