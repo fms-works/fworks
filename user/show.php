@@ -90,6 +90,7 @@ try {
       </a>
       <?php if ($current_user_id === $user_id) { ?>
         <a href="../work/edit.php?id=<?php echo $work_id; ?>">編集する</a>
+        <a href="../work/destroy.php?id=<?php echo $work_id; ?>" onClick="return confirm('削除してもよろしいですか？');">削除する</a>
       <?php } ?>
     <?php } ?>
   </div>

@@ -15,10 +15,15 @@ if (empty($_SESSION['current_user_id'])) {
 $current_user_id = $_SESSION['current_user_id'];
 
 // ユーザー情報の削除
-$pdo->query("
-  DELETE FROM users
-  WHERE id=$current_user_id
-");
+try {
+  $pdo->query("
+    DELETE FROM users
+    WHERE id=$current_user_id
+  ");
+} catch (PDOException $e) {
+  echo $e;
+  exit();
+}
 
 session_destroy();
 ?>

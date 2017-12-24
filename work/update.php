@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once '../common.php';
+require_once('../common.php');
 
 // current_user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
 if (empty($_SESSION['current_user_id'])) {
@@ -41,8 +41,8 @@ if (empty($work) || $work['user_id'] !== $current_user_id) {
 }
 
 // バリデーション
-$_SESSION['empty_title']      = false;
-$_SESSION['empty_detail']     = false;
+$_SESSION['empty_title']  = false;
+$_SESSION['empty_detail'] = false;
 
 if(empty($_POST['title']) || empty($_POST['detail'])) {
   if(empty($_POST['title']))  $_SESSION['empty_title'] = true;

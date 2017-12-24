@@ -56,7 +56,8 @@ try {
   <div>
     <?php // 自分の作品を編集する　?>
     <?php if ($current_user_id === $work['user_id']) { ?>
-      <a href="../work/edit.php?id=<?php echo $work_id; ?>">編集する</a>
+      <a href="edit.php?id=<?php echo $work_id; ?>">編集する</a>
+      <a href="destroy.php?id=<?php echo $work_id; ?>" onClick="return confirm('削除してもよろしいですか？');">削除する</a>
     <?php } ?>
     <p><?php echo $work['title']; ?></p>
     <?php foreach($work_images as $image) { ?>
