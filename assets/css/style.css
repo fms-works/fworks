@@ -1,12 +1,3 @@
-.workImageInput {
-  display: none;
-}
-
-.workImageOutput {
-  background-image: url('../images/no_image.png');
-  background-size: cover;
-}
-
 /* TODO: レスポンシブ対応 */
 .main_image label {
   width: 350px;
@@ -23,6 +14,17 @@
   height: 200px;
 }
 
+/* 画像の自動プレビュー */
+.main_image input[type="file"],
+.sub_image input[type="file"] {
+  display: none;
+}
+
+.workImageOutput {
+  background-image: url('../images/no_image.png');
+  background-size: cover;
+}
+
 
 /*header*/
 .nav-avatar{
@@ -34,6 +36,7 @@
   border-radius: 18px;
   background-size: contain;
 }
+
 /* .title{
   text-align:center;
   margin-top:20px;
