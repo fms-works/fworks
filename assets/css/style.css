@@ -1,0 +1,121 @@
+/* TODO: レスポンシブ対応 */
+.main_image label {
+  width: 350px;
+  height: 350px;
+}
+
+.sub_image {
+  display: inline-block;
+}
+
+/* TODO: レスポンシブ対応 */
+.sub_image label {
+  width: 200px;
+  height: 200px;
+}
+
+/* 画像の自動プレビュー */
+.main_image input[type="file"],
+.sub_image input[type="file"] {
+  display: none;
+}
+
+.workImageOutput {
+  background-image: url('../images/no_image.png');
+  background-size: cover;
+}
+
+
+/*header*/
+.nav-avatar{
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  background-size: contain;
+}
+
+/* .title{
+  text-align:center;
+  margin-top:20px;
+}
+
+h1{
+  color:darkorange;
+  margin-bottom:20px;
+  font-size: 35px;
+}
+
+p{
+  color:black;
+  font-size: 13px;
+}
+
+.header-left{
+float:left;
+font-size:15px;
+}
+
+.header-left li{
+margin:14px;
+padding-left:30px;
+
+}
+
+.header-left a{
+  color:deeppink;
+}
+
+.header-right li{
+  float:right;
+  margin-right:20px;
+}
+
+header{
+ z-index:3;
+ padding-bottom:30px;
+}
+
+button{
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+button img {
+  display: block;
+}
+
+.post{
+  top:200px;
+} */
+
+/* Login */
+.login-body {
+  background: linear-gradient(
+                25deg, rgba(255, 255, 255, 0.5
+              ),
+            rgba(255, 255,255 , 0.5)),
+              url(../images/login.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  text-align: center;
+}
+
+.login-body h1 {
+  padding-top: 170px;
+  color: darkorange;
+  opacity: 0.9;
+}
+
+.login-body p {
+  color: white;
+}
+
+.login-body button {
+  margin: 100px 0;
+}
