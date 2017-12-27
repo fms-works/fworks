@@ -44,133 +44,43 @@ try {
 }
 ?>
 <?php include('partial/top_layout.php'); ?>
-<?php // サイドバー ?>
-<header>
-  <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" aria-label="Search">
-    <button type="submit" class="btn btn-info btn-lg my-sm-0">検索</button>
-  </form>
-  <ul>
-    <li><a class="hidden-xs" href="index.html">トップ</a></li>
-    <li><a class="hidden-xs" href="index.html">カテゴリ</a></li>
-    <li><a class="hidden-xs" href="index.html">ソート</a></li>
-    <li><a class="hidden-xs" href="index.html">使い方</a></li>
-  </ul>
-</header>
-
 <?php // メイン ?>
-<main id="main-collapse">
-  <div class="hero-full-wrapper">
-    <div class="grid">
-      <div class="gutter-sizer"></div>
-      <div class="grid-sizer"></div>
-
-      <?php // 作品一覧を表示 ?>
-      <?php // TODO: 表示画面を作る ?>
-      <?php foreach($works as $work) { ?>
-        <h3><?php echo $work['title']; ?></h3>
-        <p><?php echo $work['user_avatar']; ?></p>
-        <p><?php echo $work['user_name']; ?></p>
-        <div style="background-image: <?php echo $work['first_work_image']; ?>"></div>
-        <p><?php echo $work['likes_count']; ?></p>
-      <?php } ?>
-
-      <div class="grid-item">
-        <img class="img-responsive" alt="" src="assets/images/img-12.jpg">
-        <a href="./project.html" class="project-description">
-          <div class="project-text-holder">
-            <div class="project-text-inner">
-              <h3>Vivamus vestibulum</h3>
-              <p>Discover more</p>
-            </div>
+<div class="container">
+  <?php // 作品一覧を表示 ?>
+  <div class="row">
+    <?php $index = 0; // TODO: 消す ?>
+    <?php foreach($works as $work) { ?>
+      <div class="p-1 col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="card">
+          <a class="card-link" href="work/show.php?id=<?php echo $work['id']; ?>">
+            <img class="card-img-top" src="
+              <?php
+                // TODO: $index関係を消す
+                if ($index % 3 === 0) {
+                  echo 'assets/images/bb8avatar.jpg';
+                } else if ($index % 3 === 1) {
+                  echo 'assets/images/sw.jpg';
+                } else if ($index % 3 === 2) {
+                  echo 'assets/images/chara1.png';
+                } else {
+                  echo $work['first_work_image'];
+                }
+                $index += 1;
+              ?>
+            " alt="work image">
+          </a>
+          <div class="card-body">
+            <h4 class="card-title"><?php echo $work['title']; ?></h4>
+            <p><?php echo $work['likes_count']; ?></p>
+            <a class="card-user-link" href="user/show.php?<?php echo $work['user_id']; ?>">
+              <?php // echo $work['user_avatar']; ?>
+              <img class="work-avatar" src="assets/images/barbie.jpg">
+              <p class="work-username text-dark"><?php echo $work['user_name']; ?></p>
+            </a>
           </div>
-        </a>
+        </div>
       </div>
-
-      <div class="grid-item">
-        <img class="img-responsive" alt="" src="assets//images/img-05.jpg">
-        <a href="./project.html" class="project-description">
-          <div class="project-text-holder">
-            <div class="project-text-inner">
-              <h3>Vivamus vestibulum</h3>
-              <p>Discover more</p>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="grid-item">
-        <img class="img-responsive" alt="" src="assets/images/img-13.jpg">
-        <a href="./project.html" class="project-description">
-          <div class="project-text-holder">
-            <div class="project-text-inner">
-              <h3>Vivamus vestibulum</h3>
-              <p>Discover more</p>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="grid-item">
-        <img class="img-responsive" alt="" src="assets/images/img-04.jpg">
-        <a href="./project.html" class="project-description">
-          <div class="project-text-holder">
-            <div class="project-text-inner">
-              <h3>Vivamus vestibulum</h3>
-              <p>Discover more</p>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="grid-item">
-        <img class="img-responsive" alt="" src="assets//images/img-07.jpg">
-        <a href="./project.html" class="project-description">
-          <div class="project-text-holder">
-            <div class="project-text-inner">
-              <h3>Vivamus vestibulum</h3>
-              <p>Discover more</p>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="grid-item">
-        <img class="img-responsive" alt="" src="assets/images/img-11.jpg">
-        <a href="./project.html" class="project-description">
-          <div class="project-text-holder">
-            <div class="project-text-inner">
-              <h3>Vivamus vestibulum</h3>
-              <p>Discover more</p>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="grid-item">
-        <img class="img-responsive" alt="" src="assets/images/img-10.jpg">
-        <a href="./project.html" class="project-description">
-          <div class="project-text-holder">
-            <div class="project-text-inner">
-              <h3>Vivamus vestibulum</h3>
-              <p>Discover more</p>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="grid-item">
-        <img class="img-responsive" alt="" src="assets/images/img-03.jpg">
-        <a href="./project.html" class="project-description">
-          <div class="project-text-holder">
-            <div class="project-text-inner">
-              <h3>Vivamus vestibulum</h3>
-              <p>Discover more</p>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div><!-- grid -->
-  </div><!-- hero-full-wrapper -->
-</main>
+    <?php } ?>
+  </div>
+</div>
 <?php include('partial/bottom_layout.php') ?>

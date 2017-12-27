@@ -1,3 +1,46 @@
+.title-color {
+  color: #64B5F6;
+}
+
+.nav-link {
+  height: 50px;
+  line-height: 50px;
+}
+
+.nav-avatar {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #E0E0E0;
+  border-radius: 18px;
+  background-size: contain;
+}
+
+.card-link {
+  text-decoration: none;
+}
+
+.card-user-link:hover {
+  text-decoration: none;
+}
+
+.work-avatar {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #E0E0E0;
+  border-radius: 18px;
+  background-size: contain;
+}
+
+.work-username {
+  display: inline-block;
+}
+
 /* TODO: レスポンシブ対応 */
 .main_image label {
   width: 350px;
@@ -26,16 +69,7 @@
 }
 
 
-/*header*/
-.nav-avatar{
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-  width: 36px;
-  height: 36px;
-  border-radius: 18px;
-  background-size: contain;
-}
+
 
 /* .title{
   text-align:center;
