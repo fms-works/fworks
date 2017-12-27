@@ -18,7 +18,8 @@
     <button id="postComment">post comment</button>
 
     <button id="reloadComment">reload comment</button>
-    <label id="result"></label>
+    <br/>
+    <span id="result"></span>
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="text/javascript" id="ajaxButton" src="./assets/js/ajaxButton.js"
