@@ -1,7 +1,7 @@
 <?php
 if (empty($path)) $path = '';
 ?>
-<nav class="navbar navbar-expand-lg bg-white">
+<nav class="navbar navbar-expand-lg navbar-light bg-white header-border">
   <a href="<?php echo $path; ?>index.php" class="navbar-brand">
     <h3 class="title-color">FMS Works Published Service</h3>
   </a>
@@ -17,7 +17,7 @@ if (empty($path)) $path = '';
         <div class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <?php // TODO: 自分のアバターを表示する ?>
-            <img class="nav-avatar" src="assets/images/barbie.jpg"></img>
+            <img class="nav-avatar" src="<?php echo $path; ?>assets/images/barbie.jpg"></img>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="<?php echo $path; ?>user/show.php">マイページ</a>
