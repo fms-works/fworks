@@ -45,13 +45,13 @@ try {
 ?>
 <?php include('partial/top_layout.php'); ?>
 <?php // メイン ?>
-<div class="container">
+<div class="container py-3">
   <?php // 作品一覧を表示 ?>
   <div class="row">
     <?php $index = 0; // TODO: 消す ?>
     <?php foreach($works as $work) { ?>
-      <div class="p-1 col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="card">
+      <div class="px-1 py-3 col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="card card-shadow">
           <a class="card-link" href="work/show.php?id=<?php echo $work['id']; ?>">
             <img class="card-img-top" src="
               <?php
