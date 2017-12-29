@@ -15,7 +15,7 @@ if (empty($_SESSION['current_user_id'])) {
 <?php include('../partial/top_layout.php'); ?>
 <div class="container">
   <h1 class="py-3 my-4 page-title">作品を投稿する</h1>
-  <form method="post" action="post.php" enctype="multipart/form-data"></form>
+  <form method="post" action="post.php" enctype="multipart/form-data">
     <div class="form-group py-2">
       <label for="title">タイトル <span class="note">*必須</span></label>
       <input type="text" name="title" id="title" class="form-control" aria-describedby="titleHelp" placeholder="例) FMS Works">
@@ -63,7 +63,7 @@ if (empty($_SESSION['current_user_id'])) {
       <textarea name="detail" id="detail" class="form-control" rows="5" placeholder="例) これはFMSの学生が自分の作品を自由に投稿してコメントし合えるSNSです。概要は..."></textarea>
       <small id="detailbHelp" class="form-text text-muted">この作品がどんなものなのか、どういうところにこだわったのか説明しましょう！</small>
     </div>
-    <button type="submit" class="btn btn-primary px-4 mb-5">投稿する</button>
+    <input type="submit" class="btn btn-primary px-4 mb-5" value="投稿する">
   </form>
 </div>
 <?php include('../partial/bottom_layout.php'); ?>
