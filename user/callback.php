@@ -45,6 +45,7 @@ $screen_name  = $user->screen_name;
 $name         = $user->name;
 $token        = $access_token['oauth_token'];
 $token_secret = $access_token['oauth_token_secret'];
+$avatar       = $user->profile_image_url_https;
 
 // ユーザー一覧取得
 $users = $pdo->query('SELECT * FROM users')->fetchAll();
@@ -54,6 +55,12 @@ foreach($users as $user) {
   // 登録されているユーザーなら、ログインする
   if ($user['token'] === $token) {
     $selected_user = $user;
+    // アバターをアップデート
+    $sql = $pdo->prepare("
+      UPDATE users SET avatar=?
+      WHERE id=?
+    ");
+    $sql->execute(array($avatar, $user['id']));
     $_SESSION['current_user_id'] = $selected_user['id'];
     break;
   }
@@ -64,12 +71,12 @@ if ($selected_user === null) {
   $date = date("Y-m-d H:i:s");
   $sql = $pdo->prepare("
     INSERT INTO users (
-      token, token_secret, screen_name, name, created_at
+      token, token_secret, screen_name, name, avatar, created_at
     ) VALUES (
       ?, ?, ?, ?, ?
   )");
   $sql->execute(
-    array($token, $token_secret, $screen_name, $name, $date)
+    array($token, $token_secret, $screen_name, $name, $avatar, $date)
   );
   $_SESSION['current_user_id'] = $pdo->lastInsertId('id');
 }

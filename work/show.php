@@ -12,8 +12,9 @@ if (empty($_SESSION['current_user_id'])) {
   exit();
 }
 
-// 現在のユーザーのIDを取得
+// 現在のユーザーを取得
 $current_user_id = $_SESSION['current_user_id'];
+$user_data = get_user_data($pdo, $current_user_id);
 
 // 表示する作品のIDを取得
 $work_id = !empty($_GET['id']) ? h($_GET['id']) : 0;
@@ -51,18 +52,16 @@ try {
 }
 ?>
 <?php include('../partial/top_layout.php'); ?>
-<div class="container">
-  <?php // 作品表示 ?>
-  <div>
-    <?php // 自分の作品を編集する　?>
-    <?php if ($current_user_id === $work['user_id']) { ?>
-      <a href="edit.php?id=<?php echo $work_id; ?>">編集する</a>
-      <a href="destroy.php?id=<?php echo $work_id; ?>" onClick="return confirm('削除してもよろしいですか？');">削除する</a>
-    <?php } ?>
-    <p><?php echo $work['title']; ?></p>
-    <?php foreach($work_images as $image) { ?>
-      <p><?php echo $image; ?></p>
-    <?php } ?>
-  </div>
+<?php // 作品表示 ?>
+<div>
+  <?php // 自分の作品を編集する　?>
+  <?php if ($current_user_id === $work['user_id']) { ?>
+    <a href="edit.php?id=<?php echo $work_id; ?>">編集する</a>
+    <a href="destroy.php?id=<?php echo $work_id; ?>" onClick="return confirm('削除してもよろしいですか？');">削除する</a>
+  <?php } ?>
+  <p><?php echo $work['title']; ?></p>
+  <?php foreach($work_images as $image) { ?>
+    <p><?php echo $image; ?></p>
+  <?php } ?>
 </div>
 <?php include('../partial/bottom_layout.php'); ?>
