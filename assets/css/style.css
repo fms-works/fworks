@@ -1,3 +1,8 @@
+/* header */
+.header-border {
+  border-bottom: 1px solid #E0E0E0;
+}
+
 .title-color {
   color: #64B5F6;
 }
@@ -18,6 +23,12 @@
   background-size: contain;
 }
 
+/* footer */
+.footer-border {
+  border-top: 1px solid #E0E0E0;
+}
+
+/* card (top page) */
 .card-link {
   text-decoration: none;
 }
@@ -41,10 +52,28 @@
   display: inline-block;
 }
 
-/* TODO: レスポンシブ対応 */
+/* post work page */
+h1.page-title {
+  color: #616161;
+}
+
+span.note {
+  font-size: 80%;
+  color: #EF5350;
+}
+
 .main_image label {
   width: 350px;
   height: 350px;
+  border-radius: 5px;
+}
+
+.main_image h3 {
+  font-size: 16px;
+}
+
+.sub_images h3 {
+  font-size: 16px;
 }
 
 .sub_image {
@@ -65,66 +94,10 @@
 
 .workImageOutput {
   background-image: url('../images/no_image.png');
-  background-size: cover;
+  background-size: contain;
+  border: 1px solid #E0E0E0;
+  border-radius: 5px;
 }
-
-
-
-
-/* .title{
-  text-align:center;
-  margin-top:20px;
-}
-
-h1{
-  color:darkorange;
-  margin-bottom:20px;
-  font-size: 35px;
-}
-
-p{
-  color:black;
-  font-size: 13px;
-}
-
-.header-left{
-float:left;
-font-size:15px;
-}
-
-.header-left li{
-margin:14px;
-padding-left:30px;
-
-}
-
-.header-left a{
-  color:deeppink;
-}
-
-.header-right li{
-  float:right;
-  margin-right:20px;
-}
-
-header{
- z-index:3;
- padding-bottom:30px;
-}
-
-button{
-  padding: 0;
-  border: none;
-  background: transparent;
-}
-
-button img {
-  display: block;
-}
-
-.post{
-  top:200px;
-} */
 
 /* Login */
 .login-body {
