@@ -78,4 +78,4 @@ try {
     </div>
   <?php } ?>
 </div>
-<?php include('partial/bottom_layout.php') ?>
+<?php include('partial/bottom_layout.php'); ?>

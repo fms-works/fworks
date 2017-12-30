@@ -12,11 +12,11 @@ if (empty($path)) $path = '';
     <div class="navbar-nav">
       <?php if (!empty($_SESSION['current_user_id'])) { ?>
         <div class="nav-item">
-          <a class="nav-link text-dark" style="height: 100%;" href="<?php echo $path; ?>work/new.php">投稿する</a>
+          <a class="nav-link text-dark d-inline align-middle" href="<?php echo $path; ?>work/new.php">投稿する</a>
         </div>
         <div class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img class="nav-avatar" src="<?php echo $user_data['avatar']; ?>"></img>
+            <img class="nav-avatar align-top" src="<?php echo $user_data['avatar']; ?>"></img>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="<?php echo $path; ?>user/show.php">マイページ</a>
@@ -25,7 +25,7 @@ if (empty($path)) $path = '';
         </div>
       <?php } else { ?>
         <div class="nav-item">
-          <a class="nav-link" href="<?php echo $path; ?>user/login.php">ログインする</a>
+          <a class="nav-link text-dark d-inline align-middle" href="<?php echo $path; ?>user/login.php">ログインする</a>
         </div>
       <?php } ?>
     </div>
