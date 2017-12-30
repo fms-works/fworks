@@ -25,6 +25,8 @@ try {
   exit();
 }
 
+// TODO: 紐づく作品も削除する
+
 session_destroy();
 ?>
 <?php include('../partial/top_layout.php'); ?>
