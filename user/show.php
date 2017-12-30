@@ -67,26 +67,11 @@ try {
   <?php if (empty($works)) { ?>
     <p>まだ作品がありません</p>
   <?php } ?>
-  <?php $index = 0; // TODO: 消す ?>
   <?php foreach($works as $work) { ?>
     <div class="px-1 py-3 col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card card-shadow">
         <a class="card-link" href="../work/show.php?id=<?php echo $work['id']; ?>">
-          <img class="card-img-top" src="
-            <?php
-              // TODO: $index関係を消す
-              if ($index % 3 === 0) {
-                echo '../assets/images/bb8avatar.jpg';
-              } else if ($index % 3 === 1) {
-                echo '../assets/images/sw.jpg';
-              } else if ($index % 3 === 2) {
-                echo '../assets/images/chara1.png';
-              } else {
-                echo $work['first_work_image'];
-              }
-              $index += 1;
-            ?>
-          " alt="work image">
+          <img class="card-img-top" src="data:image/png;base64,<?php echo $work['first_work_image']; ?>" alt="work image">
         </a>
         <div class="card-body">
           <h4 class="card-title"><?php echo $work['title']; ?></h4>

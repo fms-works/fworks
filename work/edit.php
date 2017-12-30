@@ -124,4 +124,4 @@ foreach($work_images as $image) {
   </div>
   <input type="submit" value="更新する">
 </form>
-<?php include('../paratial/bottom_layout.php'); ?>
+<?php include('../partial/bottom_layout.php'); ?>

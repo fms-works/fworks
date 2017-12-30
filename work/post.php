@@ -30,31 +30,22 @@ $new_title = h($_POST['title']);
 
 $images = [];
 function getImage($image_file) {
-  return file_get_contents($image_file['tmp_name']);
+  return base64_encode(file_get_contents($image_file['tmp_name']));
 }
-// TODO: 画像を保存
-array_push($images, 'image');
-// array_push($images, getImage($_FILES['main_image']));
+array_push($images, getImage($_FILES['main_image']));
 if (!empty($_FILES['sub_image1']['tmp_name'])) {
-  // TODO: 画像を保存
-  array_push($images, 'image1');
-  // array_push($images, getImage($_FILES['sub_image1']));
+  array_push($images, getImage($_FILES['sub_image1']));
 }
 if (!empty($_FILES['sub_image2']['tmp_name'])) {
-  // TODO: 画像を保存
-  array_push($images, 'image2');
-  // array_push($images, getImage($_FILES['sub_image2']));
+  array_push($images, getImage($_FILES['sub_image2']));
 }
 if (!empty($_FILES['sub_image3']['tmp_name'])) {
-  // TODO: 画像を保存
-  array_push($images, 'image3');
-  // array_push($images, getImage($_FILES['sub_image3']));
+  array_push($images, getImage($_FILES['sub_image3']));
 }
 $new_link   = !empty($_POST['link'])   ? h($_POST['link'])   : '';
 $new_detail = !empty($_POST['detail']) ? h($_POST['detail']) : '';
 
 $date = date("Y-m-d H:i:s");
-
 // work保存
 $sql = $pdo->prepare("
   INSERT INTO works(
@@ -68,22 +59,31 @@ $sql->execute(
 $work_id = $pdo->lastInsertId('id');
 
 // image保存
-$index = 0;
-foreach($images as $image) {
-  $sql = $pdo->prepare("
-    INSERT INTO work_images(
-      content, user_id, work_id, main, created_at
-    ) VALUES (
-      ?, ?, ?, ?, ?
-  )");
-  // mainのimageはmainカラムを1にする
-  if($index === 0) {
-    $sql->execute(array($image, $current_user_id, $work_id, 1, $date));
-  } else {
-    $sql->execute(array($image, $current_user_id, $work_id, 0, $date));
-  }
-  $index++;
+$values_sql = '';
+for ($i = 0; $i < count($images); $i++) {
+  if ($i !== 0) $values_sql .= ",";
+  $values_sql .= "(?, ?, ?, ?, ?)";
 }
+
+$sql = $pdo->prepare("
+  INSERT INTO work_images(
+    content, user_id, work_id, main, created_at
+  ) VALUES " . $values_sql);
+
+$insert_array = [];
+foreach ($images as $i => $image) {
+  array_push($insert_array, $image);
+  array_push($insert_array, $current_user_id);
+  array_push($insert_array, $work_id);
+  // mainのimageはmainカラムを1にするr
+  if ($i === 0) {
+    array_push($insert_array, 1);
+  } else {
+    array_push($insert_array, 0);
+  }
+  array_push($insert_array, $date);
+}
+$sql->execute($insert_array);
 
 header('Location: ../index.php');
 exit();
