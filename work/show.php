@@ -50,6 +50,24 @@ try {
   echo $e;
   exit();
 }
+
+// 作品のコメントを取得
+try {
+  $sql = $pdo->prepare("
+    SELECT
+      comments.content,
+      users.avatar AS user_avatar,
+      users.name AS user_name
+    FROM comments
+      LEFT OUTER JOIN users ON users.id=comments.user_id
+    WHERE comments.work_id=?
+  ");
+  $sql->execute(array($work_id));
+  $comments = $sql->fetchAll();
+} catch (PDOException $e) {
+  echo $e;
+  exit();
+}
 ?>
 <?php include('../partial/top_layout.php'); ?>
 <?php // 作品表示 ?>
@@ -90,7 +108,30 @@ try {
   <label>詳細</label>
   <p><?php echo $work['detail']; ?></p>
 </div>
+<?php // コメント投稿 ?>
+<form>
+  <div class="form-group">
+    <label for="commentInput">コメントする</label>
+    <input type="text" name="content" id="commentInput" class="form-control" placeholder="コメントを入力してください">
+  </div>
+  <button class="btn btn-primary px-4 mb-5" id="postComment" data-workid='<?php echo $work_id; ?>'>送信</button>
+</form>
+<?php // コメント表示 ?>
+<h1 class="py-3 my-4 page-title">コメント一覧</h1>
+<div id="comments">
+  <?php foreach ($comments as $comment) { ?>
+    <div class="card my-2">
+      <div class="card-header py-1">
+        <img class="work-avatar" src="<?php echo $comment['user_avatar']; ?>">
+        <p class="work-username text-dark d-inline align-middle">えびけん</p>
+      </div>
+      <div class="card-body py-2">
+        <?php echo $comment['content']; ?>
+      </div>
+    </div>
+  <?php } ?>
+</div>
 <div class="py-3">
-  <a href="destroy.php?id=<?php echo $work_id; ?>" onClick="return confirm('削除してもよろしいですか？');" class="btn btn-danger px-4">削除する</a>
+  <a href="destroy.php?id=<?php echo $work_id; ?>" onClick="return confirm('削除してもよろしいですか？');" class="btn btn-danger px-4">この作品を削除する</a>
 </div>
 <?php include('../partial/bottom_layout.php'); ?>
