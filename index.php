@@ -34,6 +34,7 @@ try {
     SELECT
       works.id,
       works.title,
+      works.detail,
       users.id     AS user_id,
       users.name   AS user_name,
       users.avatar AS user_avatar,
@@ -59,7 +60,6 @@ try {
 <?php include('partial/top_layout.php'); ?>
 <?php // 作品一覧を表示 ?>
 <div class="row">
-  <?php $index = 0; // TODO: 消す ?>
   <?php foreach($works as $work) { ?>
     <div class="px-1 py-3 col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card card-shadow">
@@ -68,7 +68,8 @@ try {
         </a>
         <div class="card-body">
           <h4 class="card-title"><?php echo $work['title']; ?></h4>
-          <p><?php echo $work['likes_count']; ?></p>
+          <p class="card-detail"><?php echo $work['detail']; ?></p>
+          <p><?php echo $work['likes_count']; ?>いいね</p>
           <a class="card-user-link" href="user/show.php?<?php echo $work['user_id']; ?>">
             <img class="work-avatar" src="<?php echo $work['user_avatar']; ?>">
             <p class="work-username text-dark"><?php echo $work['user_name']; ?></p>

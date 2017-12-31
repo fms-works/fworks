@@ -1,14 +1,13 @@
-// preview image
+// 画像投稿プレビュー
 $('.workImageInput').on('change', function() {
-  var selectedFile = this.files[0];
-  var fileReader = new FileReader();
-  var $output = $(this).parent().find('.workImageOutput');
+  const selectedFile = this.files[0];
+  let fileReader = new FileReader();
+  const $output = $(this).parent().find('.workImageOutput');
 
   fileReader.onload = function(e) {
-    var loadedImage = e.target.result;
-    $output.css(
-      'background-image', 'url(' + loadedImage + ')'
-    );
+    const loadedImage = e.target.result;
+    $output.css('background-image', `url(${loadedImage})`);
+    // $output.css('height', 'auto');
   };
   fileReader.readAsDataURL(selectedFile);
 });

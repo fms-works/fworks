@@ -40,6 +40,12 @@
   box-shadow:0 2px 2px 0 rgba(0,0,0,0.2);
 }
 
+.card-detail {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .card-link {
   text-decoration: none;
 }
@@ -84,7 +90,7 @@ span.note {
 
 .main_image label {
   width: 350px;
-  max-height: 350px;
+  height: 350px;
   border-radius: 5px;
 }
 
@@ -102,7 +108,7 @@ span.note {
 
 .sub_image label {
   width: 200px;
-  max-height: 200px;
+  height: 200px;
 }
 
 /* 画像の自動プレビュー */
@@ -113,7 +119,7 @@ span.note {
 
 .workImageOutput {
   background-image: url('../images/no_image.png');
-  background-size: contain;
+  background-size: cover;
   border: 1px solid #E0E0E0;
   border-radius: 5px;
 }
