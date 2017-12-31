@@ -85,6 +85,54 @@ try {
   exit();
 }
 
+// タグ取得
+$tags = [];
+if (!empty($_POST['tag1'])) array_push($tags, h($_POST['tag1']));
+if (!empty($_POST['tag2'])) array_push($tags, h($_POST['tag2']));
+if (!empty($_POST['tag3'])) array_push($tags, h($_POST['tag3']));
+
+$tag_ids = [];
+foreach ($tags as $tag) {
+  try {
+    $sql = $pdo->prepare(
+     "SELECT * FROM tags
+      WHERE name LIKE ?"
+    );
+    $sql->execute(array($tag));
+    $foundTag = $sql->fetch();
+  } catch (PDOException $e) {
+    echo 'MySQL connection failed: ' . $e->getMessage();
+    exit();
+  }
+  //  同じ名前のタグが見つからなかったら
+  if (empty($foundTag)) {
+    $sql = $pdo->prepare(
+      "INSERT INTO tags (name)
+      VALUES (?)"
+    );
+    $sql->execute(array($tag));
+    array_push($tag_ids, $pdo->lastInsertId('id'));
+  } else {
+    array_push($tag_ids, $foundTag['id']);
+  }
+}
+
+// タグ登録
+foreach ($tag_ids as $id) {
+  try {
+    $sql = $pdo->prepare(
+     "INSERT INTO work_tags
+        (work_id, tag_id)
+      VALUES
+        (?, ?)"
+    );
+    $sql->execute(array($work_id, $id));
+  } catch (PDOException $e) {
+    echo 'MySQL connection failed: ' . $e->getMessage();
+    exit();
+  }
+}
+
 header('Location: ../index.php');
 exit();
 ?>

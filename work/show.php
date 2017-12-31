@@ -56,6 +56,22 @@ try {
   exit();
 }
 
+// 作品のタグを取得
+try {
+  $sql = $pdo->prepare(
+   "SELECT tags.name
+    FROM
+      work_tags
+      LEFT OUTER JOIN tags ON tags.id=work_tags.tag_id
+    WHERE work_tags.work_id=?"
+  );
+  $sql->execute(array($work_id));
+  $tags = $sql->fetchAll();
+} catch (PDOExctption $e) {
+  echo 'MySQL connection failed: ' . $e->getMessage();
+  exit();
+}
+
 // 作品のコメントを取得
 try {
   $sql = $pdo->prepare(
@@ -122,18 +138,46 @@ try {
     </div>
   <?php endforeach; ?>
 </div>
+<?php // Githubリポジトリ ?>
 <div class="form-group">
   <label>Githubリポジトリ</label>
-  <p><?php echo $work['github-link']; ?></p>
+  <?php if (empty($work['github-link'])): ?>
+    <p>Githubリポジトリはありません</p>
+  <?php else: ?>
+    <p><?php echo $work['github-link']; ?></p>
+  <?php endif; ?>
 </div>
+<?php // OpenProcessingリンク ?>
 <div class="form-group">
   <label>OpenProcessingリンク</label>
-  <p><?php echo $work['openprocessing-link']; ?></p>
+  <?php if (empty($work['openprocessing-link'])): ?>
+    <p>OpenProcessingリンクはありません</p>
+  <?php else: ?>
+    <p><?php echo $work['openprocessing-link']; ?></p>
+  <?php endif; ?>
 </div>
+<?php // リンク ?>
 <div class="form-group">
   <label>リンク</label>
-  <p><?php echo $work['link']; ?></p>
+  <?php if (empty($work['link'])): ?>
+    <p>リンクはありません</p>
+  <?php else: ?>
+    <p><?php echo $work['link']; ?></p>
+  <?php endif; ?>
 </div>
+<?php // タグ一覧 ?>
+<div class="form-group">
+  <label>タグ</label>
+  <div class="d-flex justify-content-start">
+    <?php if (empty($tags)): ?>
+      <p>タグがつけられていません</p>
+    <?php else: ?>
+      <?php foreach ($tags as $tag): ?>
+        <p class="mr-2"><?php echo $tag['name']; ?></p>
+      <?php endforeach; ?>
+    <?php endif; ?>
+  </div>
+</di>
 <div class="form-group">
   <label>詳細</label>
   <p><?php echo $work['detail']; ?></p>

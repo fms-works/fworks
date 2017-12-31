@@ -56,6 +56,7 @@ try {
 ?>
 <?php include('partial/top_layout.php'); ?>
 <?php // 作品一覧を表示 ?>
+<a href="work/tags/index.php">タグ一覧</a>
 <div class="row">
   <?php foreach($works as $work): ?>
     <div class="px-1 py-3 col-xs-12 col-sm-6 col-md-4 col-lg-3">

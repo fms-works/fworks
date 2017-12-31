@@ -48,6 +48,7 @@ if(empty($_POST['title']) || empty($_POST['detail'])) {
 // データを取得
 $new_title = h($_POST['title']);
 
+// TODO: 画像の更新を実装
 $images = [];
 function getImage($image_file) {
   return file_get_contents($image_file['tmp_name']);
