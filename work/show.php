@@ -21,7 +21,13 @@ $work_id = !empty($_GET['id']) ? h($_GET['id']) : 0;
 // 作品を取得する
 try {
   $sql = $pdo->prepare("
-    SELECT * FROM works
+    SELECT
+      *,
+      (
+        SELECT count(*) FROM likes
+        WHERE likes.work_id=works.id
+      ) AS likes_count
+    FROM works
     WHERE id=?
   ");
   $sql->execute(array($work_id));
@@ -68,6 +74,25 @@ try {
   echo $e;
   exit();
 }
+
+// 自分がいいねしているか取得する
+try {
+  $sql = $pdo->prepare("
+    SELECT * from LIKES
+    WHERE
+      user_id=? AND work_id=?
+  ");
+  $sql->execute(array($current_user_id, $work_id));
+  $like = $sql->fetch();
+} catch (PDOException $e) {
+  echo $e;
+  exit();
+}
+if ($like > 0) {
+  $is_liked = true;
+} else {
+  $is_liked = false;
+}
 ?>
 <?php include('../partial/top_layout.php'); ?>
 <?php // 作品表示 ?>
@@ -79,6 +104,10 @@ try {
   <label>タイトル</label>
   <p><?php echo $work['title']; ?></p>
 </div>
+<div class="form-group">
+  <p><span id="likesCount"><?php echo $work['likes_count']; ?></span>いいね</p>
+</div>
+<img class="work-heart" id="<?php echo $is_liked ? 'unlike' : 'like'; ?>" data-workid="<?php echo $work['id']; ?>" src="../assets/images/<?php echo $is_liked ? 'heart.png' : 'noheart.svg'; ?>">
 <?php foreach($work_images as $i => $image) { ?>
   <?php if ($i === 0) { ?>
     <div class="form-group">

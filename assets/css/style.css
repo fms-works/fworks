@@ -64,6 +64,14 @@
   font-size: 12px;
 }
 
+.work-heart {
+  display: block;
+  width: 25px;
+  height: 25px;
+  background-size: cover;
+  outline: 0;
+}
+
 /* post work page */
 h1.page-title {
   color: #616161;
@@ -76,7 +84,7 @@ span.note {
 
 .main_image label {
   width: 350px;
-  height: 350px;
+  max-height: 350px;
   border-radius: 5px;
 }
 
@@ -92,10 +100,9 @@ span.note {
   display: inline-block;
 }
 
-/* TODO: レスポンシブ対応 */
 .sub_image label {
   width: 200px;
-  height: 200px;
+  max-height: 200px;
 }
 
 /* 画像の自動プレビュー */
