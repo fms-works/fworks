@@ -1,4 +1,6 @@
-/* header */
+/*
+ * ヘッダー
+ */
 .header-border {
   border-radius:5px;
   -moz-box-shadow:0 1px 1px 0 rgba(0,0,0,0.2);
@@ -27,12 +29,42 @@
   background-size: contain;
 }
 
-/* footer */
+/*
+ * フッター
+ */
 .footer-border {
   border-top: 1px solid #E0E0E0;
 }
 
-/* card (work) */
+/*
+ * ログイン画面
+ */
+ .login-body {
+  background: linear-gradient(25deg, rgba(255, 255, 255, 0.5), rgba(255, 255,255 , 0.5)), url(../images/login.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  text-align: center;
+}
+
+.login-body h1 {
+  padding-top: 170px;
+  color: darkorange;
+  opacity: 0.9;
+}
+
+.login-body p {
+  color: white;
+}
+
+.login-body button {
+  margin: 100px 0;
+}
+
+/*
+ * 作品カード
+ */
 .card-shadow {
   border-radius:5px;
   -moz-box-shadow:0 2px 2px 0 rgba(0,0,0,0.2);
@@ -78,7 +110,9 @@
   outline: 0;
 }
 
-/* post work page */
+/*
+ * 作品投稿ページ
+ */
 h1.page-title {
   color: #616161;
 }
@@ -111,7 +145,6 @@ span.note {
   height: 200px;
 }
 
-/* 画像の自動プレビュー */
 .main_image input[type="file"],
 .sub_image input[type="file"] {
   display: none;
@@ -124,7 +157,9 @@ span.note {
   border-radius: 5px;
 }
 
-/* mypage */
+/*
+ * ユーザー詳細ページ
+ */
 .mypage-avatar {
   display: block;
   width: 80px;
@@ -134,32 +169,4 @@ span.note {
   border: 1px solid #E0E0E0;
   border-radius: 40px;
   background-size: contain;
-}
-
-/* Login */
-.login-body {
-  background: linear-gradient(
-                25deg, rgba(255, 255, 255, 0.5
-              ),
-            rgba(255, 255,255 , 0.5)),
-              url(../images/login.jpg);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  text-align: center;
-}
-
-.login-body h1 {
-  padding-top: 170px;
-  color: darkorange;
-  opacity: 0.9;
-}
-
-.login-body p {
-  color: white;
-}
-
-.login-body button {
-  margin: 100px 0;
 }

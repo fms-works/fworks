@@ -1,42 +1,33 @@
-// 画像投稿プレビュー
+/*
+ * 画像プレビュー機能
+ */
 $('.workImageInput').on('change', function() {
   const selectedFile = this.files[0];
-  let fileReader = new FileReader();
+  const fileReader = new FileReader();
+  // 画像の出力先
   const $output = $(this).parent().find('.workImageOutput');
 
   fileReader.onload = function(e) {
     const loadedImage = e.target.result;
     $output.css('background-image', `url(${loadedImage})`);
-    // $output.css('height', 'auto');
   };
   fileReader.readAsDataURL(selectedFile);
 });
 
-function appendComment(data) {
-  let commentElement = `
-    <div class="card my-2">
-      <div class="card-header py-1">
-        <img class="work-avatar" src="${data.user_avatar}">
-        <p class="work-username text-dark d-inline align-middle">${data.username}</p>
-      </div>
-      <div class="card-body py-2">
-        ${data.content}
-      </div>
-    </div>
-  `;
-  $('#comments').append(commentElement);
-}
-
-// コメント投稿
+/*
+ * コメント機能
+ */
 $("#postComment").on("click", function(e) {
-  let $commentInput = $("#commentInput");
+  // コメント入力欄
+  const $commentInput = $("#commentInput");
   $work_id = $(this).data('workid');
   $content = $commentInput.val();
+  // ボタンを有効化
   $(this).prop("disabled", false);
-  if ($work_id === '' || $content === '') {
-    return false;
-  }
+  // 値が足りなければ実行しない
+  if ($work_id === '' || $content === '') return false;
 
+  // コメント作成リクエスト送信
   $.ajax({
     type: 'POST',
     url: './comment/create.php',
@@ -54,17 +45,30 @@ $("#postComment").on("click", function(e) {
   return false;
 });
 
-function changeLikeIcon(name, id) {
-  let $heart = $('img.work-heart');
-  $heart.attr('id', id);
-  $heart.attr(
-    'src', `../assets/images/${name}`
-  );
+// コメントを挿入する関数
+function appendComment(data) {
+  const commentElement = `
+    <div class="card my-2">
+      <div class="card-header py-1">
+        <img class="work-avatar" src="${data.user_avatar}">
+        <p class="work-username text-dark d-inline align-middle">${data.username}</p>
+      </div>
+      <div class="card-body py-2">
+        ${data.content}
+      </div>
+    </div>
+  `;
+  $('#comments').append(commentElement);
 }
 
+/*
+ * いいね関連機能
+ */
 // いいね
 $(document).on('click', '#like', function() {
-  let $work_id = $(this).data('workid');
+  const $work_id = $(this).data('workid');
+
+  // いいね登録リクエスト送信
   $.ajax({
     type: 'POST',
     url: './like/create.php',
@@ -72,6 +76,7 @@ $(document).on('click', '#like', function() {
   }).done(function(data) {
     if (data === 'like success') {
       changeLikeIcon('heart.png', 'unlike');
+      // いいね数を増やす
       $likesCountElement = $('#likesCount');
       $count = Number($likesCountElement.text()) + 1;
       $likesCountElement.text($count);
@@ -82,7 +87,9 @@ $(document).on('click', '#like', function() {
 
 // いいね取り消し
 $(document).on('click', '#unlike', function() {
-  let $work_id = $(this).data('workid');
+  const $work_id = $(this).data('workid');
+
+  // いいね取り消しリクエスト送信
   $.ajax({
     type: 'POST',
     url: './like/destroy.php',
@@ -90,6 +97,7 @@ $(document).on('click', '#unlike', function() {
   }).done(function(data) {
     if (data === 'unlike success') {
       changeLikeIcon('noheart.svg', 'like');
+      // いいね数を減らす
       $likesCountElement = $('#likesCount');
       $count = Number($likesCountElement.text()) - 1;
       $likesCountElement.text($count);
@@ -97,3 +105,10 @@ $(document).on('click', '#unlike', function() {
   });
   return false;
 });
+
+// いいねアイコンを変更する関数
+function changeLikeIcon(name, id) {
+  const $heart = $('img.work-heart');
+  $heart.attr('id', id);
+  $heart.attr('src', `../assets/images/${name}`);
+}
