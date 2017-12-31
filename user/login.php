@@ -1,12 +1,11 @@
 <?php
 session_start();
-
 require_once('../common.php');
 
 $title = 'ログイン';
 $path = '../';
 ?>
-<?php $path='../'; include('../partial/top_layout.php'); ?>
+<?php include('../partial/top_layout.php'); ?>
 <div class="container-fluid login-body">
   <h1>FMS Works Published Service</h1>
   <p>FMSの学生のための作品公開用SNSです。</p>

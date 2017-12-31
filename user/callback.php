@@ -1,8 +1,9 @@
 <?php
 session_start();
+require_once('../common.php');
 
-require_once '../common.php';
-require_once '../twitteroauth-0.7.4/autoload.php';
+// twitteroauthを利用
+require_once('../twitteroauth-0.7.4/autoload.php');
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 
@@ -19,8 +20,7 @@ if (isset($_REQUEST['oauth_token']) &&
 
 // インスタンス化
 $connection = new TwitterOAuth(
-  CONSUMER_KEY,
-  CONSUMER_SECRET,
+  CONSUMER_KEY, CONSUMER_SECRET,
   $request_token['oauth_token'],
   $request_token['oauth_token_secret']
 );
@@ -33,8 +33,7 @@ $access_token = $connection->oauth(
 
 // ユーザー情報取得用のインスタンス作成
 $new_connection = new TwitterOAuth(
-  CONSUMER_KEY,
-  CONSUMER_SECRET,
+  CONSUMER_KEY, CONSUMER_SECRET,
   $access_token['oauth_token'],
   $access_token['oauth_token_secret']
 );
@@ -56,11 +55,16 @@ foreach($users as $user) {
   if ($user['token'] === $token) {
     $selected_user = $user;
     // アバターをアップデート
-    $sql = $pdo->prepare("
-      UPDATE users SET avatar=?
-      WHERE id=?
-    ");
-    $sql->execute(array($avatar, $user['id']));
+    try {
+      $sql = $pdo->prepare(
+      "UPDATE users SET avatar=?
+        WHERE id=?"
+      );
+      $sql->execute(array($avatar, $user['id']));
+    } catch (PDOException $e) {
+      echo 'MySQL connection failed: ' . $e->getMessage();;
+      exit();
+    }
     $_SESSION['current_user_id'] = $selected_user['id'];
     break;
   }
@@ -69,15 +73,20 @@ foreach($users as $user) {
 // 登録されていないユーザーなら登録してログインする
 if ($selected_user === null) {
   $date = date("Y-m-d H:i:s");
-  $sql = $pdo->prepare("
-    INSERT INTO users (
-      token, token_secret, screen_name, name, avatar, created_at
-    ) VALUES (
-      ?, ?, ?, ?, ?
-  )");
-  $sql->execute(
-    array($token, $token_secret, $screen_name, $name, $avatar, $date)
-  );
+  try {
+    $sql = $pdo->prepare(
+    "INSERT INTO users
+        (token, token_secret, screen_name, name, avatar, created_at)
+      VALUES
+        (?, ?, ?, ?, ?)"
+    );
+    $sql->execute(
+      array($token, $token_secret, $screen_name, $name, $avatar, $date)
+    );
+  } catch (PDOException $e) {
+    echo 'MySQL connection failed: ' . $e->getMessage();
+    exit();
+  }
   $_SESSION['current_user_id'] = $pdo->lastInsertId('id');
 }
 

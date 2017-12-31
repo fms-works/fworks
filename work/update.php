@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 require_once('../common.php');
 
 // current_user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
@@ -23,14 +22,14 @@ if (empty($work_id)) {
 
 // 作品を取得
 try {
-  $sql = $pdo->prepare("
-    SELECT user_id FROM works
-    WHERE id=?
-  ");
+  $sql = $pdo->prepare(
+   "SELECT user_id FROM works
+    WHERE id=?"
+  );
   $sql->execute(array($work_id));
   $work = $sql->fetch();
 } catch (PDOException $e) {
-  echo $e;
+  echo 'MySQL connection failed: ' . $e->getMessage();
   exit();
 }
 
@@ -41,13 +40,7 @@ if (empty($work) || $work['user_id'] !== $current_user_id) {
 }
 
 // バリデーション
-$_SESSION['empty_title']  = false;
-$_SESSION['empty_detail'] = false;
-
 if(empty($_POST['title']) || empty($_POST['detail'])) {
-  if(empty($_POST['title']))  $_SESSION['empty_title'] = true;
-  if(empty($_POST['detail'])) $_SESSION['empty_detail'] = true;
-
   header('Location: new.php');
   exit();
 }
@@ -59,23 +52,15 @@ $images = [];
 function getImage($image_file) {
   return file_get_contents($image_file['tmp_name']);
 }
-// TODO: 画像を保存
-array_push($images, 'image');
-// array_push($images, getImage($_FILES['main_image']));
+array_push($images, getImage($_FILES['main_image']));
 if (!empty($_FILES['sub_image1']['tmp_name'])) {
-  // TODO: 画像を保存
-  array_push($images, 'image1');
-  // array_push($images, getImage($_FILES['sub_image1']));
+  array_push($images, getImage($_FILES['sub_image1']));
 }
 if (!empty($_FILES['sub_image2']['tmp_name'])) {
-  // TODO: 画像を保存
-  array_push($images, 'image2');
-  // array_push($images, getImage($_FILES['sub_image2']));
+  array_push($images, getImage($_FILES['sub_image2']));
 }
 if (!empty($_FILES['sub_image3']['tmp_name'])) {
-  // TODO: 画像を保存
-  array_push($images, 'image3');
-  // array_push($images, getImage($_FILES['sub_image3']));
+  array_push($images, getImage($_FILES['sub_image3']));
 }
 $new_link   = !empty($_POST['link'])   ? h($_POST['link'])   : '';
 $new_detail = !empty($_POST['detail']) ? h($_POST['detail']) : '';
@@ -84,32 +69,32 @@ $date = date("Y-m-d H:i:s");
 
 // work更新
 try {
-  $sql = $pdo->prepare("
-    UPDATE works
+  $sql = $pdo->prepare(
+   "UPDATE works
     SET
       title=?,
       link=?,
       detail=?,
       updated_at=?
-    WHERE id=?
-  ");
+    WHERE id=?"
+  );
   $sql->execute(
     array($new_title, $new_link, $new_detail, $date, $work_id)
   );
 } catch (PDOException $e) {
-  echo $e;
+  echo 'MySQL connection failed: ' . $e->getMessage();
   exit();
 }
 
 // 既存のimageのID一覧を取得する
 try {
-  $sql = $pdo->prepare("
-    SELECT id FROM work_images
-    WHERE work_id=?
-  ");
+  $sql = $pdo->prepare(
+   "SELECT id FROM work_images
+    WHERE work_id=?"
+  );
   $sql->execute(array($work_id));
 } catch (PDOException $e) {
-  echo $e;
+  echo 'MySQL connection failed: ' . $e->getMessage();
   exit();
 }
 

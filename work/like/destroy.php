@@ -14,14 +14,16 @@ if (empty($work_id)) {
 
 try {
   $sql = $pdo->prepare(
-    "DELETE FROM likes
+   "DELETE FROM likes
     WHERE user_id=? AND work_id=?"
   );
   $sql->execute(array($current_user_id, $work_id));
 } catch (PDOException $e) {
-  echo $e;
+  echo 'MySQL connection failed: ' . $e->getMessage();
   exit();
 }
+
+// レスポンス
 echo json_encode('unlike success');
 header("Content-type: application/json; charset=UTF-8");
 exit();

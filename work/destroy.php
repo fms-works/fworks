@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 require_once('../common.php');
 
 // current_user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
@@ -23,14 +22,14 @@ if (empty($work_id)) {
 
 // 自分の作品を取得
 try {
-  $sql = $pdo->prepare("
-    SELECT user_id FROM works
-    WHERE id=?
-  ");
+  $sql = $pdo->prepare(
+   "SELECT user_id FROM works
+    WHERE id=?"
+  );
   $sql->execute(array($work_id));
   $work = $sql->fetch();
 } catch (PDOException $e) {
-  echo $e;
+  echo 'MySQL connection failed: ' . $e->getMessage();
   exit();
 }
 
@@ -42,13 +41,13 @@ if (empty($work) || $work['user_id'] !== $current_user_id) {
 
 // 作品の削除
 try {
-  $sql = $pdo->prepare("
-    DELETE FROM works
-    WHERE id=?
-  ");
+  $sql = $pdo->prepare(
+   "DELETE FROM works
+    WHERE id=?"
+  );
   $sql->execute(array($work_id));
 } catch (PDOExcdption $e) {
-  echo $e;
+  echo 'MySQL connection failed: ' . $e->getMessage();
   exit();
 }
 

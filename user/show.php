@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 require_once('../common.php');
 
 $path = '../';
@@ -29,45 +28,44 @@ if (empty($user_data)) {
 
 // 作品一覧を表示する
 try {
-  $works = $pdo->query("
-    SELECT
+  $works = $pdo->query(
+   "SELECT
       works.*,
       (
         SELECT content FROM work_images
         WHERE work_id=works.id AND work_images.main=1
         LIMIT 1
-      ) AS first_work_image
+      ) AS first_work_image,
+      (
+        SELECT count(*) FROM likes
+        WHERE likes.work_id=works.id
+      ) AS likes_count
     FROM works
     WHERE works.user_id=$user_id
-  ")->fetchAll();
+    ORDER BY works.created_at DESC"
+  )->fetchAll();
 } catch (PDOException $e) {
-  echo $e;
+  echo 'MySQL connection failed: ' . $e->getMessage();
   exit();
 }
 ?>
 <?php include('../partial/top_layout.php'); ?>
 <?php // プロフィール ?>
 <h2 class="py-4">
-  <?php if ($current_user_id === $user_id) { ?>
-    マイページ
-  <?php } else { ?>
-      <?php echo $user_data['name']; ?>さんのページ
-  <?php } ?>
+  <?php echo $current_user_id === $user_id ? 'マイページ' : $user_data['name'] . 'さんのページ'; ?>
 </h2>
 <image src="<?php echo $user_data['avatar']; ?>" class="mypage-avatar"></image>
-<?php if ($current_user_id === $user_id) { ?>
+<?php if ($current_user_id === $user_id): ?>
   <a href="edit.php" class="btn btn-info">編集する</a>
-<?php } ?>
-<p><?php echo !empty($user['name']) ? $user['name'] : '登録されていません'; ?></p>
+<?php endif; ?>
+<p><?php echo !empty($user['name'])           ? $user['name']           : '登録されていません'; ?></p>
 <p><?php echo !empty($user['github_account']) ? $user['github_account'] : '登録されていません'; ?></p>
-<p><?php echo !empty($user['profile']) ? $user['profile'] : '登録されていません'; ?></p>
+<p><?php echo !empty($user['profile'])        ? $user['profile']        : '登録されていません'; ?></p>
 <?php // 作品一覧 ?>
 <h3 class="py-3">作品一覧</h3>
 <div class="row">
-  <?php if (empty($works)) { ?>
-    <p>まだ作品がありません</p>
-  <?php } ?>
-  <?php foreach($works as $work) { ?>
+  <?php if (empty($works)) echo '<p>まだ作品がありません</p>'; ?>
+  <?php foreach($works as $work): ?>
     <div class="px-1 py-3 col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card card-shadow">
         <a class="card-link" href="../work/show.php?id=<?php echo $work['id']; ?>">
@@ -75,17 +73,18 @@ try {
         </a>
         <div class="card-body">
           <h4 class="card-title"><?php echo $work['title']; ?></h4>
-          <p><?php echo $work['likes_count']; ?></p>
-          <?php if ($current_user_id === $user_id) { ?>
-            <div class="w-100 justify-content-end">
-              <a href="../work/edit.php?id=<?php echo $work['id']; ?>" class="btn btn-info btn-sm">編集する</a>
-              <a href="../work/destroy.php?id=<?php echo $work['id']; ?>" onClick="return confirm('削除してもよろしいですか？');" class="btn btn-danger btn-sm">削除する</a>
+          <p class="card-detail"><?php echo $work['detail']; ?></p>
+          <p><?php echo $work['likes_count']; ?>いいね</p>
+          <?php if ($current_user_id === $user_id): ?>
+            <div class="w-100 d-flex justify-content-end">
+              <a href="../work/edit.php?id=<?php echo $work['id']; ?>" class="btn btn-info btn-sm mx-1 py-0">編集</a>
+              <a href="../work/destroy.php?id=<?php echo $work['id']; ?>" onClick="return confirm('削除してもよろしいですか？');" class="btn btn-danger btn-sm py-0">削除</a>
             </div>
-          <?php } ?>
+          <?php endif; ?>
         </div>
       </div>
     </div>
-  <?php } ?>
+  <?php endforeach; ?>
 </div>
 <?php // Danger zone ?>
 <div class="py-3">

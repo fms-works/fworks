@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 require_once('common.php');
 
 $path = '';
@@ -24,17 +23,15 @@ try {
   $sql->execute(array($current_user_id));
   $user_data = $sql->fetch();
 } catch (PDOException $e) {
-  echo $e;
+  echo 'MySQL connection failed: ' . $e->getMessage();
   exit();
 }
 
 // work一覧を取得
 try {
-  $works = $pdo->query("
-    SELECT
-      works.id,
-      works.title,
-      works.detail,
+  $works = $pdo->query(
+   "SELECT
+      works.*,
       users.id     AS user_id,
       users.name   AS user_name,
       users.avatar AS user_avatar,
@@ -50,17 +47,17 @@ try {
     FROM
       works
       LEFT OUTER JOIN users ON works.user_id=users.id
-    ORDER BY works.created_at
-  ")->fetchAll();
+    ORDER BY works.created_at DESC"
+  )->fetchAll();
 } catch (PDOException $e) {
-  echo $e;
+  echo 'MySQL connection failed: ' . $e->getMessage();
   exit();
 }
 ?>
 <?php include('partial/top_layout.php'); ?>
 <?php // 作品一覧を表示 ?>
 <div class="row">
-  <?php foreach($works as $work) { ?>
+  <?php foreach($works as $work): ?>
     <div class="px-1 py-3 col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card card-shadow">
         <a class="card-link" href="work/show.php?id=<?php echo $work['id']; ?>">
@@ -77,6 +74,6 @@ try {
         </div>
       </div>
     </div>
-  <?php } ?>
+  <?php endforeach; ?>
 </div>
 <?php include('partial/bottom_layout.php'); ?>

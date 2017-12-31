@@ -1,8 +1,9 @@
 <?php
 session_start();
+require_once('../common.php');
 
-require_once '../common.php';
-require_once '../twitteroauth-0.7.4/autoload.php';
+// twitteroauthライブラリを利用
+require_once('../twitteroauth-0.7.4/autoload.php');
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 

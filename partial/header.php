@@ -1,6 +1,4 @@
-<?php
-if (empty($path)) $path = '';
-?>
+<?php if (empty($path)) $path = ''; ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-white header-border">
   <a href="<?php echo $path; ?>index.php" class="navbar-brand">
     <h3 class="title-color">FMS Works Published Service</h3>
@@ -10,7 +8,7 @@ if (empty($path)) $path = '';
   </button>
   <div class="collapse navbar-collapse flex-row-reverse" id="navbarSupportedContent">
     <div class="navbar-nav">
-      <?php if (!empty($_SESSION['current_user_id'])) { ?>
+      <?php if (!empty($_SESSION['current_user_id'])): ?>
         <div class="nav-item">
           <a class="nav-link text-dark d-inline align-middle" href="<?php echo $path; ?>work/new.php">投稿する</a>
         </div>
@@ -23,11 +21,11 @@ if (empty($path)) $path = '';
             <a class="dropdown-item" href="<?php echo $path; ?>user/logout.php">ログアウト</a>
           </div>
         </div>
-      <?php } else { ?>
+      <?php else: ?>
         <div class="nav-item">
           <a class="nav-link text-dark d-inline align-middle" href="<?php echo $path; ?>user/login.php">ログインする</a>
         </div>
-      <?php } ?>
+      <?php endif; ?>
     </div>
   </div>
 </nav>

@@ -16,17 +16,18 @@ $date = date("Y-m-d H:i:s");
 
 try {
   $sql = $pdo->prepare(
-    "INSERT INTO likes (
-      user_id, work_id, created_at
-    ) VALUES (
-      ?, ?, ?
-    )"
+   "INSERT INTO likes
+      (user_id, work_id, created_at)
+    VALUES
+      (?, ?, ?)"
   );
   $sql->execute(array($current_user_id, $work_id, $date));
 } catch (PDOException $e) {
-  echo $e;
+  echo 'MySQL connection failed: ' . $e->getMessage();
   exit();
 }
+
+// レスポンス
 echo json_encode('like success');
 header("Content-type: application/json; charset=UTF-8");
 exit();

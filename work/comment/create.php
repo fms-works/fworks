@@ -18,17 +18,17 @@ $date = date("Y-m-d H:i:s");
 
 // commentsにINSERTする
 try {
-  $sql = $pdo->prepare("
-    INSERT INTO comments (
-      content, user_id, work_id, created_at
-    ) VALUES (
-      ?, ?, ?, ?
-  )");
+  $sql = $pdo->prepare(
+   "INSERT INTO comments
+      (content, user_id, work_id, created_at)
+    VALUES
+      (?, ?, ?, ?)"
+  );
   $sql->execute(
     array($content, $current_user_id, $work_id, $date)
   );
 } catch (PDOException $e) {
-  echo $e;
+  echo 'MySQL connection failed: ' . $e->getMessage();
   exit();
 }
 
