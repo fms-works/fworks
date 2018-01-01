@@ -85,7 +85,7 @@ try {
 ?>
 <?php include('partial/top_layout.php'); ?>
 <?php // 作品一覧を表示 ?>
-<a href="work/tags/index.php">タグ一覧</a>
+<a href="work/tags/index.php" class="btn btn-primary px-3">タグ一覧</a>
 <div class="row">
   <?php include('work/_pagination.php'); ?>
   <?php foreach($works as $work): ?>
