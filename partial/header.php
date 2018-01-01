@@ -14,7 +14,7 @@
         </div>
         <div class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img class="nav-avatar align-top" src="<?php echo $user_data['avatar']; ?>"></img>
+            <img class="nav-avatar align-top lazy" src="<?php echo $path; ?>assets/images/no_image.png" data-src="<?php echo $user_data['avatar']; ?>">
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="<?php echo $path; ?>user/show.php">マイページ</a>

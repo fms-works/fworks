@@ -122,19 +122,16 @@ try {
 <?php foreach($work_images as $i => $image): ?>
   <?php if ($image['num'] === '0'): ?>
     <div class="form-group">
-      <image src="data:image/png;base64,<?php echo $image['content']; ?>" alt="image" class="img-thumbnail rounded">
+      <img src="../assets/images/no_image.png" data-src="data:image/png;base64,<?php echo $image['content']; ?>" alt="image" class="img-thumbnail rounded lazy">
     </div>
-    <?php
-      array_splice($work_images, $i, 1);
-      break;
-    ?>
+    <?php array_splice($work_images, $i, 1); break; ?>
   <?php endif; ?>
 <?php endforeach; ?>
 <?php // サブ画像 ?>
 <div class="form-group row">
   <?php foreach($work_images as $image): ?>
     <div class="col-xs-12 col-sm-6 col-md-4">
-      <image src="data:image/png;base64,<?php echo $image['content']; ?>" alt="image" class="img-thumbnail rounded">
+      <img src="../assets/images/no_image.png" data-src="data:image/png;base64,<?php echo $image['content']; ?>" alt="image" class="img-thumbnail rounded lazy">
     </div>
   <?php endforeach; ?>
 </div>
@@ -196,7 +193,7 @@ try {
   <?php foreach ($comments as $comment): ?>
     <div class="card my-2">
       <div class="card-header py-1">
-        <img class="work-avatar" src="<?php echo $comment['user_avatar']; ?>">
+        <img class="work-avatar lazy" src="../assets/images/no_image.png" data-src="<?php echo $comment['user_avatar']; ?>">
         <p class="work-username text-dark d-inline align-middle">えびけん</p>
       </div>
       <div class="card-body py-2">

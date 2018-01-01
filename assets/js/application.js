@@ -1,4 +1,11 @@
 /*
+ * 画像の遅延ロード
+ */
+$(function(){
+  $('img.lazy').lazyload();
+});
+
+/*
  * 画像プレビュー機能
  */
 $('.workImageInput').on('change', function() {

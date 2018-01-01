@@ -54,7 +54,7 @@ try {
 <h2 class="py-4">
   <?php echo $current_user_id === $user_id ? 'マイページ' : $user_data['name'] . 'さんのページ'; ?>
 </h2>
-<image src="<?php echo $user_data['avatar']; ?>" class="mypage-avatar"></image>
+<img src="../assets/images/no_image.png" data-src="<?php echo $user_data['avatar']; ?>" class="mypage-avatar lazy">
 <?php if ($current_user_id === $user_id): ?>
   <a href="edit.php" class="btn btn-info">編集する</a>
 <?php endif; ?>
@@ -69,7 +69,7 @@ try {
     <div class="px-1 py-3 col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card card-shadow">
         <a class="card-link" href="../work/show.php?id=<?php echo $work['id']; ?>">
-          <img class="card-img-top" src="data:image/png;base64,<?php echo $work['first_work_image']; ?>" alt="work image">
+          <img class="card-img-top lazy" src="../assets/images/no_image.png" data-src="data:image/png;base64,<?php echo $work['first_work_image']; ?>" alt="work image">
         </a>
         <div class="card-body">
           <h4 class="card-title"><?php echo $work['title']; ?></h4>
