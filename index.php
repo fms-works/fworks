@@ -2,8 +2,35 @@
 session_start();
 require_once('common.php');
 
+define('WORKS_PER_PAGE', 16);
+
 $path = '';
 $title = 'トップ';
+
+// 作品数を取得
+try {
+  $works_count = $pdo->query(
+    "SELECT count(*) FROM works"
+  )->fetchColumn();
+} catch (PDOException $e) {
+  echo 'MySQL connection failed: ' . $e->getMessage();
+  exit();
+}
+$page_num = ceil($works_count / WORKS_PER_PAGE);
+
+// ページネーション
+if(!empty($_GET['page']) && preg_match('/^\d+$/', $_GET['page'])) {
+  $page = (int)h($_GET['page']);
+} else {
+  $page = 1;
+}
+$offset = ($page - 1) * WORKS_PER_PAGE;
+
+// 作品が存在しないページを選択したらリダイレクトする
+if ($page > $page_num) {
+  header('Location: index.php');
+  exit();
+}
 
 // current_user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
 if (empty($_SESSION['current_user_id'])) {
@@ -29,7 +56,7 @@ try {
 
 // work一覧を取得
 try {
-  $works = $pdo->query(
+  $sql = $pdo->prepare(
    "SELECT
       works.*,
       users.id     AS user_id,
@@ -47,8 +74,14 @@ try {
     FROM
       works
       LEFT OUTER JOIN users ON works.user_id=users.id
-    ORDER BY works.created_at DESC"
-  )->fetchAll();
+    ORDER BY works.created_at DESC
+    LIMIT :offset, :per
+    "
+  );
+  $sql->bindValue(':offset', $offset, PDO::PARAM_INT);
+  $sql->bindValue(':per', WORKS_PER_PAGE, PDO::PARAM_INT);
+  $sql->execute();
+  $works = $sql->fetchAll();
 } catch (PDOException $e) {
   echo 'MySQL connection failed: ' . $e->getMessage();
   exit();
@@ -58,6 +91,7 @@ try {
 <?php // 作品一覧を表示 ?>
 <a href="work/tags/index.php">タグ一覧</a>
 <div class="row">
+  <?php include('work/_pagination.php'); ?>
   <?php foreach($works as $work): ?>
     <div class="px-1 py-3 col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card card-shadow">
@@ -76,5 +110,6 @@ try {
       </div>
     </div>
   <?php endforeach; ?>
+  <?php include('work/_pagination.php'); ?>
 </div>
 <?php include('partial/bottom_layout.php'); ?>
