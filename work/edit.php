@@ -40,8 +40,7 @@ if (empty($work) || $work['user_id'] !== $current_user_id) {
 // 作品の画像を取得
 try {
   $sql = $pdo->prepare(
-   "SELECT *
-    FROM work_images
+   "SELECT content, num FROM work_images
     WHERE work_id=?"
   );
   $sql->execute(array($work_id));
@@ -55,7 +54,27 @@ try {
 $main_image = '';
 $sub_images = [];
 foreach($work_images as $image) {
-  $image['main'] === '1' ? $main_image = $image : array_push($sub_images, $image);
+  if ($image['num'] === '0') {
+    $main_image = $image;
+  } else {
+    array_push($sub_images, $image);
+  }
+}
+
+// 作品のタグを取得
+try {
+  $sql = $pdo->prepare(
+   "SELECT tags.name
+    FROM
+      work_tags
+      LEFT OUTER JOIN tags ON tags.id=work_tags.tag_id
+    WHERE work_tags.work_id=?"
+  );
+  $sql->execute(array($work_id));
+  $tags = $sql->fetchAll();
+} catch (PDOException $e) {
+  echo 'MySQL connection failed: ' . $e->getMessage();
+  exit();
 }
 ?>
 <?php include('../partial/top_layout.php'); ?>

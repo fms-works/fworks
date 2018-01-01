@@ -37,7 +37,7 @@ try {
       users.avatar AS user_avatar,
       (
         SELECT content FROM work_images
-        WHERE work_images.work_id=works.id AND work_images.main=1
+        WHERE work_images.work_id=works.id AND work_images.num=0
         LIMIT 1
       ) AS first_work_image,
       (

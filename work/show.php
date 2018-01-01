@@ -45,7 +45,7 @@ if (empty($work)) {
 // 作品の画像を取得
 try {
   $sql = $pdo->prepare(
-   "SELECT content, main
+   "SELECT content, num
     FROM work_images
     WHERE work_id=?"
   );
@@ -120,7 +120,7 @@ try {
 <img class="work-heart" id="<?php echo $is_liked ? 'unlike' : 'like'; ?>" data-workid="<?php echo $work['id']; ?>" src="../assets/images/<?php echo $is_liked ? 'heart.png' : 'noheart.svg'; ?>">
 <?php // メイン画像 ?>
 <?php foreach($work_images as $i => $image): ?>
-  <?php if ($image['main'] === '1'): ?>
+  <?php if ($image['num'] === '0'): ?>
     <div class="form-group">
       <image src="data:image/png;base64,<?php echo $image['content']; ?>" alt="image" class="img-thumbnail rounded">
     </div>

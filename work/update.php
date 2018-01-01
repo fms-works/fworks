@@ -48,20 +48,28 @@ if(empty($_POST['title']) || empty($_POST['detail'])) {
 // データを取得
 $new_title = h($_POST['title']);
 
-// TODO: 画像の更新を実装
+// 保存する画像の中身
 $images = [];
+// 保存する画像の番号
+$nums = [];
 function getImage($image_file) {
-  return file_get_contents($image_file['tmp_name']);
+  return base64_encode(file_get_contents($image_file['tmp_name']));
 }
-array_push($images, getImage($_FILES['main_image']));
+if (!empty($_FILES['main_image']['tmp_name'])) {
+  array_push($images, getImage($_FILES['main_image']));
+  array_push($nums, 0);
+}
 if (!empty($_FILES['sub_image1']['tmp_name'])) {
   array_push($images, getImage($_FILES['sub_image1']));
+  array_push($nums, 1);
 }
 if (!empty($_FILES['sub_image2']['tmp_name'])) {
   array_push($images, getImage($_FILES['sub_image2']));
+  array_push($nums, 2);
 }
 if (!empty($_FILES['sub_image3']['tmp_name'])) {
   array_push($images, getImage($_FILES['sub_image3']));
+  array_push($nums, 3);
 }
 $new_link   = !empty($_POST['link'])   ? h($_POST['link'])   : '';
 $new_detail = !empty($_POST['detail']) ? h($_POST['detail']) : '';
@@ -87,10 +95,45 @@ try {
   exit();
 }
 
-// 既存のimageのID一覧を取得する
+// image追加or更新
+try {
+  foreach ($images as $i => $image) {
+    $sql = $pdo->prepare(
+      "SELECT * FROM work_images
+       WHERE work_id=? AND num=?"
+    );
+    $sql->execute(array($work_id, $nums[$i]));
+    $saved_image = $sql->fetchAll();
+    // 新しく追加
+    if (empty($saved_image)) {
+      $sql = $pdo->prepare(
+         "INSERT INTO work_images
+            (content, user_id, work_id, num, created_at)
+          VALUES
+            (?, ?, ?, ?, ?)"
+      );
+      $sql->execute(
+        array($image, $current_user_id, $work_id, $nums[$i], $date)
+      );
+    } else {
+      // 更新
+      $sql = $pdo->prepare(
+       "UPDATE work_images
+        SET content=?
+        WHERE work_id=? AND num=?"
+      );
+      $sql->execute(array($image, $work_id, $nums[$i]));
+    }
+  }
+} catch (PDOException $e) {
+  echo 'MySQL connection failed: ' . $e->getMessage();
+  exit();
+}
+
+// タグ削除
 try {
   $sql = $pdo->prepare(
-   "SELECT id FROM work_images
+   "DELETE FROM work_tags
     WHERE work_id=?"
   );
   $sql->execute(array($work_id));
@@ -99,29 +142,53 @@ try {
   exit();
 }
 
-// image更新
-// TODO: image更新を実装する
-// $index = 0;
-// foreach($images as $image) {
-//   try {
-//     $sql = $pdo->prepare("
-//       UPDATE work_images
-//       SET
-//         cotent=?
-//       WHERE id=?
-//     ");
-//     // mainのimageはmainカラムを1にする
-//     if($index === 0) {
-//       $sql->execute(array($image,$work_id, 1, $date));
-//     } else {
-//       $sql->execute(array($image, $current_user_id, $work_id, 0, $date));
-//     }
-//   } catch (PDOException $e) {
-//     echo $e;
-//     exit();
-//   }
-//   $index++;
-// }
+// タグ作成
+$tags = [];
+if (!empty($_POST['tag1'])) array_push($tags, h($_POST['tag1']));
+if (!empty($_POST['tag2'])) array_push($tags, h($_POST['tag2']));
+if (!empty($_POST['tag3'])) array_push($tags, h($_POST['tag3']));
+
+$tag_ids = [];
+foreach ($tags as $tag) {
+  try {
+    $sql = $pdo->prepare(
+     "SELECT * FROM tags
+      WHERE name LIKE ?"
+    );
+    $sql->execute(array($tag));
+    $foundTag = $sql->fetch();
+  } catch (PDOException $e) {
+    echo 'MySQL connection failed: ' . $e->getMessage();
+    exit();
+  }
+  //  同じ名前のタグが見つからなかったら
+  if (empty($foundTag)) {
+    $sql = $pdo->prepare(
+      "INSERT INTO tags (name)
+      VALUES (?)"
+    );
+    $sql->execute(array($tag));
+    array_push($tag_ids, $pdo->lastInsertId('id'));
+  } else {
+    array_push($tag_ids, $foundTag['id']);
+  }
+}
+
+// タグ登録
+foreach ($tag_ids as $id) {
+  try {
+    $sql = $pdo->prepare(
+     "INSERT INTO work_tags
+        (work_id, tag_id)
+      VALUES
+        (?, ?)"
+    );
+    $sql->execute(array($work_id, $id));
+  } catch (PDOException $e) {
+    echo 'MySQL connection failed: ' . $e->getMessage();
+    exit();
+  }
+}
 
 header('Location: ../index.php');
 exit();

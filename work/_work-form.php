@@ -1,33 +1,35 @@
 <?php // タイトル ?>
 <div class="form-group py-2">
   <label for="title">タイトル <span class="note">*必須</span></label>
-  <input type="text" name="title" id="title" class="form-control" aria-describedby="titleHelp" placeholder="例) FMS Works"
+  <input type="text" name="title" id="title" class="form-control" aria-describedby="titleHelp" required placeholder="例) FMS Works"
     <?php if(!empty($work['title'])) echo 'value="' . $work['title'] . '"'; ?>>
   <small id="titleHelp" class="form-text text-muted">作品の魅力が伝わるようなタイトルをつけましょう！</small>
 </div>
 <?php // メイン画像 ?>
-<?php // TODO: 画像の更新を実装 ?>
 <div class="form-group py-2 main_image">
   <h3>メイン画像 <span class="note">*必須</span></h3>
   <input id="workImageInputMain" class="workImageInput" type="file" name="main_image" accept="image/jpg">
-  <label for="workImageInputMain" class="workImageOutput" aline="center" aria-describedby="mainImageHelp"></label>
+  <label for="workImageInputMain" class="workImageOutput" aline="center" aria-describedby="mainImageHelp"
+    <?php if (!empty($main_image)) echo "style='background-image: url(data:image/jpg;base64," . $main_image['content'] . ");'"; ?>></label>
   <small id="mainImageHelp" class="form-text text-muted">いい感じの写真をつけましょう！</small>
 </div>
 <?php // サブ画像 ?>
-<?php // TODO: 画像の更新を実装 ?>
 <div class="form-group py-2 sub_images">
   <h3>サブ画像</h3>
   <div class="mr-2 sub_image">
     <input id="workImageInputSub1" class="workImageInput" type="file" name="sub_image1" accept="image/jpg">
-    <label for="workImageInputSub1" class="workImageOutput" aline="center"></label>
+    <label for="workImageInputSub1" class="workImageOutput" aline="center"
+      <?php if (!empty($sub_images[0])) echo "style='background-image: url(data:image/jpg;base64," . $sub_images[0]['content'] . ");'"; ?>></label>
   </div>
   <div class="mr-2 sub_image">
     <input id="workImageInputSub2" class="workImageInput" type="file" name="sub_image2" accept="image/jpg">
-    <label for="workImageInputSub2" class="workImageOutput" aline="center"></label>
+    <label for="workImageInputSub2" class="workImageOutput" aline="center"
+      <?php if (!empty($sub_images[1])) echo "style='background-image: url(data:image/jpg;base64," . $sub_images[1]['content'] . ");'"; ?>></label>
   </div>
   <div class="mr-2 sub_image">
     <input id="workImageInputSub3" class="workImageInput" type="file" name="sub_image3" accept="image/jpg">
-    <label for="workImageInputSub3" class="workImageOutput" aline="center"></label>
+    <label for="workImageInputSub3" class="workImageOutput" aline="center"
+      <?php if (!empty($sub_images[2])) echo "style='background-image: url(data:image/jpg;base64," . $sub_images[2]['content'] . ");'"; ?>></label>
   </div>
   <small id="subImageHelp" class="form-text text-muted">写真が多いほうが魅力的です！</small>
 </div>
@@ -53,18 +55,20 @@
   <small id="githubHelp" class="form-text text-muted">Webサービスとして公開してみましょう！</small>
 </div>
 <?php // タグ ?>
-<?php // TODO: タグの更新を実装 ?>
 <div class="form-group py-2">
   <label for="tags">タグ</label>
   <div class="row mx-0">
-    <input type="text" name="tag1" class="col-xs-12 col-sm-10 col-md-4 form-control" placeholder="例) processing">
-    <input type="text" name="tag2" class="col-xs-12 col-sm-10 col-md-4 form-control" placeholder="例) music">
-    <input type="text" name="tag3" class="col-xs-12 col-sm-10 col-md-4 form-control" placeholder="例) 3D">
+    <input type="text" name="tag1" class="col-xs-12 col-sm-10 col-md-4 form-control" placeholder="例) processing"
+      <?php if (!empty($tags[0])) echo 'value="' . $tags[0]['name'] . '"'; ?>>
+    <input type="text" name="tag2" class="col-xs-12 col-sm-10 col-md-4 form-control" placeholder="例) music"
+      <?php if (!empty($tags[1])) echo 'value="' . $tags[1]['name'] . '"'; ?>>
+    <input type="text" name="tag3" class="col-xs-12 col-sm-10 col-md-4 form-control" placeholder="例) 3D"
+      <?php if (!empty($tags[2])) echo 'value="' . $tags[2]['name'] . '"'; ?>>
   </div>
   <small id="detailbHelp" class="form-text text-muted">タグを3つまでつけることができます！</small>
 </div>
 <div class="form-group py-2">
   <label for="detail">詳細 <span class="note">*必須</span></label>
-  <textarea name="detail" id="detail" class="form-control" rows="5" placeholder="例) これはFMSの学生が自分の作品を自由に投稿してコメントし合えるSNSです。概要は..."><?php if(!empty($work['detail'])) echo h($work['detail']); ?></textarea>
+  <textarea name="detail" id="detail" class="form-control" rows="5" required placeholder="例) これはFMSの学生が自分の作品を自由に投稿してコメントし合えるSNSです。概要は..."><?php if(!empty($work['detail'])) echo h($work['detail']); ?></textarea>
   <small id="detailbHelp" class="form-text text-muted">この作品がどんなものなのか、どういうところにこだわったのか簡単に説明しましょう！</small>
 </div>

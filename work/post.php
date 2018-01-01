@@ -67,8 +67,7 @@ foreach ($images as $i => $image) {
   array_push($insert_array, $image);
   array_push($insert_array, $current_user_id);
   array_push($insert_array, $work_id);
-  // mainのimageはmainカラムを1にするr
-  $i === 0 ? array_push($insert_array, 1) : array_push($insert_array, 0);
+  array_push($insert_array, $i);
   array_push($insert_array, $date);
 }
 
@@ -76,7 +75,7 @@ foreach ($images as $i => $image) {
 try {
   $sql = $pdo->prepare(
    "INSERT INTO work_images
-      (content, user_id, work_id, main, created_at)
+      (content, user_id, work_id, num, created_at)
     VALUES " . $values_sql
   );
   $sql->execute($insert_array);
