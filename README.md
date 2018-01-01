@@ -1,5 +1,11 @@
 # CMPⅡ (タイトル未定)
 
+## 開発
+.envファイルを作成し、必要な変数を登録する
+```sh
+$ cp .env.sample .env
+```
+
 ## 概略図
 
 ![概略図](https://user-images.githubusercontent.com/21101122/34324632-433dcc46-e8bd-11e7-9cc3-893aff638a5e.jpg)

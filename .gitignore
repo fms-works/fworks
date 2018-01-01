@@ -1,0 +1,5 @@
+# ignore mac settings file
+.DS_Store
+
+# ignore .env
+.env
