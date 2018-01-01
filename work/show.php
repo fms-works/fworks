@@ -77,6 +77,7 @@ try {
   $sql = $pdo->prepare(
    "SELECT
       comments.content,
+      users.id AS user_id,
       users.avatar AS user_avatar,
       users.name AS user_name
     FROM comments
@@ -174,7 +175,7 @@ try {
       <?php endforeach; ?>
     <?php endif; ?>
   </div>
-</di>
+</div>
 <div class="form-group">
   <label>詳細</label>
   <p><?php echo $work['detail']; ?></p>
@@ -193,8 +194,10 @@ try {
   <?php foreach ($comments as $comment): ?>
     <div class="card my-2">
       <div class="card-header py-1">
-        <img class="work-avatar lazy" src="../assets/images/no_image.png" data-src="<?php echo $comment['user_avatar']; ?>">
-        <p class="work-username text-dark d-inline align-middle">えびけん</p>
+        <a href="../user/show.php?id=<?php echo $comment['user_id']; ?>">
+          <img class="work-avatar lazy" src="../assets/images/no_image.png" data-src="<?php echo $comment['user_avatar']; ?>">
+          <p class="work-username text-dark d-inline align-middle"><?php echo $comment['user_name']; ?></p>
+        </a>
       </div>
       <div class="card-body py-2">
         <?php echo $comment['content']; ?>
@@ -203,7 +206,9 @@ try {
   <?php endforeach; ?>
 </div>
 <?php // 削除ボタン ?>
-<div class="py-3">
-  <a href="destroy.php?id=<?php echo $work_id; ?>" onClick="return confirm('削除してもよろしいですか？');" class="btn btn-danger px-4">この作品を削除する</a>
-</div>
+<?php if ($current_user_id === $work['user_id']): ?>
+  <div class="py-3">
+    <a href="destroy.php?id=<?php echo $work_id; ?>" onClick="return confirm('削除してもよろしいですか？');" class="btn btn-danger px-4">この作品を削除する</a>
+  </div>
+<?php endif; ?>
 <?php include('../partial/bottom_layout.php'); ?>

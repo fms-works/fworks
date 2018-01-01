@@ -78,7 +78,7 @@ if ($selected_user === null) {
     "INSERT INTO users
         (token, token_secret, screen_name, name, avatar, created_at)
       VALUES
-        (?, ?, ?, ?, ?)"
+        (?, ?, ?, ?, ?, ?)"
     );
     $sql->execute(
       array($token, $token_secret, $screen_name, $name, $avatar, $date)

@@ -15,16 +15,26 @@ $current_user_id = $_SESSION['current_user_id'];
 
 // ユーザー情報の削除
 try {
-  $pdo->query(
+  $sql = $pdo->prepare(
    "DELETE FROM users
-    WHERE id=$current_user_id"
+    WHERE id=?"
   );
+  $sql->execute(array($current_user_id));
 } catch (PDOException $e) {
   echo 'MySQL connection failed: ' . $e->getMessage();;
   exit();
 }
 
-// TODO: 紐づく作品も削除する
+try {
+  $sql = $pdo->prepare(
+   "DELETE FROM works
+    WHERE user_id=?"
+  );
+  $sql->execute(array($current_user_id));
+} catch (PDOException $e) {
+  echo 'MySQL connection failed: ' . $e->getMessage();
+  exit();
+}
 
 session_destroy();
 ?>

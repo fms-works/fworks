@@ -13,17 +13,18 @@ if (empty($_SESSION['current_user_id'])) {
 
 // 現在のユーザーのIDを取得
 $current_user_id = $_SESSION['current_user_id'];
+$user_data = get_user_data($pdo, $current_user_id);
 
 // 表示するユーザーを取得
 $user_id = !empty($_GET['id']) ? h($_GET['id']) : $current_user_id;
-$user_data = get_user_data($pdo, $user_id);
+$show_user_data = get_user_data($pdo, $user_id);
 
 // 存在しないユーザーを選択したら自分のプロフィールページに遷移する
-if (empty($user_data)) {
-  header("Location: show.php?id=$current_user_id");
+if (empty($show_user_data)) {
+  header("Location: show.php");
   exit();
 } else {
-  $user = $user_data;
+  $user = $show_user_data;
 }
 
 // 作品一覧を表示する
@@ -52,9 +53,9 @@ try {
 <?php include('../partial/top_layout.php'); ?>
 <?php // プロフィール ?>
 <h2 class="py-4">
-  <?php echo $current_user_id === $user_id ? 'マイページ' : $user_data['name'] . 'さんのページ'; ?>
+  <?php echo $current_user_id === $user_id ? 'マイページ' : $show_user_data['name'] . 'さんのページ'; ?>
 </h2>
-<img src="../assets/images/no_image.png" data-src="<?php echo $user_data['avatar']; ?>" class="mypage-avatar lazy">
+<img src="../assets/images/no_image.png" data-src="<?php echo $show_user_data['avatar']; ?>" class="mypage-avatar lazy">
 <?php if ($current_user_id === $user_id): ?>
   <a href="edit.php" class="btn btn-info">編集する</a>
 <?php endif; ?>
@@ -86,10 +87,12 @@ try {
     </div>
   <?php endforeach; ?>
 </div>
-<?php // Danger zone ?>
-<div class="py-3">
-  <a href="destroy.php" onClick="return confirm('ユーザー情報を復元することはできません。本当に退会しますか？');" class="btn btn-danger px-4">
-    退会する
-  </a>
-</div>
+<?php if ($current_user_id === $work['user_id']): ?>
+  <?php // Danger zone ?>
+  <div class="py-3">
+    <a href="destroy.php" onClick="return confirm('投稿した作品やユーザー情報は削除され、復元することはできません。本当に退会しますか？');" class="btn btn-danger px-4">
+      退会する
+    </a>
+  </div>
+<?php endif; ?>
 <?php include('../partial/bottom_layout.php'); ?>
