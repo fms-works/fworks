@@ -62,21 +62,17 @@ try {
       users.id     AS user_id,
       users.name   AS user_name,
       users.avatar AS user_avatar,
-      (
-        SELECT content FROM work_images
+      ( SELECT content FROM work_images
         WHERE work_images.work_id=works.id AND work_images.num=0
         LIMIT 1
       ) AS first_work_image,
-      (
-        SELECT count(*) FROM likes
+      ( SELECT count(*) FROM likes
         WHERE likes.work_id=works.id
       ) AS likes_count
-    FROM
-      works
-      LEFT OUTER JOIN users ON works.user_id=users.id
+    FROM works
+    LEFT OUTER JOIN users ON works.user_id=users.id
     ORDER BY works.created_at DESC
-    LIMIT :offset, :per
-    "
+    LIMIT :offset, :per"
   );
   $sql->bindValue(':offset', $offset, PDO::PARAM_INT);
   $sql->bindValue(':per', WORKS_PER_PAGE, PDO::PARAM_INT);

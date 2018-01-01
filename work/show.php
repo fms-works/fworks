@@ -22,8 +22,7 @@ try {
   $sql = $pdo->prepare(
    "SELECT
       *,
-      (
-        SELECT count(*) FROM likes
+      ( SELECT count(*) FROM likes
         WHERE likes.work_id=works.id
       ) AS likes_count
     FROM works
@@ -60,9 +59,8 @@ try {
 try {
   $sql = $pdo->prepare(
    "SELECT tags.name
-    FROM
-      work_tags
-      LEFT OUTER JOIN tags ON tags.id=work_tags.tag_id
+    FROM work_tags
+    LEFT OUTER JOIN tags ON tags.id=work_tags.tag_id
     WHERE work_tags.work_id=?"
   );
   $sql->execute(array($work_id));
@@ -81,7 +79,7 @@ try {
       users.avatar AS user_avatar,
       users.name AS user_name
     FROM comments
-      LEFT OUTER JOIN users ON users.id=comments.user_id
+    LEFT OUTER JOIN users ON users.id=comments.user_id
     WHERE comments.work_id=?"
   );
   $sql->execute(array($work_id));

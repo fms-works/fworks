@@ -65,9 +65,8 @@ foreach($work_images as $image) {
 try {
   $sql = $pdo->prepare(
    "SELECT tags.name
-    FROM
-      work_tags
-      LEFT OUTER JOIN tags ON tags.id=work_tags.tag_id
+    FROM work_tags
+    LEFT OUTER JOIN tags ON tags.id=work_tags.tag_id
     WHERE work_tags.work_id=?"
   );
   $sql->execute(array($work_id));

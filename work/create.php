@@ -107,7 +107,7 @@ foreach ($tags as $tag) {
   if (empty($foundTag)) {
     $sql = $pdo->prepare(
       "INSERT INTO tags (name)
-      VALUES (?)"
+       VALUES (?)"
     );
     $sql->execute(array($tag));
     array_push($tag_ids, $pdo->lastInsertId('id'));

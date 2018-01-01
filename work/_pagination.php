@@ -1,5 +1,5 @@
 <?php if ($page_num > 1): ?>
-  <ul class="col-12 pagination pagination-sm justify-content-center">
+  <ul class="col-12 my-4 pagination pagination-sm justify-content-center">
     <li class="page-item<?php if ($page === 1) echo ' disabled'; ?>">
       <a class="page-link" href="index.php" tabindex="-2">&laquo;&laquo;</a>
     </li>
