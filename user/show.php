@@ -77,8 +77,8 @@ try {
     </a>
   <?php endif; ?>
 </div>
-<div class="form-group py-3">
-  <label>プロフィール</label>
+<div class="py-3">
+  <h5 class="py-1 my-2 page-title">プロフィール</h5>
   <p><?php echo !empty($user['profile']) ? $user['profile'] : '登録されていません'; ?></p>
 </div>
 <?php // 作品一覧 ?>

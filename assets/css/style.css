@@ -47,26 +47,17 @@
  * ログイン画面
  */
  .login-body {
-  background: linear-gradient(25deg, rgba(255, 255, 255, 0.5), rgba(255, 255,255 , 0.5)), url(../images/login.jpg);
+  background: linear-gradient(25deg, rgba(0, 0, 0, 0.7), rgba(255, 255, 255, 0.7)), url(../images/login.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  padding: 100px 0;
   text-align: center;
 }
 
-.login-body h1 {
-  padding-top: 170px;
-  color: darkorange;
-  opacity: 0.9;
-}
-
-.login-body p {
-  color: white;
-}
-
-.login-body button {
-  margin: 100px 0;
+.login-title {
+  color: #FFB74D;
 }
 
 /*
