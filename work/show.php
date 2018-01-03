@@ -139,7 +139,7 @@ try {
     <?php endforeach; ?>
   </div>
   <div class="col-1 d-flex justify-content-end">
-    <img class="card-heart my-1" id="<?php echo $is_liked ? 'unlike' : 'like'; ?>" data-workid="<?php echo $work['id']; ?>" src="../assets/images/<?php echo $is_liked ? 'heart.png' : 'noheart.svg'; ?>">
+    <img class="work-heart card-heart my-1" id="<?php echo $is_liked ? 'unlike' : 'like'; ?>" data-workid="<?php echo $work['id']; ?>" src="../assets/images/<?php echo $is_liked ? 'heart.png' : 'noheart.svg'; ?>">
     <span id="likesCount" class="px-1 text-danger"><?php echo $work['likes_count']; ?></span>
   </div>
 </div>
