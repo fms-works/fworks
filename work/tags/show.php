@@ -46,7 +46,8 @@ try {
     WHERE tag_id=?"
   );
   $sql->execute(array($tag_id));
-  $works_count = $sql->fetch()['count'];
+  $result = $sql->fetch();
+  $works_count = $result['count'];
 } catch (PDOException $e) {
   echo 'MySQL connection failed: ' . $e->getMessage();
   exit();
