@@ -20,7 +20,7 @@ if(empty($_POST['title']) || empty($_FILES['main_image']) || empty($_POST['detai
 // データを取得
 $new_title = h($_POST['title']);
 
-$images = [];
+$images = array();
 function getImage($image_file) {
   return base64_encode(file_get_contents($image_file['tmp_name']));
 }
@@ -62,7 +62,7 @@ for ($i = 0; $i < count($images); $i++) {
   $values_sql .= "(?, ?, ?, ?, ?)";
 }
 
-$insert_array = [];
+$insert_array = array();
 foreach ($images as $i => $image) {
   array_push($insert_array, $image);
   array_push($insert_array, $current_user_id);
@@ -85,12 +85,12 @@ try {
 }
 
 // タグ取得
-$tags = [];
+$tags = array();
 if (!empty($_POST['tag1'])) array_push($tags, h($_POST['tag1']));
 if (!empty($_POST['tag2'])) array_push($tags, h($_POST['tag2']));
 if (!empty($_POST['tag3'])) array_push($tags, h($_POST['tag3']));
 
-$tag_ids = [];
+$tag_ids = array();
 foreach ($tags as $tag) {
   try {
     $sql = $pdo->prepare(

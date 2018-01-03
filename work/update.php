@@ -49,9 +49,9 @@ if(empty($_POST['title']) || empty($_POST['detail'])) {
 $new_title = h($_POST['title']);
 
 // 保存する画像の中身
-$images = [];
+$images = array();
 // 保存する画像の番号
-$nums = [];
+$nums = array();
 function getImage($image_file) {
   return base64_encode(file_get_contents($image_file['tmp_name']));
 }
@@ -143,12 +143,12 @@ try {
 }
 
 // タグ作成
-$tags = [];
+$tags = array();
 if (!empty($_POST['tag1'])) array_push($tags, h($_POST['tag1']));
 if (!empty($_POST['tag2'])) array_push($tags, h($_POST['tag2']));
 if (!empty($_POST['tag3'])) array_push($tags, h($_POST['tag3']));
 
-$tag_ids = [];
+$tag_ids = array();
 foreach ($tags as $tag) {
   try {
     $sql = $pdo->prepare(

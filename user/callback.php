@@ -8,7 +8,7 @@ require_once('../twitteroauth-0.7.4/autoload.php');
 use Abraham\TwitterOAuth\TwitterOAuth;
 
 // トークンをセット
-$request_token = [];
+$request_token = array();
 $request_token['oauth_token']        = $_SESSION['oauth_token'];
 $request_token['oauth_token_secret'] = $_SESSION['oauth_token_secret'];
 

@@ -52,7 +52,7 @@ try {
 
 // メイン画像とサブ画像を分類
 $main_image = '';
-$sub_images = [];
+$sub_images = array();
 foreach($work_images as $image) {
   if ($image['num'] === '0') {
     $main_image = $image;
