@@ -39,7 +39,7 @@ $new_connection = new TwitterOAuth(
 );
 
 // ユーザー情報取得
-$user = $new_connection->get('account/verify_credentials');
+$user = $new_connection->get('account/verify_credentials', array());
 $screen_name  = $user->screen_name;
 $name         = $user->name;
 $token        = $access_token['oauth_token'];

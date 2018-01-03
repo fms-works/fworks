@@ -14,11 +14,11 @@ class Response
     /** @var int HTTP status code from the most recent request */
     private $httpCode = 0;
     /** @var array HTTP headers from the most recent request */
-    private $headers = [];
+    private $headers = array();
     /** @var array|object Response body from the most recent request */
-    private $body = [];
+    private $body = array();
     /** @var array HTTP headers from the most recent request that start with X */
-    private $xHeaders = [];
+    private $xHeaders = array();
 
     /**
      * @param string $apiPath
@@ -92,7 +92,7 @@ class Response
     /**
      * @param array $xHeaders
      */
-    public function setXHeaders(array $xHeaders = [])
+    public function setXHeaders(array $xHeaders)
     {
         $this->xHeaders = $xHeaders;
     }

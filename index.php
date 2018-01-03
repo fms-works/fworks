@@ -37,7 +37,7 @@ if(!empty($_GET['page']) && preg_match('/^\d+$/', $_GET['page'])) {
 $offset = ($page - 1) * WORKS_PER_PAGE;
 
 // 作品が存在しないページを選択したらリダイレクトする
-if ($page > $page_num) {
+if ($page !== 1 && $page > $page_num) {
   header('Location: index.php');
   exit();
 }

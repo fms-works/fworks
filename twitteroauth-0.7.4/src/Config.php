@@ -24,7 +24,7 @@ class Config
     /** @var string User-Agent header */
     protected $userAgent = 'TwitterOAuth (+https://twitteroauth.com)';
     /** @var array Store proxy connection details */
-    protected $proxy = [];
+    protected $proxy = array();
 
     /** @var bool Whether to encode the curl requests with gzip or not */
     protected $gzipEncoding = true;
