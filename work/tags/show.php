@@ -100,6 +100,15 @@ try {
 }
 ?>
 <?php include('../../partial/top_layout.php'); ?>
-<h1 class="py-3 my-4"><?php echo $tag['name'] ?>というタグが付けられた作品</h1>
+<div class="pt-3 pb-1 my-4 d-flex justify-content-start">
+  <div class="px-0 col-3 mr-2">
+    <a href="tags/show.php?id=<?php echo $tag['id']; ?>" class="px-0">
+      <button type="button" class="w-100 px-0 py-1 btn btn-outline-info">
+        <?php echo $tag['name']; ?>
+      </button>
+    </a>
+  </div>
+  <p class="py-1 text-secondary">タグが付けられた作品</p>
+</div>
 <?php include('_works.php'); ?>
 <?php include('../../partial/bottom_layout.php'); ?>
