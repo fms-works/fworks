@@ -36,6 +36,9 @@ try {
         WHERE work_id=works.id AND work_images.num=0
         LIMIT 1
       ) AS first_work_image,
+      ( SELECT count(*) FROM comments
+        WHERE comments.work_id=works.id
+      ) AS comments_count,
       ( SELECT count(*) FROM likes
         WHERE likes.work_id=works.id
       ) AS likes_count
@@ -94,9 +97,20 @@ try {
         <div class="card-body">
           <h4 class="card-title"><?php echo $work['title']; ?></h4>
           <p class="card-detail"><?php echo $work['detail']; ?></p>
-          <p><?php echo $work['likes_count']; ?>いいね</p>
+          <div class="d-flex justify-content-between pt-4">
+            <a class="card-user-link" href="../user/show.php?id=<?php echo $user['id']; ?>">
+              <img class="work-avatar lazy" src="../assets/images/no_image.png" data-src="<?php echo $user['avatar']; ?>">
+              <p class="work-username text-secondary"><?php echo $user['name']; ?></p>
+            </a>
+            <div>
+              <img class="card-comment" src="../assets/images/comment.svg">
+              <span class="text-secondary mr-1"><?php echo $work['comments_count']; ?></span>
+              <img class="card-heart" src="../assets/images/heart.png">
+              <span class="text-danger"><?php echo $work['likes_count']; ?></span>
+            </div>
+          </div>
           <?php if ($current_user_id === $user_id): ?>
-            <div class="w-100 d-flex justify-content-end">
+            <div class="w-100 pt-3 d-flex justify-content-end">
               <a href="../work/edit.php?id=<?php echo $work['id']; ?>" class="btn btn-info btn-sm mx-1 py-0">編集</a>
               <a href="../work/destroy.php?id=<?php echo $work['id']; ?>" onClick="return confirm('削除してもよろしいですか？');" class="btn btn-danger btn-sm py-0">削除</a>
             </div>

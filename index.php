@@ -71,6 +71,9 @@ try {
         WHERE work_images.work_id=works.id AND work_images.num=0
         LIMIT 1
       ) AS first_work_image,
+      ( SELECT count(*) FROM comments
+        WHERE comments.work_id=works.id
+      ) AS comments_count,
       ( SELECT count(*) FROM likes
         WHERE likes.work_id=works.id
       ) AS likes_count
@@ -96,6 +99,9 @@ try {
         WHERE work_images.work_id=works.id AND work_images.num=0
         LIMIT 1
       ) AS first_work_image,
+      ( SELECT count(*) FROM comments
+        WHERE comments.work_id=works.id
+      ) AS comments_count,
       ( SELECT count(*) FROM likes
         WHERE likes.work_id=works.id
       ) AS likes_count
@@ -119,7 +125,7 @@ try {
 <div class="row my-2 mx-0 px-0">
   <?php foreach ($popular_tags as $tag): ?>
     <div class="col-3">
-      <a href="tags/show.php?id=<?php echo $tag['id']; ?>" class="px-0">
+      <a href="work/tags/show.php?id=<?php echo $tag['id']; ?>" class="px-0">
         <button type="button" class="w-100 px-0 py-1 btn btn-outline-info">
           <?php echo $tag['name']; ?>
         </button>
@@ -146,6 +152,8 @@ try {
               <p class="work-username text-secondary"><?php echo $work['user_name']; ?></p>
             </a>
             <div>
+              <img class="card-comment" src="assets/images/comment.svg">
+              <span class="text-secondary mr-1"><?php echo $work['comments_count']; ?></span>
               <img class="card-heart" src="assets/images/heart.png">
               <span class="text-danger"><?php echo $work['likes_count']; ?></span>
             </div>

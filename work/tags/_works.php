@@ -9,11 +9,18 @@
         <div class="card-body">
           <h4 class="card-title"><?php echo $work['title']; ?></h4>
           <p class="card-detail"><?php echo $work['detail']; ?></p>
-          <p><?php echo $work['likes_count']; ?>いいね</p>
-          <a class="card-user-link" href="../../user/show.php?id=<?php echo $work['user_id']; ?>">
-            <img class="work-avatar lazy" src="../../assets/images/no_image.png" data-src="<?php echo $work['user_avatar']; ?>">
-            <p class="work-username text-dark"><?php echo $work['user_name']; ?></p>
-          </a>
+          <div class="d-flex justify-content-between pt-4">
+            <a class="card-user-link" href="user/show.php?id=<?php echo $work['user_id']; ?>">
+              <img class="work-avatar lazy" src="../../assets/images/no_image.png" data-src="<?php echo $work['user_avatar']; ?>">
+              <p class="work-username text-secondary"><?php echo $work['user_name']; ?></p>
+            </a>
+            <div>
+              <img class="card-comment" src="../../assets/images/comment.svg">
+              <span class="text-secondary mr-1"><?php echo $work['comments_count']; ?></span>
+              <img class="card-heart" src="../../assets/images/heart.png">
+              <span class="text-danger"><?php echo $work['likes_count']; ?></span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

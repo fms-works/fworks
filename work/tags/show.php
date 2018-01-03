@@ -79,6 +79,9 @@ try {
         WHERE work_images.work_id=works.id AND work_images.num=0
         LIMIT 1
       ) AS first_work_image,
+      ( SELECT count(*) FROM comments
+        WHERE comments.work_id=works.id
+      ) AS comments_count,
       ( SELECT count(*) FROM likes
         WHERE likes.work_id=works.id
       ) AS likes_count
@@ -102,7 +105,7 @@ try {
 <?php include('../../partial/top_layout.php'); ?>
 <div class="pt-3 pb-1 my-4 d-flex justify-content-start">
   <div class="px-0 col-3 mr-2">
-    <a href="tags/show.php?id=<?php echo $tag['id']; ?>" class="px-0">
+    <a href="show.php?id=<?php echo $tag['id']; ?>" class="px-0">
       <button type="button" class="w-100 px-0 py-1 btn btn-outline-info">
         <?php echo $tag['name']; ?>
       </button>
