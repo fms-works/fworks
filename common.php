@@ -7,8 +7,6 @@ foreach ($config_variables as $config) {
   define($matches[1], $matches[2]);
 }
 
-// TODO: 本番サーバー用のOAuth登録をする
-
 // 式展開用関数
 $_ = function($s){return $s;};
 
@@ -43,4 +41,6 @@ function get_user_data($pdo, $user_id) {
   }
   return $user_data;
 }
+
+// TODO: SQLを関数化する
 ?>

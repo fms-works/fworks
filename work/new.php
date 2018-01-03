@@ -16,6 +16,7 @@ $current_user_id = $_SESSION['current_user_id'];
 $user_data = get_user_data($pdo, $current_user_id);
 ?>
 <?php include('../partial/top_layout.php'); ?>
+<?php // TODO: 投稿のカラム増やす ?>
 <h1 class="py-3 my-4 page-title">作品を投稿する</h1>
 <form method="post" action="create.php" enctype="multipart/form-data">
   <?php include('./_work-form.php'); ?>

@@ -84,6 +84,7 @@ try {
   <h5 class="py-1 my-2 page-title">プロフィール</h5>
   <p><?php echo !empty($user['profile']) ? $user['profile'] : '登録されていません'; ?></p>
 </div>
+<?php // TODO: いいねした作品一覧を表示 ?>
 <?php // 作品一覧 ?>
 <h3 class="py-3">作品一覧</h3>
 <div class="row">

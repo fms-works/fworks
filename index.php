@@ -120,6 +120,9 @@ try {
 }
 ?>
 <?php include('partial/top_layout.php'); ?>
+<?php // TODO: 検索機能を追加 ?>
+<?php // TODO: ユーザーランキング表示 ?>
+<?php // TODO: twitterにシェア機能実装 ?>
 <?php // 人気のタグを表示 ?>
 <h4 class="py-0 my-4 page-title">人気のタグ</h4>
 <div class="row my-2 mx-0 px-0">

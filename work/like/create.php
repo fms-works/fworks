@@ -14,6 +14,7 @@ if (empty($work_id)) {
 
 $date = date("Y-m-d H:i:s");
 
+// TODO: user_idとwork_idの組が被っていないか確認する
 try {
   $sql = $pdo->prepare(
    "INSERT INTO likes

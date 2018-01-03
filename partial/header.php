@@ -1,6 +1,7 @@
 <?php if (empty($path)) $path = ''; ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-white header-border sticky-top">
   <a href="<?php echo $path; ?>index.php" class="navbar-brand">
+    <?php // TODO: タイトル考える ?>
     <h3 class="title-color">FMS Works Published Service</h3>
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

@@ -1,6 +1,7 @@
 <h4 class="py-0 mt-3 page-title">全ての投稿</h4>
 <div class="row">
   <?php foreach($works as $work): ?>
+  <?php // TODO: work表示を関数に切り出す ?>
     <div class="px-1 py-3 col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card card-shadow pb-1">
         <a class="card-link" href="work/show.php?id=<?php echo $work['id']; ?>">

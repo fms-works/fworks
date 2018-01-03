@@ -143,6 +143,7 @@ try {
     <span id="likesCount" class="px-1 text-danger"><?php echo $work['likes_count']; ?></span>
   </div>
 </div>
+<?php // TODO: リポジトリとかOpenProcessingの表示方法を工夫する ?>
 <?php // リンク ?>
 <div class="my-4">
   <h4 class="py-0 my-4 page-title">リンク</h4>
@@ -167,6 +168,7 @@ try {
   <h4 class="py-0 my-4 page-title">詳細</h4>
   <p><?php echo $work['detail']; ?></p>
 </div>
+<?php // TODO: 画像表示方法を工夫する ?>
 <?php // 画像一覧 ?>
 <h4 class="py-0 my-4 page-title">画像</h4>
 <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
