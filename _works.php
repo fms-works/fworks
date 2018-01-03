@@ -1,3 +1,4 @@
+<h4 class="py-0 mt-3 page-title">全ての投稿</h4>
 <?php include('work/_pagination.php'); ?>
 <div class="row">
   <?php foreach($works as $work): ?>
