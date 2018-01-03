@@ -127,7 +127,7 @@ try {
     </div>
   <?php endforeach; ?>
 </div>
-<a href="work/tags/index.php" class="btn btn-primary px-3">タグ一覧</a>
+<a href="work/tags/index.php" class="my-2 btn btn-outline-secondary">タグ一覧</a>
 <?php // 人気の投稿を表示 ?>
 <h4 class="py-0 my-4 page-title">人気の投稿</h4>
 <div class="row">
