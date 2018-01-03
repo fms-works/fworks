@@ -106,6 +106,16 @@
   font-size: 12px;
 }
 
+.card-heart {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* .card-heart-count
+/*
+ * 作品詳細ページ
+ */
 .work-heart {
   display: block;
   width: 25px;
