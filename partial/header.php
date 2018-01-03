@@ -1,5 +1,5 @@
 <?php if (empty($path)) $path = ''; ?>
-<nav class="navbar navbar-expand-lg navbar-light bg-white header-border">
+<nav class="navbar navbar-expand-lg navbar-light bg-white header-border sticky-top">
   <a href="<?php echo $path; ?>index.php" class="navbar-brand">
     <h3 class="title-color">FMS Works Published Service</h3>
   </a>
