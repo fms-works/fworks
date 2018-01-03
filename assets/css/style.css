@@ -37,6 +37,13 @@
 }
 
 /*
+ * 共通
+ */
+.page-title {
+  color: #616161;
+}
+
+/*
  * ログイン画面
  */
  .login-body {
@@ -127,10 +134,6 @@
 /*
  * 作品投稿ページ
  */
-h1.page-title {
-  color: #616161;
-}
-
 span.note {
   font-size: 80%;
   color: #EF5350;

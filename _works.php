@@ -15,7 +15,7 @@
               <p class="work-username text-secondary"><?php echo $work['user_name']; ?></p>
             </a>
             <div>
-              <img class="card-heart lazy" src="assets/images/no_image.png" data-src="assets/images/heart.png">
+              <img class="card-heart" src="assets/images/heart.png">
               <span class="text-danger"><?php echo $work['likes_count']; ?></span>
             </div>
           </div>

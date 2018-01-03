@@ -3,7 +3,7 @@ session_start();
 require_once('../common.php');
 
 $path = '../';
-$title = '作品';
+$title = '作品詳細';
 
 // current_user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
 if (empty($_SESSION['current_user_id'])) {
@@ -21,15 +21,21 @@ $work_id = !empty($_GET['id']) ? h($_GET['id']) : 0;
 try {
   $sql = $pdo->prepare(
    "SELECT
-      *,
+      works.*,
+      users.id     AS user_id,
+      users.name   AS user_name,
+      users.avatar AS user_avatar,
       ( SELECT count(*) FROM likes
         WHERE likes.work_id=works.id
       ) AS likes_count
     FROM works
-    WHERE id=?"
+    LEFT OUTER JOIN users ON works.user_id=users.id
+    WHERE works.id=?"
   );
   $sql->execute(array($work_id));
   $work = $sql->fetch();
+  // タイトルを取得
+  $title = $work['title'];
 } catch (PDOException $e) {
   echo 'MySQL connection failed: ' . $e->getMessage();;
   exit();
@@ -58,7 +64,7 @@ try {
 // 作品のタグを取得
 try {
   $sql = $pdo->prepare(
-   "SELECT tags.name
+   "SELECT *
     FROM work_tags
     LEFT OUTER JOIN tags ON tags.id=work_tags.tag_id
     WHERE work_tags.work_id=?"
@@ -105,89 +111,97 @@ try {
 ?>
 <?php include('../partial/top_layout.php'); ?>
 <?php // 作品表示 ?>
-<?php // 自分の作品を編集する　?>
-<?php if ($current_user_id === $work['user_id']): ?>
-  <a href="edit.php?id=<?php echo $work_id; ?>" class="btn btn-info">編集する</a>
-<?php endif; ?>
-<div class="form-group">
-  <label>タイトル</label>
-  <p><?php echo $work['title']; ?></p>
-</div>
-<div class="form-group">
-  <p><span id="likesCount"><?php echo $work['likes_count']; ?></span>いいね</p>
-</div>
-<img class="work-heart" id="<?php echo $is_liked ? 'unlike' : 'like'; ?>" data-workid="<?php echo $work['id']; ?>" src="../assets/images/<?php echo $is_liked ? 'heart.png' : 'noheart.svg'; ?>">
-<?php // メイン画像 ?>
-<?php foreach($work_images as $i => $image): ?>
-  <?php if ($image['num'] === '0'): ?>
-    <div class="form-group">
-      <img src="../assets/images/no_image.png" data-src="data:image/png;base64,<?php echo $image['content']; ?>" alt="image" class="img-thumbnail rounded lazy">
+<h3 class="py-3 my-4 page-title">作品詳細ページ</h3>
+<a class="card-user-link" href="../user/show.php?id=<?php echo $work['user_id']; ?>">
+  <img src="../assets/images/no_image.png" data-src="<?php echo $work['user_avatar']; ?>" class="work-avatar lazy">
+  <h4 class="work-username text-dark"><?php echo $work['user_name']; ?></h4>
+</a>
+<div class="d-flex justify-content-between py-2">
+  <h1 class="mb-0 py-2"><?php echo $work['title']; ?></h1>
+  <?php // 自分の作品を編集する　?>
+  <?php if ($current_user_id === $work['user_id']): ?>
+    <div class="py-2">
+      <a href="edit.php?id=<?php echo $work_id; ?>" class="d-block btn btn-info">編集する</a>
     </div>
-    <?php array_splice($work_images, $i, 1); break; ?>
-  <?php endif; ?>
-<?php endforeach; ?>
-<?php // サブ画像 ?>
-<div class="form-group row">
-  <?php foreach($work_images as $image): ?>
-    <div class="col-xs-12 col-sm-6 col-md-4">
-      <img src="../assets/images/no_image.png" data-src="data:image/png;base64,<?php echo $image['content']; ?>" alt="image" class="img-thumbnail rounded lazy">
-    </div>
-  <?php endforeach; ?>
-</div>
-<?php // Githubリポジトリ ?>
-<div class="form-group">
-  <label>Githubリポジトリ</label>
-  <?php if (empty($work['github-link'])): ?>
-    <p>Githubリポジトリはありません</p>
-  <?php else: ?>
-    <p><?php echo $work['github-link']; ?></p>
-  <?php endif; ?>
-</div>
-<?php // OpenProcessingリンク ?>
-<div class="form-group">
-  <label>OpenProcessingリンク</label>
-  <?php if (empty($work['openprocessing-link'])): ?>
-    <p>OpenProcessingリンクはありません</p>
-  <?php else: ?>
-    <p><?php echo $work['openprocessing-link']; ?></p>
-  <?php endif; ?>
-</div>
-<?php // リンク ?>
-<div class="form-group">
-  <label>リンク</label>
-  <?php if (empty($work['link'])): ?>
-    <p>リンクはありません</p>
-  <?php else: ?>
-    <p><?php echo $work['link']; ?></p>
   <?php endif; ?>
 </div>
 <?php // タグ一覧 ?>
-<div class="form-group">
-  <label>タグ</label>
-  <div class="d-flex justify-content-start">
-    <?php if (empty($tags)): ?>
-      <p>タグがつけられていません</p>
-    <?php else: ?>
-      <?php foreach ($tags as $tag): ?>
-        <p class="mr-2"><?php echo $tag['name']; ?></p>
-      <?php endforeach; ?>
-    <?php endif; ?>
+<div class="row px-0">
+  <div class="col-11 row mx-0 px-0">
+    <?php foreach ($tags as $tag): ?>
+      <div class="col-3">
+        <a href="tags/show.php?id=<?php echo $tag['id']; ?>" class="px-0">
+          <button type="button" class="w-100 px-0 py-1 btn btn-outline-info">
+            <?php echo $tag['name']; ?>
+          </button>
+        </a>
+      </div>
+    <?php endforeach; ?>
+  </div>
+  <div class="col-1 d-flex justify-content-end">
+    <img class="card-heart my-1" id="<?php echo $is_liked ? 'unlike' : 'like'; ?>" data-workid="<?php echo $work['id']; ?>" src="../assets/images/<?php echo $is_liked ? 'heart.png' : 'noheart.svg'; ?>">
+    <span id="likesCount" class="px-1 text-danger"><?php echo $work['likes_count']; ?></span>
   </div>
 </div>
-<div class="form-group">
-  <label>詳細</label>
+<?php // リンク ?>
+<div class="my-4">
+  <h4 class="py-0 my-4 page-title">リンク</h4>
+  <?php if (empty($work['github_link']) && empty($work['github_link']) && empty($work['github_link'])): ?>
+    <p>リンクはありません</p>
+  <?php else: ?>
+    <?php if (!empty($work['github-link'])): ?>
+      <h5 class="py-0 my-4 page-title">Githubリポジトリ</h5>
+      <p><?php echo $work['github-link']; ?></p>
+    <?php endif; ?>
+    <?php if (!empty($work['openprocessing-link'])): ?>
+      <h5 class="py-0 my-4 page-title">OpenProcessingリンク</h5>
+      <p><?php echo $work['openprocessing-link']; ?></p>
+    <?php endif; ?>
+    <?php if (!empty($work['link'])): ?>
+      <h5 class="py-0 my-4 page-title">その他</h5>
+      <p><?php echo $work['link']; ?></p>
+    <?php endif; ?>
+  <?php endif; ?>
+</div>
+<div class="my-4">
+  <h4 class="py-0 my-4 page-title">詳細</h4>
   <p><?php echo $work['detail']; ?></p>
 </div>
+<?php // 画像一覧 ?>
+<h4 class="py-0 my-4 page-title">画像</h4>
+<div id="carouselIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <?php for ($i = 0; $i < count($work_images); $i++): ?>
+      <li data-target="#carouselIndicators" data-slide-to="<?php echo $i; ?>" <?php if ($i === 0) echo 'class="active"'?>></li>
+    <?php endfor; ?>
+  </ol>
+  <div class="carousel-inner">
+    <?php foreach($work_images as $i => $image): ?>
+      <div class="carousel-item<?php if ($i === 0) echo ' active'; ?>">
+        <img src="data:image/png;base64,<?php echo $image['content']; ?>" alt="work-image" class="d-block w-80 img-thumbnail rounded">
+      </div>
+    <?php endforeach; ?>
+  </div>
+  <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<?php // コメント表示 ?>
+<h2 class="my-4 page-title">コメント</h2>
 <?php // コメント投稿 ?>
-<form>
-  <div class="form-group">
-    <label for="commentInput">コメントする</label>
+<div class="row pb-3">
+  <div class="col-xs-12 col-sm-8 my-2">
     <input type="text" name="content" id="commentInput" class="form-control" placeholder="コメントを入力してください">
   </div>
-  <button class="btn btn-primary px-4 mb-5" id="postComment" data-workid='<?php echo $work_id; ?>'>送信</button>
-</form>
-<?php // コメント表示 ?>
-<h1 class="py-3 my-4 page-title">コメント一覧</h1>
+  <button class="btn btn-primary mx-0 px-0 py-1 my-2 col-xs-10 col-sm-2" id="postComment" data-workid='<?php echo $work_id; ?>'>
+    送信
+  </button>
+</div>
 <div id="comments">
   <?php foreach ($comments as $comment): ?>
     <div class="card my-2">
@@ -205,8 +219,10 @@ try {
 </div>
 <?php // 削除ボタン ?>
 <?php if ($current_user_id === $work['user_id']): ?>
-  <div class="py-3">
-    <a href="destroy.php?id=<?php echo $work_id; ?>" onClick="return confirm('削除してもよろしいですか？');" class="btn btn-danger px-4">この作品を削除する</a>
+  <div class="mt-3 py-5">
+    <a href="destroy.php?id=<?php echo $work_id; ?>" onClick="return confirm('削除してもよろしいですか？');" class="btn btn-danger px-4">
+      この作品を削除する
+    </a>
   </div>
 <?php endif; ?>
 <?php include('../partial/bottom_layout.php'); ?>
