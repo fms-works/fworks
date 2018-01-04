@@ -114,5 +114,10 @@ try {
   </div>
   <p class="py-1 text-secondary">タグが付けられた作品</p>
 </div>
-<?php include('_works.php'); ?>
+<div class="row">
+  <?php foreach($works as $work): ?>
+    <?php include('../../partial/work.php'); ?>
+  <?php endforeach; ?>
+</div>
+<?php include('../_pagination.php'); ?>
 <?php include('../../partial/bottom_layout.php'); ?>

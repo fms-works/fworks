@@ -32,6 +32,9 @@ try {
   $works = $pdo->query(
    "SELECT
       works.*,
+      users.id     AS user_id,
+      users.name   AS user_name,
+      users.avatar AS user_avatar,
       ( SELECT content FROM work_images
         WHERE work_id=works.id AND work_images.num=0
         LIMIT 1
@@ -43,6 +46,7 @@ try {
         WHERE likes.work_id=works.id
       ) AS likes_count
     FROM works
+    LEFT OUTER JOIN users ON works.user_id=users.id
     WHERE works.user_id=$user_id
     ORDER BY works.created_at DESC"
   )->fetchAll();
@@ -90,35 +94,7 @@ try {
 <div class="row">
   <?php if (empty($works)) echo '<p>まだ作品がありません</p>'; ?>
   <?php foreach($works as $work): ?>
-    <div class="px-1 py-3 col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <div class="card card-shadow">
-        <a class="card-link" href="../work/show.php?id=<?php echo $work['id']; ?>">
-          <img class="card-img-top lazy" src="../assets/images/no_image.png" data-src="data:image/png;base64,<?php echo $work['first_work_image']; ?>" alt="work image">
-        </a>
-        <div class="card-body">
-          <h4 class="card-title"><?php echo $work['title']; ?></h4>
-          <p class="card-detail"><?php echo $work['detail']; ?></p>
-          <div class="d-flex justify-content-between pt-4">
-            <a class="card-user-link" href="../user/show.php?id=<?php echo $user['id']; ?>">
-              <img class="work-avatar lazy" src="../assets/images/no_image.png" data-src="<?php echo $user['avatar']; ?>">
-              <p class="work-username text-secondary"><?php echo $user['name']; ?></p>
-            </a>
-            <div>
-              <img class="card-comment" src="../assets/images/comment.svg">
-              <span class="text-secondary mr-1"><?php echo $work['comments_count']; ?></span>
-              <img class="card-heart" src="../assets/images/heart.png">
-              <span class="text-danger"><?php echo $work['likes_count']; ?></span>
-            </div>
-          </div>
-          <?php if ($current_user_id === $user_id): ?>
-            <div class="w-100 pt-3 d-flex justify-content-end">
-              <a href="../work/edit.php?id=<?php echo $work['id']; ?>" class="btn btn-info btn-sm mx-1 py-0">編集</a>
-              <a href="../work/destroy.php?id=<?php echo $work['id']; ?>" onClick="return confirm('削除してもよろしいですか？');" class="btn btn-danger btn-sm py-0">削除</a>
-            </div>
-          <?php endif; ?>
-        </div>
-      </div>
-    </div>
+    <?php include('../partial/work.php'); ?>
   <?php endforeach; ?>
 </div>
 <?php if ($current_user_id === $work['user_id']): ?>
