@@ -227,4 +227,19 @@ try {
     </a>
   </div>
 <?php endif; ?>
+
+<!-- ツイート関連のタグ -->
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" 
+    class="twitter-share-button" 
+    data-text="<?php echo $title; ?>" 
+    data-url="http://ebinuma.nkmr.io/work/work/show.php?id=<?php echo $work_id; ?>" 
+    data-hashtags="#FMS_WPS" 
+    data-show-count="false"
+    >Tweet</a>
+
+<!-- ツイート関連のタグ -->
+<script async src="https://platform.twitter.com/widgets.js" 
+    charset="utf-8"
+    ></script>
+
 <?php include('../partial/bottom_layout.php'); ?>
