@@ -112,7 +112,7 @@
   height: 20px;
 }
 
-/* .card-heart-count
+/*
 /*
  * 作品詳細ページ
  */
@@ -165,6 +165,13 @@ span.note {
   background-size: cover;
   border: 1px solid #E0E0E0;
   border-radius: 5px;
+}
+
+/*
+ * 作品詳細ページ
+ */
+.comment-header:hover {
+  text-decoration: none;
 }
 
 /*

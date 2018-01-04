@@ -224,7 +224,7 @@ try {
   <?php foreach ($comments as $comment): ?>
     <div class="card my-2">
       <div class="card-header py-1">
-        <a href="../user/show.php?id=<?php echo $comment['user_id']; ?>">
+        <a class="comment-header" href="../user/show.php?id=<?php echo $comment['user_id']; ?>">
           <img class="work-avatar lazy" src="../assets/images/no_image.png" data-src="<?php echo $comment['user_avatar']; ?>">
           <p class="work-username text-dark d-inline align-middle"><?php echo $comment['user_name']; ?></p>
         </a>

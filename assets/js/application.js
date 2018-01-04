@@ -57,8 +57,10 @@ function appendComment(data) {
   const commentElement = `
     <div class="card my-2">
       <div class="card-header py-1">
-        <img class="work-avatar" src="${data.user_avatar}">
-        <p class="work-username text-dark d-inline align-middle">${data.username}</p>
+        <a class="comment-header" href="../user/show.php?id=${data.user_id}">
+          <img class="work-avatar" src="${data.user_avatar}">
+          <p class="work-username text-dark d-inline align-middle">${data.username}</p>
+        </a>
       </div>
       <div class="card-body py-2">
         ${data.content}
