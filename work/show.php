@@ -153,27 +153,6 @@ try {
     <span id="likesCount" class="px-1 text-danger"><?php echo $work['likes_count']; ?></span>
   </div>
 </div>
-<?php // TODO: リポジトリとかOpenProcessingの表示方法を工夫する ?>
-<?php // リンク ?>
-<div class="my-4">
-  <h4 class="py-0 my-4 page-title">リンク</h4>
-  <?php if (empty($work['github_link']) && empty($work['github_link']) && empty($work['github_link'])): ?>
-    <p>リンクはありません</p>
-  <?php else: ?>
-    <?php if (!empty($work['github-link'])): ?>
-      <h5 class="py-0 my-4 page-title">Githubリポジトリ</h5>
-      <p><?php echo $work['github-link']; ?></p>
-    <?php endif; ?>
-    <?php if (!empty($work['openprocessing-link'])): ?>
-      <h5 class="py-0 my-4 page-title">OpenProcessingリンク</h5>
-      <p><?php echo $work['openprocessing-link']; ?></p>
-    <?php endif; ?>
-    <?php if (!empty($work['link'])): ?>
-      <h5 class="py-0 my-4 page-title">その他</h5>
-      <p><?php echo $work['link']; ?></p>
-    <?php endif; ?>
-  <?php endif; ?>
-</div>
 <div class="my-4">
   <h4 class="py-0 my-4 page-title">詳細</h4>
   <p><?php echo $work['detail']; ?></p>
@@ -203,8 +182,35 @@ try {
     <span class="sr-only">Next</span>
   </a>
 </div>
+<?php // TODO: リポジトリとかOpenProcessingの表示方法を工夫する ?>
+<?php // リンク ?>
+<div class="my-4">
+  <h4 class="py-0 my-4 page-title">リンク</h4>
+  <?php if (empty($work['github_link']) && empty($work['github_link']) && empty($work['github_link'])): ?>
+    <p>リンクはありません</p>
+  <?php else: ?>
+    <?php if (!empty($work['github_link'])): ?>
+      <h5 class="py-0 mt-4 page-title">Github</h5>
+      <a href="<?php echo $work['github_link']; ?>">
+        <p><?php echo $work['github_link']; ?></p>
+      </a>
+    <?php endif; ?>
+    <?php if (!empty($work['openprocessing_link'])): ?>
+      <h5 class="py-0 mt-4 page-title">OpenProcessing</h5>
+      <a href="<?php echo $work['openprocessing_link']; ?>">
+        <p><?php echo $work['openprocessing_link']; ?></p>
+      </a>
+    <?php endif; ?>
+    <?php if (!empty($work['link'])): ?>
+      <h5 class="py-0 mt-4 page-title">その他</h5>
+      <a href="<?php echo $work['link']; ?>">
+        <p><?php echo $work['link']; ?></p>
+      </a>
+    <?php endif; ?>
+  <?php endif; ?>
+</div>
 <?php // コメント表示 ?>
-<h2 class="my-4 page-title">コメント</h2>
+<h3 class="my-4 page-title">コメント</h3>
 <?php // コメント投稿 ?>
 <div class="row pb-3">
   <div class="col-xs-12 col-sm-8 my-2">
