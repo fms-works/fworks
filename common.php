@@ -22,10 +22,12 @@ try {
 }
 // デフォルトのタイムゾーンを設定する
 date_default_timezone_set('Asia/Tokyo');
+
 // XSS対策
 function h($str) {
   return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
 }
+
 // ユーザー取得
 function get_user_data($pdo, $user_id) {
   // 現在のユーザーを取得
@@ -40,6 +42,20 @@ function get_user_data($pdo, $user_id) {
     exit();
   }
   return $user_data;
+}
+
+// Twitterでシェアボタン
+function twitter_share_button($text, $url) {
+  return "
+    <a href='https://twitter.com/share'
+      class='twitter-share-button'
+      data-lang='ja'
+      data-size='large'
+      data-text='$text'
+      data-url='$url'
+      data-hashtags='FWS'
+    >ツイート</a>
+  ";
 }
 
 // TODO: SQLを関数化する

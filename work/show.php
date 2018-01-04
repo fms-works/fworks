@@ -25,6 +25,7 @@ try {
       users.id     AS user_id,
       users.name   AS user_name,
       users.avatar AS user_avatar,
+      users.screen_name AS user_screen_name,
       ( SELECT count(*) FROM likes
         WHERE likes.work_id=works.id
       ) AS likes_count
@@ -139,6 +140,15 @@ try {
     <?php endforeach; ?>
   </div>
   <div class="col-1 d-flex justify-content-end">
+    <?php // Twitter投稿ボタン ?>
+    <div class="d-inline align-middle pr-2">
+      <?php
+        echo twitter_share_button(
+          "「" . $work['title'] . "」",
+          "http://ebinuma.nkmr.io/work/show?id=" . $work['id']
+        );
+      ?>
+    </div>
     <img class="work-heart card-heart my-1" id="<?php echo $is_liked ? 'unlike' : 'like'; ?>" data-workid="<?php echo $work['id']; ?>" src="../assets/images/<?php echo $is_liked ? 'heart.png' : 'noheart.svg'; ?>">
     <span id="likesCount" class="px-1 text-danger"><?php echo $work['likes_count']; ?></span>
   </div>
@@ -227,19 +237,4 @@ try {
     </a>
   </div>
 <?php endif; ?>
-
-<!-- ツイート関連のタグ -->
-<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" 
-    class="twitter-share-button" 
-    data-text="<?php echo $title; ?>" 
-    data-url="http://ebinuma.nkmr.io/work/work/show.php?id=<?php echo $work_id; ?>" 
-    data-hashtags="#FMS_WPS" 
-    data-show-count="false"
-    >Tweet</a>
-
-<!-- ツイート関連のタグ -->
-<script async src="https://platform.twitter.com/widgets.js" 
-    charset="utf-8"
-    ></script>
-
 <?php include('../partial/bottom_layout.php'); ?>
