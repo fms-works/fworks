@@ -4,7 +4,7 @@
     <a class="card-link" href="<?php echo $path; ?>work/show.php?id=<?php echo $work['id']; ?>">
       <img class="card-img-top lazy" src="<?php echo $path; ?>assets/images/no_image.png" data-src="data:image/png;base64,<?php echo $work['first_work_image']; ?>" alt="work image">
     </a>
-    <div class="card-body">
+    <div class="card-body pb-0">
       <h4 class="card-title"><?php echo $work['title']; ?></h4>
       <p class="card-detail"><?php echo $work['detail']; ?></p>
       <div class="d-flex justify-content-between pt-4">
@@ -19,12 +19,14 @@
           <span class="text-danger"><?php echo $work['likes_count']; ?></span>
         </div>
       </div>
-      <?php if ($current_user_id === $work['user_id']): ?>
-        <div class="w-100 pt-3 d-flex justify-content-end">
-          <a href="<?php echo $path; ?>work/edit.php?id=<?php echo $work['id']; ?>" class="btn btn-info btn-sm mx-1 py-0">編集</a>
-          <a href="<?php echo $path; ?>work/destroy.php?id=<?php echo $work['id']; ?>" onClick="return confirm('削除してもよろしいですか？');" class="btn btn-danger btn-sm py-0">削除</a>
-        </div>
-      <?php endif; ?>
     </div>
+    <?php if ($current_user_id === $work['user_id']): ?>
+      <div class="card-footer py-1">
+        <div class="w-100 d-flex justify-content-end">
+          <a href="<?php echo $path; ?>work/edit.php?id=<?php echo $work['id']; ?>" class="btn btn-outline-success btn-sm mx-1 py-0">編集</a>
+          <a href="<?php echo $path; ?>work/destroy.php?id=<?php echo $work['id']; ?>" onClick="return confirm('削除してもよろしいですか？');" class="btn btn-outline-danger btn-sm py-0">削除</a>
+        </div>
+      </div>
+    <?php endif; ?>
   </div>
 </div>
