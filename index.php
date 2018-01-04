@@ -2,7 +2,7 @@
 session_start();
 require_once('common.php');
 
-define('WORKS_PER_PAGE', 16);
+define('WORKS_PER_PAGE', 12);
 
 $path = '';
 $title = 'トップ';

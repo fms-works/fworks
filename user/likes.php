@@ -3,7 +3,7 @@ session_start();
 require_once('../common.php');
 
 $path = '../';
-$title = 'ユーザー詳細';
+$title = 'いいねした作品';
 
 // current_user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
 if (empty($_SESSION['current_user_id'])) {
@@ -47,11 +47,12 @@ try {
       ) AS likes_count
     FROM works
     LEFT OUTER JOIN users ON works.user_id=users.id
-    WHERE works.user_id=?
+    LEFT OUTER JOIN likes ON works.id=likes.work_id
+    WHERE likes.user_id=?
     ORDER BY works.created_at DESC"
   );
   $sql->execute(array($user_id));
-  $works = $sql->fetchAll();
+  $like_works = $sql->fetchAll();
 } catch (PDOException $e) {
   echo 'MySQL connection failed: ' . $e->getMessage();
   exit();
@@ -60,50 +61,15 @@ try {
 <?php include('../partial/top_layout.php'); ?>
 <?php // プロフィール ?>
 <div class="d-flex justify-content-between">
-  <h2 class="py-4">
-    <?php echo $current_user_id === $user_id ? 'マイページ' : $show_user_data['name'] . 'さんのページ'; ?>
+  <h2 class="py-4 page-title">
+    <?php echo $current_user_id === $user_id ? 'いいねした作品' : $show_user_data['name'] . 'さんのいいねした作品'; ?>
   </h2>
-  <div class="py-4">
-    <?php if ($current_user_id === $user_id): ?>
-      <a href="edit.php" class="btn btn-info">編集する</a>
-    <?php endif; ?>
-  </div>
-</div>
-<div class="d-flex justify-content-start">
-  <img src="../assets/images/no_image.png" data-src="<?php echo $show_user_data['avatar']; ?>" class="mypage-avatar lazy">
-  <div class="px-2 py-4">
-    <h4><?php echo $user['name']; ?></h4>
-  </div>
-</div>
-<?php // SNSアイコン ?>
-<div class="py-3">
-  <a href="https://twitter.com/<?php echo $user['screen_name']; ?>?lang=ja" class="mr-2 icon-link">
-    <img src="../assets/images/twitter.svg" alt="twitter" class="icon">
-  </a>
-  <?php if (!empty($user['github_account'])): ?>
-    <a href="https://github.com/<?php echo $user['github_account']; ?>" class="icon-link">
-      <img src="../assets/images/github.png" alt="github" class="icon">
-    </a>
-  <?php endif; ?>
-</div>
-<div class="py-3">
-  <h5 class="py-1 my-2 page-title">プロフィール</h5>
-  <p><?php echo !empty($user['profile']) ? $user['profile'] : '登録されていません'; ?></p>
 </div>
 <?php // 作品一覧 ?>
-<h3 class="py-3 page-title">作品一覧</h3>
 <div class="row">
-  <?php if (empty($works)) echo '<p>まだ作品がありません</p>'; ?>
-  <?php foreach($works as $work): ?>
+  <?php if (empty($like_works)) echo '<p>まだいいねした作品がありません</p>'; ?>
+  <?php foreach($like_works as $work): ?>
     <?php include('../partial/work.php'); ?>
   <?php endforeach; ?>
 </div>
-<?php if ($current_user_id === $work['user_id']): ?>
-  <?php // Danger zone ?>
-  <div class="py-5">
-    <a href="destroy.php" onClick="return confirm('投稿した作品やユーザー情報は削除され、復元することはできません。本当に退会しますか？');" class="btn btn-danger px-4">
-      退会する
-    </a>
-  </div>
-<?php endif; ?>
 <?php include('../partial/bottom_layout.php'); ?>

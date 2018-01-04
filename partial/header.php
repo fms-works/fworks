@@ -18,8 +18,9 @@
             <img class="nav-avatar align-top lazy" src="<?php echo $path; ?>assets/images/no_image.png" data-src="<?php echo $user_data['avatar']; ?>">
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="<?php echo $path; ?>user/show.php">マイページ</a>
-            <a class="dropdown-item" href="<?php echo $path; ?>user/logout.php">ログアウト</a>
+            <a class="dropdown-item text-dark" href="<?php echo $path; ?>user/show.php">マイページ</a>
+            <a class="dropdown-item text-dark" href="<?php echo $path; ?>user/likes.php">いいねした作品</a>
+            <a class="dropdown-item text-secondary" href="<?php echo $path; ?>user/logout.php">ログアウト</a>
           </div>
         </div>
       <?php else: ?>
