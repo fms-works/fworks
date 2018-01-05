@@ -231,7 +231,7 @@ try {
           </a>
         </div>
         <div>
-          <?php if ($current_user_id === $work['user_id']): ?>
+          <?php if ($current_user_id === $comment['user_id']): ?>
             <button class="btn btn-sm btn-outline-danger mx-0 px-2 py-0" id="destroyComment" data-commentid='<?php echo $comment['id']; ?>'>
               削除
             </button>
