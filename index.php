@@ -126,7 +126,7 @@ try {
 <h4 class="py-0 my-4 page-title">人気のタグ</h4>
 <div class="row my-2 mx-0 px-0">
   <?php foreach ($popular_tags as $tag): ?>
-    <div class="col-3">
+    <div class="col-sm-3 my-1">
       <a href="work/tags/show.php?id=<?php echo $tag['id']; ?>" class="px-0">
         <button type="button" class="w-100 px-0 py-1 btn btn-outline-info">
           <?php echo $tag['name']; ?>
@@ -134,8 +134,14 @@ try {
       </a>
     </div>
   <?php endforeach; ?>
+  <div class="col-sm-3 my-1">
+    <a href="work/tags/index.php" class="col-md-3 my-1 px-0">
+      <button type="button" class="w-100 px-0 py-1 btn btn-outline-secondary">
+        タグ一覧
+      </button>
+    </a>
+  </div>
 </div>
-<a href="work/tags/index.php" class="my-2 btn btn-outline-secondary">タグ一覧</a>
 <?php // 人気の投稿を表示 ?>
 <h4 class="py-0 my-4 page-title">人気の投稿</h4>
 <div class="row">
