@@ -186,7 +186,7 @@ try {
 <?php // リンク ?>
 <div class="my-4">
   <h4 class="py-0 my-4 page-title">リンク</h4>
-  <?php if (empty($work['github_link']) && empty($work['github_link']) && empty($work['github_link'])): ?>
+  <?php if (empty($work['github_link']) && empty($work['openprocessing_link']) && empty($work['link'])): ?>
     <p>リンクはありません</p>
   <?php else: ?>
     <?php if (!empty($work['github_link'])): ?>
