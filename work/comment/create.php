@@ -10,7 +10,7 @@ $content = !empty($_POST["content"]) ? h($_POST["content"]) : null;
 $work_id = !empty($_POST["work_id"]) ? h($_POST['work_id']) : null;
 
 if(empty($content) || empty($work_id) || empty($current_user_id)){
-  echo "failed, some GET values are empty.";
+  echo "failed, some values are empty.";
   exit();
 }
 
@@ -27,6 +27,7 @@ try {
   $sql->execute(
     array($content, $current_user_id, $work_id, $date)
   );
+  $comment_id = $pdo->lastInsertId('id');
 } catch (PDOException $e) {
   echo 'MySQL connection failed: ' . $e->getMessage();
   exit();
@@ -37,7 +38,8 @@ echo json_encode(array(
   'user_id' => $current_user_id,
   'user_avatar' => $user_data['avatar'],
   'username' => $user_data['name'],
-  'content' => $content
+  'content' => $content,
+  'comment_id' => $comment_id
 ));
 header("Content-type: application/json; charset=UTF-8");
 exit();

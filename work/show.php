@@ -81,7 +81,7 @@ try {
 try {
   $sql = $pdo->prepare(
    "SELECT
-      comments.content,
+      comments.*,
       users.id AS user_id,
       users.avatar AS user_avatar,
       users.name AS user_name
@@ -223,11 +223,20 @@ try {
 <div id="comments">
   <?php foreach ($comments as $comment): ?>
     <div class="card my-2">
-      <div class="card-header py-1">
-        <a class="comment-header" href="../user/show.php?id=<?php echo $comment['user_id']; ?>">
-          <img class="work-avatar lazy" src="../assets/images/no_image.png" data-src="<?php echo $comment['user_avatar']; ?>">
-          <p class="work-username text-dark d-inline align-middle"><?php echo $comment['user_name']; ?></p>
-        </a>
+      <div class="card-header py-1 d-flex justify-content-between">
+        <div>
+          <a class="comment-header" href="../user/show.php?id=<?php echo $comment['user_id']; ?>">
+            <img class="work-avatar lazy" src="../assets/images/no_image.png" data-src="<?php echo $comment['user_avatar']; ?>">
+            <p class="work-username text-dark d-inline align-middle"><?php echo $comment['user_name']; ?></p>
+          </a>
+        </div>
+        <div>
+          <?php if ($current_user_id === $work['user_id']): ?>
+            <button class="btn btn-sm btn-outline-danger mx-0 px-2 py-0" id="destroyComment" data-commentid='<?php echo $comment['id']; ?>'>
+              削除
+            </button>
+          <?php endif; ?>
+        </div>
       </div>
       <div class="card-body py-2">
         <?php echo $comment['content']; ?>

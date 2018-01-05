@@ -24,7 +24,8 @@ $('.workImageInput').on('change', function() {
 /*
  * コメント機能
  */
-$("#postComment").on("click", function(e) {
+// コメント投
+$("#postComment").on("click", function() {
   // コメント入力欄
   const $commentInput = $("#commentInput");
   $work_id = $(this).data('workid');
@@ -56,19 +57,53 @@ $("#postComment").on("click", function(e) {
 function appendComment(data) {
   const commentElement = `
     <div class="card my-2">
-      <div class="card-header py-1">
-        <a class="comment-header" href="../user/show.php?id=${data.user_id}">
-          <img class="work-avatar" src="${data.user_avatar}">
-          <p class="work-username text-dark d-inline align-middle">${data.username}</p>
-        </a>
+      <div class="card-header py-1 d-flex justify-content-between">
+        <div>
+          <a class="comment-header" href="../user/show.php?id=${data.user_id}">
+            <img class="work-avatar" src="${data.user_avatar}">
+            <p class="work-username text-dark d-inline align-middle">${data.username}</p>
+          </a>
+        </div>
+        <div>
+          <button class="btn btn-sm btn-outline-danger mx-0 px-2 py-0" id="destroyComment" data-commentid=${data.comment_id}>
+            削除
+          </button>
+        </div>
       </div>
       <div class="card-body py-2">
         ${data.content}
       </div>
     </div>
   `;
-  $('#comments').append(commentElement);
+  $(commentElement).appendTo($('#comments')).hide().fadeIn(1000);
 }
+
+// コメント削除
+$(document).on("click", "#destroyComment", function() {
+  // コメントIDを取得
+  $comment_tag = $(this);
+  $comment_id = $comment_tag.data('commentid');
+  // ボタンを有効化
+  $(this).prop("disabled", false);
+  // コメントIDが指定されていなければ実行しない
+  if ($comment_id === '') return false;
+
+  // コメント削除リクエスト送信
+  $.ajax({
+    type: 'POST',
+    url: './comment/destroy.php',
+    data: { comment_id: $comment_id }
+  }).done(function(data) {
+    if (data === 'destroy success') {
+      $comment_tag
+        .parent().parent().parent()
+        .fadeOut(1000).queue(function() {
+        this.remove();
+      });
+    }
+  });
+  return false;
+});
 
 /*
  * いいね関連機能
