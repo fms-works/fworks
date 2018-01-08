@@ -128,9 +128,9 @@ try {
 </div>
 <?php // タグ一覧 ?>
 <div class="row px-0">
-  <div class="col-11 row mx-0 px-0">
+  <div class="col-xs-12 col-sm-12 col-md-11 row mx-0 px-0">
     <?php foreach ($tags as $tag): ?>
-      <div class="col-3">
+      <div class="col-xs-4 col-md-3 col-md-3 my-2">
         <a href="tags/show.php?id=<?php echo $tag['id']; ?>" class="px-0">
           <button type="button" class="w-100 px-0 py-1 btn btn-outline-info">
             <?php echo $tag['name']; ?>
@@ -139,7 +139,7 @@ try {
       </div>
     <?php endforeach; ?>
   </div>
-  <div class="col-1 d-flex justify-content-end">
+  <div class="col-xs-12 col-md-1 my-2 d-flex justify-content-end">
     <?php // Twitter投稿ボタン ?>
     <div class="d-inline align-middle pr-2">
       <?php
@@ -182,18 +182,7 @@ try {
     <span class="sr-only">Next</span>
   </a>
 </div>
-<?php // TODO: リポジトリとかOpenProcessingの表示方法を工夫する ?>
-
-<?php // OpenProcessingの表示 ?>
-<?php if (!empty($work['openprocessing_link'])): ?>
-  <h4 class="py-0 my-4 page-title">OpenProcessing</h4>
-  <div class="openprocessing_demo">
-    <div class="my-2">
-      <iframe src="<?php echo $work['openprocessing_link']; ?>/embed/" width="100%" height="800"></iframe>
-    </div>
-  </div>
-<?php endif; ?>
-
+<?php // TODO: Githubリポジトリの表示方法を工夫する ?>
 <?php // リンク ?>
 <div class="my-4">
   <h4 class="py-0 my-4 page-title">リンク</h4>
@@ -206,14 +195,17 @@ try {
         <p><?php echo $work['github_link']; ?></p>
       </a>
     <?php endif; ?>
+    <?php // OpenProcessingの表示 ?>
     <?php if (!empty($work['openprocessing_link'])): ?>
-      <h5 class="py-0 mt-4 page-title">OpenProcessing</h5>
-      <a href="<?php echo $work['openprocessing_link']; ?>">
-        <p><?php echo $work['openprocessing_link']; ?></p>
-      </a>
+      <h4 class="py-0 my-4 page-title">OpenProcessing</h4>
+      <div class="openprocessing_demo">
+        <div class="my-2">
+          <iframe src="<?php echo $work['openprocessing_link']; ?>/embed/" width="400px" height="400px"></iframe>
+        </div>
+      </div>
     <?php endif; ?>
     <?php if (!empty($work['link'])): ?>
-      <h5 class="py-0 mt-4 page-title">その他</h5>
+      <h5 class="py-0 mt-4 page-title">その他リンク</h5>
       <a href="<?php echo $work['link']; ?>">
         <p><?php echo $work['link']; ?></p>
       </a>
