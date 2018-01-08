@@ -183,6 +183,17 @@ try {
   </a>
 </div>
 <?php // TODO: リポジトリとかOpenProcessingの表示方法を工夫する ?>
+
+<?php // OpenProcessingの表示 ?>
+<?php if (!empty($work['openprocessing_link'])): ?>
+  <h4 class="py-0 my-4 page-title">OpenProcessing</h4>
+  <div class="openprocessing_demo">
+    <div class="my-2">
+      <iframe src="<?php echo $work['openprocessing_link']; ?>/embed/" width="100%" height="800"></iframe>
+    </div>
+  </div>
+<?php endif; ?>
+
 <?php // リンク ?>
 <div class="my-4">
   <h4 class="py-0 my-4 page-title">リンク</h4>
