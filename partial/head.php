@@ -1,7 +1,6 @@
 <?php
 if (empty($path))  $path  = '';
-// TODO: 共通のタイトルを決める
-if (empty($title)) $title = 'タイトル';
+if (empty($title)) $title = 'FWorks';
 ?>
 <!DOCTYPE html>
 <html lang="ja">

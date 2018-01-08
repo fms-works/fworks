@@ -1,7 +1,7 @@
 <?php // タイトル ?>
 <div class="form-group py-2">
   <label for="title">タイトル <span class="note">*必須</span></label>
-  <input type="text" name="title" id="title" class="form-control" aria-describedby="titleHelp" required placeholder="例) FMS Works"
+  <input type="text" name="title" id="title" class="form-control" aria-describedby="titleHelp" required placeholder="例) FWorks"
     <?php if(!empty($work['title'])) echo 'value="' . $work['title'] . '"'; ?>>
   <small id="titleHelp" class="form-text text-muted">作品の魅力が伝わるようなタイトルをつけましょう！</small>
 </div>

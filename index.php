@@ -5,7 +5,7 @@ require_once('common.php');
 define('WORKS_PER_PAGE', 12);
 
 $path = '';
-$title = 'トップ';
+$title = 'FWorks';
 
 // current_user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
 if (empty($_SESSION['current_user_id'])) {
