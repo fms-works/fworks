@@ -168,8 +168,8 @@ try {
   </ol>
   <div class="carousel-inner">
     <?php foreach($work_images as $i => $image): ?>
-      <div class="carousel-item<?php if ($i === 0) echo ' active'; ?>">
-        <img src="data:image/png;base64,<?php echo $image['content']; ?>" alt="work-image" class="d-block w-80 img-thumbnail rounded">
+      <div class="bg-secondary work-image-wrapper carousel-item<?php if ($i === 0) echo ' active'; ?>">
+        <img src="data:image/png;base64,<?php echo $image['content']; ?>" alt="work-image" class="work-image">
       </div>
     <?php endforeach; ?>
   </div>
@@ -199,8 +199,8 @@ try {
     <?php if (!empty($work['openprocessing_link'])): ?>
       <h4 class="py-0 my-4 page-title">OpenProcessing</h4>
       <div class="openprocessing_demo">
-        <div class="my-2">
-          <iframe src="<?php echo $work['openprocessing_link']; ?>/embed/" width="400px" height="400px"></iframe>
+        <div class="my-2 op-display-wrapper">
+          <iframe src="<?php echo $work['openprocessing_link']; ?>/embed/" class="op-display"></iframe>
         </div>
       </div>
     <?php endif; ?>

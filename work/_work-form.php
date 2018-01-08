@@ -56,7 +56,7 @@
 <div class="form-group py-2">
   <label for="github-link">Githubリポジトリ</label>
   <input type="text" name="glink" id="github-link" class="form-control" aria-describedby="githubHelp" placeholder="例) https://github.com/user/repository"
-    <?php if(!empty($work['github_link'])) echo 'value="' . $work['github-link'] . '"'; ?>>
+    <?php if(!empty($work['github_link'])) echo 'value="' . $work['github_link'] . '"'; ?>>
   <small id="githubHelp" class="form-text text-muted">自分の作品はどんどんGithubにあげて公開しましょう！ → <a href="https://github.com" class="text-muted">https://github.com</a></small>
 </div>
 <?php // OpenProcessingリンク ?>

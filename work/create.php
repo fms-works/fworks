@@ -36,7 +36,7 @@ if (!empty($_FILES['sub_image3']['tmp_name'])) {
 }
 $new_link   = !empty($_POST['link'])   ? h($_POST['link'])   : '';
 $new_detail = !empty($_POST['detail']) ? h($_POST['detail']) : '';
-$new_glink  = !empty($_POST['glink'])  ? h($_POST['glink'])   : '';
+$new_glink  = !empty($_POST['glink'])  ? h($_POST['glink'])  : '';
 $new_oplink = !empty($_POST['oplink']) ? h($_POST['oplink']) : '';
 
 $date = date("Y-m-d H:i:s");
