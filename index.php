@@ -129,7 +129,7 @@ try {
     <div class="col-sm-3 my-1">
       <a href="work/tags/show.php?id=<?php echo $tag['id']; ?>" class="px-0">
         <button type="button" class="w-100 px-0 py-1 btn btn-outline-info">
-          <?php echo $tag['name']; ?>
+          <?php echo $tag['name'] . " (" . $tag['works_count'] . ")"; ?>
         </button>
       </a>
     </div>
