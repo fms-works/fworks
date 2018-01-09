@@ -22,7 +22,8 @@ try {
       count(work_tags.tag_id) AS works_count
     FROM tags
     LEFT OUTER JOIN work_tags ON tags.id=work_tags.tag_id
-    GROUP BY tags.id"
+    GROUP BY tags.id
+    ORDER BY works_count DESC"
   )->fetchAll();
 } catch (PDOException $e) {
   echo 'MySQL connection failed: ' . $e->getMessage();

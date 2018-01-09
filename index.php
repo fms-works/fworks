@@ -52,6 +52,7 @@ try {
     FROM work_tags
     LEFT OUTER JOIN tags ON tags.id=work_tags.tag_id
     GROUP BY tag_id
+    ORDER BY works_count DESC
     LIMIT 3"
   )->fetchAll();
 } catch (PDOException $e) {
