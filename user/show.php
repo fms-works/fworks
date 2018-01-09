@@ -88,7 +88,7 @@ try {
 </div>
 <div class="py-3">
   <h5 class="py-1 my-2 page-title">プロフィール</h5>
-  <p><?php echo !empty($user['profile']) ? $user['profile'] : '登録されていません'; ?></p>
+  <p class="user-profile"><?php echo !empty($user['profile']) ? nl2br($user['profile']) : '登録されていません'; ?></p>
 </div>
 <?php // 作品一覧 ?>
 <h3 class="py-3 page-title">作品一覧</h3>

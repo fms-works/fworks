@@ -156,9 +156,8 @@ try {
 </div>
 <div class="my-4">
   <h4 class="py-0 my-4 page-title">詳細</h4>
-  <p><?php echo $work['detail']; ?></p>
+  <p class="work-detail"><?php echo nl2br($work['detail']); ?></p>
 </div>
-<?php // TODO: 画像表示方法を工夫する ?>
 <?php // 画像一覧 ?>
 <h4 class="py-0 my-4 page-title">画像</h4>
 <div id="carouselIndicators" class="carousel slide" data-ride="carousel">

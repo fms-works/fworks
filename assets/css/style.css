@@ -213,6 +213,10 @@ span.note {
   text-decoration: none;
 }
 
+.work-detail {
+  line-height: 1.6;
+}
+
 /*
  * ユーザー詳細ページ
  */
@@ -238,4 +242,8 @@ span.note {
 .icon {
   width: 30px;
   height: 30px;
+}
+
+.user-profile {
+  line-height: 1.6;
 }
