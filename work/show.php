@@ -87,7 +87,8 @@ try {
       users.name AS user_name
     FROM comments
     LEFT OUTER JOIN users ON users.id=comments.user_id
-    WHERE comments.work_id=?"
+    WHERE comments.work_id=?
+    ORDER BY comments.created_at ASC"
   );
   $sql->execute(array($work_id));
   $comments = $sql->fetchAll();
