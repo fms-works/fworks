@@ -17,7 +17,11 @@ $user_data = get_user_data($pdo, $current_user_id);
 
 try {
   $tags = $pdo->query(
-   "SELECT * FROM tags"
+    "SELECT tags.*, 
+    count(work_tags.tag_id) AS works_count,
+    FROM tags
+    LEFT OUTER JOIN work_tags ON tags.id=work_tags.tag_id
+    GROUP BY tags.id"
   )->fetchAll();
 } catch (PDOException $e) {
   echo 'MySQL connection failed: ' . $e->getMessage();
@@ -31,7 +35,7 @@ try {
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 my-3 px-3">
       <a href="show.php?id=<?php echo $tag['id']; ?>">
         <button type="button" class="w-100 py-2 btn btn-outline-info">
-          <?php echo $tag['name']; ?>
+          <?php echo $tag['name'] . "(" . $tag['works_count'] . ")"; ?>
         </button>
       </a>
     </div>
