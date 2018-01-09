@@ -99,7 +99,7 @@ try {
 // 自分がいいねしているか取得する
 try {
   $sql = $pdo->prepare(
-   "SELECT * from LIKES
+   "SELECT * from likes
     WHERE user_id=? AND work_id=?"
   );
   $sql->execute(array($current_user_id, $work_id));
