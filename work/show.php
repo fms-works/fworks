@@ -186,7 +186,7 @@ try {
 <?php // リンク ?>
 <div class="my-4">
   <h4 class="py-0 my-4 page-title">リンク</h4>
-  <?php if (empty($work['github_link']) && empty($work['openprocessing_link']) && empty($work['link'])): ?>
+  <?php if (empty($work['github_link']) && empty($work['openprocessing_link']) && empty($work['youtube_link']) && empty($work['link'])): ?>
     <p>リンクはありません</p>
   <?php else: ?>
     <?php if (!empty($work['github_link'])): ?>
@@ -198,10 +198,15 @@ try {
     <?php // OpenProcessingの表示 ?>
     <?php if (!empty($work['openprocessing_link'])): ?>
       <h4 class="py-0 my-4 page-title">OpenProcessing</h4>
-      <div class="openprocessing_demo">
-        <div class="my-2 op-display-wrapper">
-          <iframe src="<?php echo $work['openprocessing_link']; ?>/embed/" class="op-display"></iframe>
-        </div>
+      <div class="my-2 op-display-wrapper">
+        <iframe src="<?php echo $work['openprocessing_link']; ?>/embed/" class="op-display"></iframe>
+      </div>
+    <?php endif; ?>
+    <?php // OpenProcessingの表示 ?>
+    <?php if (!empty($work['youtube_link'])): ?>
+      <h4 class="py-0 my-4 page-title">YouTube</h4>
+      <div class="my-2 yt-display-wrapper">
+        <iframe src="<?php echo $work['youtube_link']; ?>" class="yt-display" frameborder="0" allowfullscreen></iframe>
       </div>
     <?php endif; ?>
     <?php if (!empty($work['link'])): ?>

@@ -151,6 +151,18 @@ body {
   margin: 0 auto;
 }
 
+.yt-display-wrapper {
+  overflow-x: auto;
+}
+
+.yt-display {
+  display: block;
+  height: 500px;
+  width: auto;
+  min-width: 500px;
+  margin: 0 auto;
+}
+
 /*
  * 作品投稿ページ
  */

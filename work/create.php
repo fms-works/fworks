@@ -38,18 +38,19 @@ $new_link   = !empty($_POST['link'])   ? h($_POST['link'])   : '';
 $new_detail = !empty($_POST['detail']) ? h($_POST['detail']) : '';
 $new_glink  = !empty($_POST['glink'])  ? h($_POST['glink'])  : '';
 $new_oplink = !empty($_POST['oplink']) ? h($_POST['oplink']) : '';
+$new_ytlink = !empty($_POST['ytlink']) ? h($_POST['ytlink']) : '';
 
 $date = date("Y-m-d H:i:s");
 // work保存
 try {
   $sql = $pdo->prepare(
   "INSERT INTO works
-      (title, link, detail, github_link, openprocessing_link, user_id, created_at, updated_at)
+      (title, link, detail, github_link, openprocessing_link, youtube_link, user_id, created_at, updated_at)
     VALUES
-      (?, ?, ?, ?, ?, ?, ?, ?)"
+      (?, ?, ?, ?, ?, ?, ?, ?, ?)"
   );
   $sql->execute(
-    array($new_title, $new_link, $new_detail, $new_glink, $new_oplink, $current_user_id, $date, $date)
+    array($new_title, $new_link, $new_detail, $new_glink, $new_oplink, $new_ytlink, $current_user_id, $date, $date)
   );
   $work_id = $pdo->lastInsertId('id');
 } catch (PDOException $e) {

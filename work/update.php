@@ -75,6 +75,7 @@ $new_link   = !empty($_POST['link'])   ? h($_POST['link'])   : '';
 $new_detail = !empty($_POST['detail']) ? h($_POST['detail']) : '';
 $new_glink  = !empty($_POST['glink'])  ? h($_POST['glink'])  : '';
 $new_oplink = !empty($_POST['oplink']) ? h($_POST['oplink']) : '';
+$new_ytlink = !empty($_POST['ytlink']) ? h($_POST['ytlink']) : '';
 
 $date = date("Y-m-d H:i:s");
 
@@ -88,11 +89,12 @@ try {
       detail=?,
       github_link=?,
       openprocessing_link=?,
+      youtube_link=?,
       updated_at=?
     WHERE id=?"
   );
   $sql->execute(
-    array($new_title, $new_link, $new_detail, $new_glink, $new_oplink, $date, $work_id)
+    array($new_title, $new_link, $new_detail, $new_glink, $new_oplink, $new_ytlink, $date, $work_id)
   );
 } catch (PDOException $e) {
   echo 'MySQL connection failed: ' . $e->getMessage();

@@ -66,6 +66,13 @@
     <?php if(!empty($work['openprocessing_link'])) echo 'value="' . $work['openprocessing_link'] . '"'; ?>>
   <small id="githubHelp" class="form-text text-muted">OpenProcessingを使うと、processingの作品をWeb上で動かして公開することができます！ → <a href="https://www.openprocessing.org/sketch/110105" class="text-muted">https://www.openprocessing.org/sketch/110105</a></small>
 </div>
+<?php // YouTubeリンク ?>
+<div class="form-group py-2">
+  <label for="youtube-link">YouTubeのリンク</label>
+  <input type="text" name="ytlink" id="youtube-link" class="form-control" placeholder="例) https://www.youtube.com/embed/xxxxxxx"
+    <?php if(!empty($work['youtube_link'])) echo 'value="' . $work['youtube_link'] . '"'; ?>>
+  <small id="youtubeHelp" class="form-text text-muted">YouTubeに動画をアップしてみましょう！ → <a href="https://www.youtube.com/?hl=ja&gl=JP" class="text-muted">https://www.youtube.com/?hl=ja&gl=JP</a></small>
+</div>
 <?php // リンク ?>
 <div class="form-group py-2">
   <label for="link">リンク</label>
