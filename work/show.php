@@ -104,7 +104,7 @@ try {
   );
   $sql->execute(array($current_user_id, $work_id));
   $like = $sql->fetch();
-  $is_liked = $like > 0 ? true : false;
+  $is_liked = !empty($like) ? true : false;
 } catch (PDOException $e) {
   echo 'MySQL connection failed: ' . $e->getMessage();;
   exit();
