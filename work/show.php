@@ -103,8 +103,8 @@ try {
     WHERE user_id=? AND work_id=?"
   );
   $sql->execute(array($current_user_id, $work_id));
-  $like = $sql->fetch();
-  $is_liked = !empty($like);
+  $like = $sql->fetchAll();
+  $is_liked = count($like) > 0;
 } catch (PDOException $e) {
   echo 'MySQL connection failed: ' . $e->getMessage();;
   exit();
