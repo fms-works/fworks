@@ -53,7 +53,7 @@ function twitter_share_button($text, $url) {
       data-size='large'
       data-text='$text'
       data-url='$url'
-      data-hashtags='FWS'
+      data-hashtags='FWorks'
     >ツイート</a>
   ";
 }
