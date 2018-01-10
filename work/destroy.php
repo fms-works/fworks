@@ -87,5 +87,17 @@ try {
   exit();
 }
 
+// タグの削除
+try {
+  $sql = $pdo->prepare(
+   "DELETE FROM work_tags
+    WHERE work_id=?"
+  );
+  $sql->execute(array($work_id));
+} catch (PDOExcdption $e) {
+  echo 'MySQL connection failed: ' . $e->getMessage();
+  exit();
+}
+
 header('Location: ../index.php');
 ?>
