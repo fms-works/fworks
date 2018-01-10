@@ -146,7 +146,7 @@ try {
       <?php
         echo twitter_share_button(
           "「" . $work['title'] . "」",
-          "http://ebinuma.nkmr.io/work/work/show?id=" . $work['id']
+          "http://ebinuma.nkmr.io/work/work/show.php?id=" . $work['id']
         );
       ?>
     </div>
