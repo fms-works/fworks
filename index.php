@@ -139,14 +139,16 @@ try {
 </div>
 <?php // 人気の投稿を表示 ?>
 <h4 class="py-0 my-4 page-title">人気の投稿</h4>
-<div class="row">
+<div class="px-1 py-3 row mx-0">
+  <?php $partial_from = 'popular'; // カードレイアウト調整 ?>
   <?php foreach($popular_works as $work): ?>
     <?php include('partial/work.php'); ?>
   <?php endforeach; ?>
 </div>
 <?php // すべての投稿を表示 ?>
 <h4 class="py-0 mt-3 page-title">全ての投稿</h4>
-<div class="row">
+<div class="card-columns px-1 py-3">
+  <?php $partial_from = 'all'; // カードレイアウト調整 ?>
   <?php foreach($works as $work): ?>
     <?php include('partial/work.php'); ?>
   <?php endforeach; ?>
