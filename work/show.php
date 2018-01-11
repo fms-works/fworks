@@ -5,12 +5,6 @@ require_once('../common.php');
 $path = '../';
 $title = '作品詳細';
 
-// current_user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
-if (empty($_SESSION['current_user_id'])) {
-  header('Location: ../user/login.php');
-  exit();
-}
-
 // 現在のユーザーを取得
 $current_user_id = $_SESSION['current_user_id'];
 $user_data = get_user_data($pdo, $current_user_id);
@@ -150,7 +144,11 @@ try {
         );
       ?>
     </div>
-    <img class="work-heart card-heart my-1" id="<?php echo $is_liked ? 'unlike' : 'like'; ?>" data-workid="<?php echo $work['id']; ?>" src="../assets/images/<?php echo $is_liked ? 'heart.png' : 'noheart.svg'; ?>">
+    <?php if (empty($current_user_id)): ?>
+      <img class="work-heart card-heart my-1" src="../assets/images/noheart.svg">
+    <?php else: ?>
+      <img class="work-heart card-heart my-1" id="<?php echo $is_liked ? 'unlike' : 'like'; ?>" data-workid="<?php echo $work['id']; ?>" src="../assets/images/<?php echo $is_liked ? 'heart.png' : 'noheart.svg'; ?>">
+    <?php endif; ?>
     <span id="likesCount" class="px-1 text-danger"><?php echo $work['likes_count']; ?></span>
   </div>
 </div>
@@ -219,15 +217,23 @@ try {
 </div>
 <?php // コメント表示 ?>
 <h3 class="my-4 page-title">コメント</h3>
-<?php // コメント投稿 ?>
-<div class="row pb-3">
-  <div class="col-xs-12 col-sm-8 my-2">
-    <input type="text" name="content" id="commentInput" class="form-control" placeholder="コメントを入力してください">
+<?php if (empty($current_user_id)): ?>
+  <p class="text-secondary">
+    コメントするには
+    <a href="../../user/login.php">ログイン</a>
+    してください
+  </p>
+<?php else: ?>
+  <?php // コメント投稿 ?>
+  <div class="row pb-3">
+    <div class="col-xs-12 col-sm-8 my-2">
+      <input type="text" name="content" id="commentInput" class="form-control" placeholder="コメントを入力してください">
+    </div>
+    <button class="btn btn-primary mx-0 px-0 py-1 my-2 col-xs-10 col-sm-2" id="postComment" data-workid='<?php echo $work_id; ?>'>
+      送信
+    </button>
   </div>
-  <button class="btn btn-primary mx-0 px-0 py-1 my-2 col-xs-10 col-sm-2" id="postComment" data-workid='<?php echo $work_id; ?>'>
-    送信
-  </button>
-</div>
+<?php endif; ?>
 <div id="comments">
   <?php foreach ($comments as $comment): ?>
     <div class="card my-2">

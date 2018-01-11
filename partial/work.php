@@ -6,7 +6,6 @@
     </a>
     <div class="card-body px-2 py-0">
       <h4 class="card-title py-2"><?php echo $work['title']; ?></h4>
-      <!-- <p class="card-detail"><?php echo $work['detail']; ?></p> -->
       <div class="d-flex justify-content-between pt-2 pb-0">
         <a class="card-user-link" href="<?php echo $path; ?>user/show.php?id=<?php echo $work['user_id']; ?>">
           <img class="work-avatar lazy" src="<?php echo $path; ?>assets/images/no_image.png" data-src="<?php echo $work['user_avatar']; ?>">

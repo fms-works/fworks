@@ -24,7 +24,7 @@
         </div>
       <?php else: ?>
         <div class="nav-item">
-          <a class="nav-link text-dark d-inline align-middle" href="<?php echo $path; ?>user/login.php">ログインする</a>
+          <a class="nav-link text-dark d-inline align-middle" href="<?php echo $path; ?>user/login.php">ログイン</a>
         </div>
       <?php endif; ?>
     </div>

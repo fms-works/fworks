@@ -7,12 +7,6 @@ define('WORKS_PER_PAGE', 16);
 $path = '../../';
 $title = 'タグの作品';
 
-// current_user_idが存在しない(ログインしていない)場合、ログイン画面に遷移
-if (empty($_SESSION['current_user_id'])) {
-  header('Location: ../../user/login.php');
-  exit();
-}
-
 // 現在のユーザーを取得
 $current_user_id = $_SESSION['current_user_id'];
 $user_data = get_user_data($pdo, $current_user_id);
