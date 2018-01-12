@@ -43,6 +43,11 @@ body {
 /*
  * 共通
  */
+.btn-info {
+  border-color: #42A5F5;
+  background-color: #42A5F5;
+}
+
 .page-title {
   color: #616161;
 }
@@ -289,7 +294,7 @@ span.note {
 }
 
 .lp-odd {
-  background-color: #64B5F6;
+  background-color: #90CAF9;
 }
 
 .lp-even {
