@@ -1,3 +1,15 @@
+<?php 
+  try {
+    $sql = $pdo->prepare(
+     "SELECT * FROM tags"
+    );
+    $sql->execute();
+    $tagList = $sql->fetchAll();
+  } catch (PDOException $e) {
+    echo 'MySQL connection failed: ' . $e->getMessage();
+    exit();
+  }
+?>
 <?php // タイトル ?>
 <div class="form-group py-2">
   <label for="title">タイトル <span class="note">*必須</span></label>
@@ -15,12 +27,19 @@
 <div class="form-group py-2">
   <label for="tags">タグ</label>
   <div class="row mx-0">
-    <input type="text" name="tag1" class="col-xs-12 col-sm-10 col-md-4 form-control" placeholder="例) processing"
+    <input type="text" name="tag1" autocomplete="off" list="tagList" class="col-xs-12 col-sm-10 col-md-4 form-control" placeholder="例) processing"
       <?php if (!empty($tags[0])) echo 'value="' . $tags[0]['name'] . '"'; ?>>
-    <input type="text" name="tag2" class="col-xs-12 col-sm-10 col-md-4 form-control" placeholder="例) music"
+    <input type="text" name="tag2" autocomplete="off" list="tagList" class="col-xs-12 col-sm-10 col-md-4 form-control" placeholder="例) music"
       <?php if (!empty($tags[1])) echo 'value="' . $tags[1]['name'] . '"'; ?>>
-    <input type="text" name="tag3" class="col-xs-12 col-sm-10 col-md-4 form-control" placeholder="例) 3D"
+    <input type="text" name="tag3" autocomplete="off" list="tagList" class="col-xs-12 col-sm-10 col-md-4 form-control" placeholder="例) 3D"
       <?php if (!empty($tags[2])) echo 'value="' . $tags[2]['name'] . '"'; ?>>
+    <datalist id="tagList">
+      <?php if(!empty($tagList)): ?>
+        <?php foreach($tagList as $tag): ?>
+          <option value="<?php echo $tag['name'] ?>"/>
+        <?php endforeach; ?>
+      <?php endif; ?>
+    </datalist>
   </div>
   <small id="detailbHelp" class="form-text text-muted">タグを3つまでつけることができます！</small>
 </div>
