@@ -66,7 +66,7 @@ try {
   </h2>
 </div>
 <?php // 作品一覧 ?>
-<div class="row">
+<div class="card-columns py-3">
   <?php if (empty($like_works)) echo '<p>まだいいねした作品がありません</p>'; ?>
   <?php foreach($like_works as $work): ?>
     <?php include('../partial/work.php'); ?>

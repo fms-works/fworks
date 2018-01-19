@@ -86,7 +86,7 @@ try {
 </div>
 <?php // 作品一覧 ?>
 <h3 class="py-3 page-title">作品一覧</h3>
-<div class="card-columns px-1 py-3">
+<div class="card-columns py-3">
   <?php if (empty($works)) echo '<p>まだ作品がありません</p>'; ?>
   <?php foreach($works as $work): ?>
     <?php include('../partial/work.php'); ?>

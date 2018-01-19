@@ -108,7 +108,7 @@ try {
   </div>
   <p class="py-1 text-secondary">タグが付けられた作品</p>
 </div>
-<div class="row">
+<div class="card-columns py-3">
   <?php foreach($works as $work): ?>
     <?php include('../../partial/work.php'); ?>
   <?php endforeach; ?>
